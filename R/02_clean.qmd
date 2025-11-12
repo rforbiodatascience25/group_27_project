@@ -4,4 +4,60 @@ format: html
 editor: visual
 ---
 
-## 
+```{r}
+library("dplyr")
+```
+
+## Clean phenotype table
+
+```{r}
+phenotype <- readRDS("../data/phenotype.rds")
+phenotype |> 
+  slice_sample(n = 20)
+```
+
+We start by removing unuseful variables, such as:
+
+-   "id", "case_id", "tissue_source_site_id.tissue_source_site", "entity_id.annotations", "annotation_id.annotations": long list of seemingly random characters, won't be useful for analysis
+
+-   "submitter_id", "entity_submitter_id.annotations" : is the same as "sample" without the last 3 characters. This is repetitve and untidy
+
+```{r}
+phenotype <- phenotype |> 
+  select(!c(id, case_id, submitter_id, tissue_source_site_id.tissue_source_site, entity_submitter_id.annotations, entity_id.annotations, annotation_id.annotations, case_id.annotations, treatment_id.treatments.diagnoses, submitter_id.treatments.diagnoses, sample_id.samples, pathology_report_uuid.samples))
+  
+```
+
+These columns are always the same
+
+```{r}
+phenotype <- phenotype |> 
+  select(!c(primary_site, primary_site.project, project_id.project, disease_type.project, name.project, name.program.project, project.tissue_source_site, days_to_diagnosis.diagnoses, last_known_disease_status.diagnoses, tissue_or_organ_of_origin.diagnoses, preservation_method.samples, is_ffpe.samples, gender.demographic))
+```
+
+```{r}
+phenotype |> 
+  filter(disease_type != "Cystic, Mucinous and Serous Neoplasms")
+```
+
+à filter : alcohol_history.exposure, synchronous_malignancy.diagnoses, prior_treatment.diagnoses, morphology.diagnoses, classification_of_tumor.diagnoses, icd_10_code.diagnoses, tumor_grade.diagnoses, progression_or_recurrence.diagnoses,
+
+morphology.diagnoses
+
+These are empty or always the same when not empty (coming form different data source)
+
+```{r}
+phenotype <- phenotype |> 
+  select(!c(entity_type.annotations,state.annotations, status.annotations, composition.samples, days_to_sample_procurement.samples, state.treatments.diagnoses))
+```
+
+```{r}
+phenotype |> 
+  slice_sample(n=50)
+```
+
+à vérifier: tous les trucs avec les ages
+
+age_at_earliest
+
+treatment_or_therapy.treatments.diagnoses
