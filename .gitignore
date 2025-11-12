@@ -1,4 +1,20 @@
-.Rproj.user
+# Raw data
+data/
+
+# 🔧 Intermediate data files (automatically generated)
+data/*.tsv
+
+# R / Quarto temporary files
 .Rhistory
 .RData
+.Rproj.user/
 .Ruserdata
+.DS_Store
+
+# Quarto cache and log files
+*_cache/
+*.log
+
+# Backup or temporary files
+*~
+*.bak
