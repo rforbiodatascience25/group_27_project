@@ -4,4 +4,63 @@ format: html
 editor: visual
 ---
 
-## 
+## 1. General information
+
+The analysis will be based on the article *Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects*. The datasets used in the article are from the The Cancer Genome Atlas (TCGA) ovarian cancer collection. In the article, compares gene-expression profiles across multiple tumor types to identify transcriptional superclusters.
+
+Two different data sets are used:
+
+-   A clinical dataset: TCGA-OV.clinical.tsv
+
+-   A gene expression dataset: TCGA-OV.star_fpkm.tsv
+
+The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will be used to search for gene expression associations with clinical variables and outcomes.
+
+## 2. Dataset descriptions
+
+### Clinical dataset
+
+-   Format: Tab-separated values (TSV) file.
+
+-   Contains clinical variables from the TCGA ovarian cancer cohort.
+
+-   There are ### patients (as ###columns/rows###) and ### clinical variables.
+
+-   Key variables: The following variables are most relevant for the analysis ###key variables###
+
+-   Data types: The data of the key variables comes in the following types ###types###
+
+-   Needed cleaning: ######
+
+
+### Gene expression dataset
+
+-   Format: Tab-separated values (TSV) file.
+
+-   Contains gene expression data (FPKM) from the TCGA ovarian cancer cohort.
+
+-   The values are FPKM (Fragments Per Kilobase of transcript per Million mapped reads) which is a normalized gene-expression metric.
+
+-   There are ###genes### and ###samples### ###(columns/rows)###
+
+-   Data types: numeric non‐negative values
+
+-   Needed cleaning: ######
+
+These two datasets have been combined to one matching the patient IDs.
+
+### 3. Quality and intergrity
+
+Did we have to remove NAs, were there infos missing, any other cleaning struggle (patient IDs missing, duplicates, outliers, unit conversions,...)
+
+
+### 4. Visualisation
+
+The following graphs will allow to visualize the content of the data and the interaction of some of the variables.
+
+```{r}
+
+
+```
+
+
