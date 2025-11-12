@@ -6,14 +6,15 @@ execute:
   cache: true
 ---
 
+```{r}
+library("tidyverse")
+```
+
 ## Include files
 
 ```{r}
 #| child: "R/01_load.qmd"
+#| child: "R/02_clean.qmd"
 
-phenotype |> 
-  slice_sample(n = 10)
 
-gen_exp |> 
-  slice_sample(n = 10)
 ```

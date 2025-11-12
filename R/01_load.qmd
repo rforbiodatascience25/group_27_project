@@ -15,7 +15,7 @@ Download files from websource
 #| message: true
 #| warning: false
 
-dir.create("../data/_raw", showWarnings = FALSE)
+dir.create("../data/_raw", recursive = TRUE, showWarnings = FALSE)
 
 urls <- c(
   "https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-OV.clinical.tsv.gz",
@@ -46,4 +46,7 @@ Load data
 ```{r}
 gen_exp <- read_tsv("../data/_raw/TCGA-OV.star_fpkm.tsv.gz")
 phenotype <- read_tsv("../data/_raw/TCGA-OV.clinical.tsv.gz")
+
+saveRDS(phenotype, "../data/phenotype.rds")
+saveRDS(gen_exp, "../data/gen_exp.rds")
 ```

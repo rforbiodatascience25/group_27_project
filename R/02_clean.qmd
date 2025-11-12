@@ -4,4 +4,47 @@ format: html
 editor: visual
 ---
 
-## 
+Load libraries
+
+```{r}
+library("tidyverse")
+library("dplyr")
+```
+
+## Clean gene table 
+
+```{r}
+gen_exp <- readRDS("../data/gen_exp.rds")
+gen_exp
+gen_exp |> 
+  slice_sample(n = 10)
+```
+
+I want to delete all the gene with no expression for each sample
+
+```{r}
+gen_exp_clean <- gen_exp |>
+  filter(rowSums(across(-Ensembl_ID)) != 0)
+gen_exp_clean
+```
+
+We steel have too much genes so we want to see which genes are unuseful
+
+We calculate the sum of all the gene expression for each gene
+
+```{r}
+gen_exp_clean <- gen_exp_clean |>
+  mutate(sum_gene_exp = rowSums(across(-Ensembl_ID))) |>
+  relocate(sum_gene_exp, .after = Ensembl_ID) |>
+  arrange(sum_gene_exp)
+gen_exp_clean
+```
+
+now we want to visualise this new varaible to kow what treshold we are going to use to select the relevant genes
+
+```{r}
+ggplot(gen_exp_clean, aes(x = Ensembl_ID, y = sum_gene_exp)) +
+  geom_point()
+ggplot(gen_exp_clean, aes(x = sum_gene_exp)) +
+  geom_histogram()
+```
