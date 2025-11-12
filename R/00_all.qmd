@@ -2,6 +2,18 @@
 title: "00 - all"
 format: html
 editor: visual
+execute: 
+  cache: true
 ---
 
-## 
+## Include files
+
+```{r}
+#| child: "R/01_load.qmd"
+
+phenotype |> 
+  slice_sample(n = 10)
+
+gen_exp |> 
+  slice_sample(n = 10)
+```
