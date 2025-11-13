@@ -66,8 +66,9 @@ ggplot(gen_exp_clean, aes(x = sum_gene_exp)) +
 ```
 
 Now, we have 14157 genes which is more appropriate for our case.
+
 ```{r}
-library("dplyr")
+saveRDS(gen_exp_clean, "../data/gen_exp_clean.rds")
 ```
 
 # Cleaning Phenotype table
