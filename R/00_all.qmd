@@ -8,6 +8,10 @@ execute:
   cache: true
 ---
 
+```{r}
+library("tidyverse")
+```
+
 ## Include files
 
 ```{r}
@@ -16,14 +20,7 @@ library("tidyverse")
 
 ```{r}
 #| child: "R/01_load.qmd"
-
-
-```
-
-```{r}
 #| child: "R/02_clean.qmd"
-#| child: "R/03_augment.qmd"
-#| child: "R/04_describe.qmd"
-#| child: "R/05_analysis_1.qmd"
-#| child: "R/06_analysis_2.qmd"
+
+
 ```

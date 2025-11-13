@@ -15,7 +15,7 @@ Download files from websource
 #| message: true
 #| warning: false
 
-dir.create("../data/_raw", showWarnings = FALSE, recursive = TRUE)
+dir.create("../data/_raw", recursive = TRUE, showWarnings = FALSE)
 
 urls <- c(
   "https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-OV.clinical.tsv.gz",
