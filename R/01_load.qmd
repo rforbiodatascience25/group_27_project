@@ -5,7 +5,7 @@ editor: visual
 ---
 
 ```{r}
-library(readr)
+library("readr")
 ```
 
 Download files from websource
@@ -47,6 +47,8 @@ Load data
 gen_exp <- read_tsv("../data/_raw/TCGA-OV.star_fpkm.tsv.gz")
 phenotype <- read_tsv("../data/_raw/TCGA-OV.clinical.tsv.gz")
 
+# Save lighter versions for later steps
 saveRDS(phenotype, "../data/phenotype.rds")
 saveRDS(gen_exp, "../data/gen_exp.rds")
+
 ```

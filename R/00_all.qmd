@@ -1,8 +1,10 @@
 ---
 title: "00 - all"
+author: "TO DO"
 format: html
 editor: visual
-execute: 
+execute:
+  echo: false
   cache: true
 ---
 
@@ -11,6 +13,10 @@ library("tidyverse")
 ```
 
 ## Include files
+
+```{r}
+library("tidyverse")
+```
 
 ```{r}
 #| child: "R/01_load.qmd"
