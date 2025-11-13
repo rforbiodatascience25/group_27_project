@@ -4,4 +4,153 @@ format: html
 editor: visual
 ---
 
-## 
+```{r}
+library("dplyr")
+```
+
+# Cleaning Phenotype table
+
+## Loading table
+
+We start by loading the "phenotype" table, with the raw clinical data. The slice_sample allows to see 20 random samples and start evaluating which variables (columns) will be useful
+
+```{r}
+phenotype <- readRDS("../data/phenotype.rds")
+phenotype |> 
+  slice_sample(n = 20)
+```
+
+### Removal of variables
+
+We start by removing some unuseful variables, such as:
+
+-   "id", "case_id", "tissue_source_site_id.tissue_source_site", "entity_id.annotations", "annotation_id.annotations" and other:\
+    They are long lists of seemingly random characters, useful for identification of the sample but not for analysis, as we have no information on their meaning.\
+    We'll use "sample" as identification.
+
+-   "submitter_id", "entity_submitter_id.annotations" :\
+    They are the same as "sample" without the last 3 characters. This is repetitive and untidy.
+
+```{r}
+# Shows how some variables repeat the same information 
+phenotype |> 
+  select(c(sample, submitter_id)) |> 
+  slice_sample(n = 20) 
+
+# Shows identifier variables, no meaning for analysis 
+phenotype |> 
+  select(c(id, case_id)) |> 
+  slice_sample(n = 20) 
+
+# Remove these variables 
+phenotype_clean <- phenotype |> 
+  select(!c(id, 
+            case_id, 
+            submitter_id, 
+            tissue_source_site_id.tissue_source_site, 
+            entity_submitter_id.annotations, 
+            entity_id.annotations, 
+            annotation_id.annotations, 
+            case_id.annotations, 
+            treatment_id.treatments.diagnoses, 
+            submitter_id.treatments.diagnoses, 
+            sample_id.samples, 
+            pathology_report_uuid.samples)
+         )
+
+  
+```
+
+-   "primary_site", "primary_site.project", "project_id.project", ... : These columns contain the same observation for each row, and will not be useful for analysis either.\
+    For example "gender.demographic" will always be "female", as we are studying ovarian cancer.
+
+```{r}
+# Shows variables with repeated observations 
+phenotype_clean |> 
+  select(c(primary_site, 
+           name.program.project, 
+           last_known_disease_status.diagnoses, 
+           gender.demographic)) |> 
+  slice_sample(n = 20) 
+
+# Remove these variables 
+phenotype_clean <- phenotype_clean |> 
+  select(!c(primary_site, 
+            primary_site.project, 
+            project_id.project, 
+            disease_type.project, 
+            name.project, 
+            name.program.project, 
+            project.tissue_source_site, 
+            days_to_diagnosis.diagnoses, 
+            last_known_disease_status.diagnoses, 
+            tissue_or_organ_of_origin.diagnoses, 
+            preservation_method.samples, 
+            is_ffpe.samples, 
+            gender.demographic)
+         )
+```
+
+-   "entity_type.annotations" , "state.annotations", ... : These are empty or always the same when not empty. Samples might come from different sources, which would explain irregular conventions. After careful reading of the table, we can say that the fact that some observations are left empty has no other meaning.
+
+```{r}
+# Shows variables with repeated or empty observations 
+phenotype_clean |> 
+  select(c(entity_type.annotations, 
+           state.annotations, 
+           status.annotations)) |> 
+  slice_sample(n = 20) 
+
+# Remove these columns 
+phenotype_clean <- phenotype_clean |> 
+  select(!c(entity_type.annotations, 
+            state.annotations, 
+            status.annotations, 
+            composition.samples, 
+            days_to_sample_procurement.samples, 
+            state.treatments.diagnoses))
+
+```
+
+These samples miss a lot of other information (NA in other columns), we will not keep them as there are only 8 samples and will disturb analysis without providing new information
+
+```{r}
+# Check for other disease types 
+phenotype_clean |> 
+  filter(disease_type != "Cystic, Mucinous and Serous Neoplasms") 
+
+# Remove samples with missing values 
+phenotype_clean <- phenotype_clean |> 
+  filter(disease_type == "Cystic, Mucinous and Serous Neoplasms")
+```
+
+Some variables don't always contain the same information on paper, but further analysis shows us that the observations are very similar. For example alcohol_history.exposures is "Not reported" or NA:
+
+TO FINISH
+
+```{r}
+phenotype_clean |> 
+  filter(prior_treatment.diagnoses!="Not Reported") |> 
+  relocate(prior_treatment.diagnoses, .before = 1)
+```
+
+```{r}
+phenotype_clean |> 
+  filter(is.na(alcohol_history.exposures)) 
+
+phenotype_clean <- phenotype_clean |> 
+  select(!alcohol_history.exposures) 
+
+```
+
+```{r}
+saveRDS(phenotype_clean, "../data/phenotype_clean.rds")
+```
+
+a finir
+
+à vérifier: tous les trucs avec les ages
+
+age_at_earliest
+
+treatment_or_therapy.treatments.diagnoses
