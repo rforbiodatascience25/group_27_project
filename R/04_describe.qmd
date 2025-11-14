@@ -8,7 +8,7 @@ editor: visual
 
 ```{r}
 library("tidyverse")
-library("dplyr")
+
 ```
 
 ## 1. General information
@@ -29,20 +29,22 @@ The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will
 
 -   Format: Tab-separated values (TSV) file.
 
--   Contains clinical variables from the TCGA ovarian cancer cohort.
+-   Contains clinical variables from the TCGA ovarian cancer cohort. As it contains observations about the patients, it is called `phenotype` in this project.
 
--   Size: There are ### patients (as ###columns/rows###) and ### clinical variables.
+-   Size: There are 632 patients as rows and 84 clinical variables as columns.
 
--   Key variables: The following variables are most relevant for the analysis ###key variables###
+-   Key variables: The following variables are most relevant for the analysis, ###key variables### 
 
--   Data types: The data of the key variables comes in the following types ###types###
+-   Data types: The data of the key variables comes in the following types respectively,  ###types###
 
--   Needed cleaning: ######
+-   Needed cleaning: The dataset contains a lot of redundant variables (e.g. many instances of a variable indicating the ID), many have been combined into a single one or have been removed altogether. Also the variable containing information about the gender has been removed as all patients with ovarian cancer are female. Some variables contain annotations to the patients, but as most are empty and irrelevant for the analysis they have been removed as well.
 
-First 10 rows of the set:
+-   Size after cleaning: 624 patients on the rows, 52 clinical variables on the columns.
+
+Underneath, 10 randomly selected rows of the set are shown to understand the structure:
 ```{r}
 
-
+phenotype_clean |> slice_sample(n=10)
 
 ```
 
@@ -55,28 +57,122 @@ First 10 rows of the set:
 
 -   The values are FPKM (Fragments Per Kilobase of transcript per Million mapped reads) which is a normalized gene-expression metric.
 
--   Size: There are 60600 genes on the rows and ### **double check: 431** ### samples on the columns.
+-   Size: There are 60660 genes on the rows and 430 samples on the columns.
 
 -   Data types: numeric non‐negative values
 
--   Needed cleaning: Some genes have a null expression level for all samples, these genes have been removed from the dataset. To further reduce the number of genes and keep only the most relevant ones, the average expression level overall has been computed and the relevant genes were kept based on a threshold. ######
+-   Needed cleaning: Some genes have a null expression level for all samples, these genes have been removed from the dataset. To further reduce the number of genes and keep only the most relevant ones, the summed expression level over all samples for each gene has been computed and the relevant genes were kept based on a threshold. A variable representing this sum of the expression levels for each gene has been added.
 
-- Size after cleaning: 14157 genes on the rows, 431 samples on the columns.
+-   Size after cleaning: 14157 genes on the rows, 431 variables on the columns.
 
-These two datasets have been combined to one by matching the patient IDs.
-
-### 3. Quality and intergrity
-
-Did we have to remove NAs, were there infos missing, any other cleaning struggle (patient IDs missing, duplicates, outliers, unit conversions,...)
-
-
-### 4. Visualisation
-
-The following graphs will allow to visualize the content of the data and the interaction of some of the variables.
-
+Underneath, 10 randomly selected rows of the set are shown to understand the structure:
 ```{r}
 
+gen_exp_clean |> slice_sample(n = 10)
 
 ```
 
 
+These two datasets have been combined to one by matching the patient IDs. As the two datasets do not show the same amount of IDs, the IDs that could not be resolved between the two sets have been removed. ######
+
+### 3. Quality and intergrity
+
+In the phenotype datasets, a few columns containing only NAs have been removed. Some of the variables contained a label "Not Reported" instead of NA. As described above, many variables described redundant information and needed to be removed. 
+
+The gene expression dataset is of good quality and integrity, the only correction needed was to remove uninformative genes.
+
+Overall the data seems of good quality without aberrant values or errors in the writing of the sets.
+
+
+### 4. Visualisation
+
+The following graphs will allow to visualize the content of the data and the interaction of some of the variables with one another.
+
+```{r}
+
+phenotype_clean |> glimpse()
+
+```
+
+```{r}
+
+phenotype_clean_numeric_summary <- phenotype_clean |> 
+  select(where(is.numeric)) |> 
+  summarise(across(everything(),
+                   list(mean = ~mean(.x, na.rm = TRUE),
+                        median = ~median(.x, na.rm = TRUE),
+                        sd = ~sd(.x, na.rm = TRUE),
+                        min = ~min(.x, na.rm = TRUE),
+                        max = ~max(.x, na.rm = TRUE),
+                        missing = ~sum(is.na(.x))),
+                   .names = "{.col}_{.fn}")) |> 
+  t()
+
+phenotype_clean_numeric_summary
+
+```
+
+#### Distribution of the age at diagnosis
+
+The age of diagnosis seems to be normally distributed at around ~60 years.
+
+```{r}
+
+phenotype_clean |> 
+  filter(!is.na(age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)) |> 
+  ggplot(aes(x = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  geom_vline(aes(xintercept = mean(age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)), color = "red", linetype = "dashed", size = 1) +
+  theme_minimal() +
+  labs(
+    title = "Distribution of Age at Diagnosis",
+    x = "Age",
+    y = "Count"
+  )
+
+```
+
+
+#### Age distribution at tumor stage
+
+Does not seem relevant.
+
+```{r}
+
+phenotype_clean |> 
+  filter(!is.na(age_at_earliest_diagnosis_in_years.diagnoses.xena_derived) 
+         & !is.na(figo_stage.diagnoses)) |> 
+  ggplot(aes(x = figo_stage.diagnoses, y = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)) +
+  geom_boxplot(fill = "orange") +
+  theme_minimal() +
+  labs(
+    title = "Age Distribution by Tumor Stage",
+    x = "Tumor Stage",
+    y = "Age at Diagnosis"
+  )
+
+
+```
+
+#### Boxplot across all samples of a single gene
+
+Look for an interesting gene.
+
+```{r}
+
+gene <- "ENSG00000136108.15"
+
+gen_exp_clean |> 
+  filter(Ensembl_ID == gene) |> 
+  pivot_longer(cols = -Ensembl_ID, names_to = "sample", values_to = "expression_level") |> 
+  ggplot(aes(y = expression_level)) +
+  geom_boxplot(fill = "purple") +
+  theme_minimal() +
+  labs(
+    title = paste("Expression of", gene),
+    y = "Expression level"
+  )
+
+
+
+```
