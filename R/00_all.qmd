@@ -1,19 +1,26 @@
 ---
 title: "00 - all"
+author: "TO DO"
 format: html
 editor: visual
-execute: 
+execute:
+  echo: false
   cache: true
 ---
+
+```{r}
+library("tidyverse")
+```
 
 ## Include files
 
 ```{r}
+library("tidyverse")
+```
+
+```{r}
 #| child: "R/01_load.qmd"
+#| child: "R/02_clean.qmd"
 
-phenotype |> 
-  slice_sample(n = 10)
 
-gen_exp |> 
-  slice_sample(n = 10)
 ```

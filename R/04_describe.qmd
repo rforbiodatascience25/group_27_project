@@ -4,6 +4,13 @@ format: html
 editor: visual
 ---
 
+## 0. Load libraries
+
+```{r}
+library("tidyverse")
+library("dplyr")
+```
+
 ## 1. General information
 
 The analysis will be based on the article *Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects*. The datasets used in the article are from the The Cancer Genome Atlas (TCGA) ovarian cancer collection. In the article, compares gene-expression profiles across multiple tumor types to identify transcriptional superclusters.
@@ -24,13 +31,20 @@ The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will
 
 -   Contains clinical variables from the TCGA ovarian cancer cohort.
 
--   There are ### patients (as ###columns/rows###) and ### clinical variables.
+-   Size: There are ### patients (as ###columns/rows###) and ### clinical variables.
 
 -   Key variables: The following variables are most relevant for the analysis ###key variables###
 
 -   Data types: The data of the key variables comes in the following types ###types###
 
 -   Needed cleaning: ######
+
+First 10 rows of the set:
+```{r}
+
+
+
+```
 
 
 ### Gene expression dataset
@@ -41,13 +55,15 @@ The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will
 
 -   The values are FPKM (Fragments Per Kilobase of transcript per Million mapped reads) which is a normalized gene-expression metric.
 
--   There are ###genes### and ###samples### ###(columns/rows)###
+-   Size: There are 60600 genes on the rows and ### **double check: 431** ### samples on the columns.
 
 -   Data types: numeric non‐negative values
 
--   Needed cleaning: ######
+-   Needed cleaning: Some genes have a null expression level for all samples, these genes have been removed from the dataset. To further reduce the number of genes and keep only the most relevant ones, the average expression level overall has been computed and the relevant genes were kept based on a threshold. ######
 
-These two datasets have been combined to one matching the patient IDs.
+- Size after cleaning: 14157 genes on the rows, 431 samples on the columns.
+
+These two datasets have been combined to one by matching the patient IDs.
 
 ### 3. Quality and intergrity
 
