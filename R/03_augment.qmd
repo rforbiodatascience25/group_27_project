@@ -4,4 +4,92 @@ format: html
 editor: visual
 ---
 
-## 
+## Load Libraries
+
+```{r}
+library("tidyverse")
+library("dplyr")
+```
+
+
+## Load cleaned tables
+
+```{r}
+gen_exp_clean <- readRDS("../data/gen_exp_clean.rds")
+phenotype_clean <- readRDS("../data/phenotype_clean.rds")
+```
+
+
+## Reshape gene expression table
+
+The current gene expression dataset is in a wide format:
+
+rows = genes
+columns = samples
+
+For further analyses, it's more convenient to work in a long format: one row per (gene × sample) measurement.
+
+Now its tidy !!
+
+```{r}
+gen_exp_long <- gen_exp_clean |>
+pivot_longer(
+cols = -c(Ensembl_ID, sum_gene_exp),
+names_to = "sample",
+values_to = "expression"
+)
+
+gen_exp_long |> slice_sample(n = 10)
+```
+
+
+## Join clinical metadata
+
+Now we merge the gene expression table with the phenotype table using the common identifier sample.
+
+```{r}
+full_data <- gen_exp_long |>
+left_join(phenotype_clean, by = "sample")
+
+full_data |> slice_sample(n = 10)
+```
+
+We now have:
+
+biological measurements (gene-exp) + patient characteristics (phenotype).
+
+
+## Create additional variables
+
+We can also create new useful variables like:
+
+A log-transformed expression variable (log2_expression), commonly used in transcriptomics to reduce skewness and easier interpretation.
+
+A categorical age variable (age_cat), based on common thresholds in clinical studies.
+
+```{r}
+full_data <- full_data |>
+mutate(
+log2_expression = log2(expression + 1),
+age_cat = case_when(
+age_at_index.demographic < 50 ~ "young",
+age_at_index.demographic >= 50 & age_at_index.demographic < 65 ~ "middle",
+age_at_index.demographic >= 65 ~ "senior",
+TRUE ~ NA_character_
+)
+)
+
+full_data |> slice_sample(n = 10)
+```
+
+The +1 in the log transformation prevents issues when expression = 0. (goes to -inf with log)
+
+NA_character_ ensures that missing age values remain coded as valid character-type missing values in the age category variable.
+
+## Save augmented dataset
+
+
+```{r}
+saveRDS(full_data, "../data/data_augmented.rds")
+```
+
