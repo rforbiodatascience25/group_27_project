@@ -4,4 +4,201 @@ format: html
 editor: visual
 ---
 
-## 
+## Aim
+
+In this document, we perform an exploratory analysis of the gene expression data using Principal Component Analysis (PCA).
+
+We use the augmented tidy dataset created in `03_augment.qmd` and investigate whether patients separate in PCA space according to clinical variables such as `alive` status and age category.
+
+## Setup
+
+```{r}
+library("tidyverse")
+```
+
+## Load augmented data
+
+```{r}
+full_data <- readRDS("../data/data_augmented.rds")
+
+full_data |>
+slice_sample(n = 10)
+```
+
+## Select most variable genes
+
+PCA is more informative when applied to genes that show substantial\
+variation across samples. We therefore select the top 500 most\
+variable genes based on the variance of `log2_expression`.
+
+```{r}
+gene_var <- full_data |>
+  group_by(Ensembl_ID) |>
+  summarise(var_log2 = var(log2_expression, na.rm = TRUE), .groups  = "drop") |>
+  arrange(desc(var_log2))
+
+gene_var |>
+  slice_head(n = 10)
+
+top_genes <- gene_var |>
+  slice_head(n = 500) |>
+  pull(Ensembl_ID)
+
+length(top_genes)
+```
+
+## Build expression matrix for PCA
+
+We construct a wide expression matrix with one row per sample and one column per gene (for the selected top 500 genes). We also keep a separate table with clinical covariates per sample.
+
+```{r}
+expr_wide <- full_data |>
+  filter(Ensembl_ID %in% top_genes) |>
+  select(sample, Ensembl_ID, log2_expression) |>
+  distinct() |>
+  pivot_wider(names_from  = Ensembl_ID,values_from = log2_expression)
+
+pheno_pca <- full_data |>
+  select(sample, alive, age_cat, age_at_index.demographic) |>
+  distinct()
+
+expr_wide <- expr_wide |>
+  left_join(pheno_pca, by = "sample")
+
+expr_wide |>
+  slice_head(n = 5)
+```
+
+## Run PCA
+
+We extract the numeric gene expression columns, centre and scale them, and run PCA with `prcomp`.
+
+```{r}
+expr_mat <- expr_wide |>
+  select(-sample, -alive, -age_cat, -age_at_index.demographic) |>
+  as.matrix()
+
+dim(expr_mat)
+
+```
+
+```{r}
+set.seed(123)
+
+pca_res <- prcomp(
+  x      = expr_mat,
+  center = TRUE,
+  scale. = TRUE)
+
+var_explained <- pca_res$sdev^2 / sum(pca_res$sdev^2)
+
+var_explained[1:5]
+
+```
+
+## Scree plot
+
+We visualise how much variance is explained by the first principal components.
+
+```{r}
+scree_df <- tibble(
+  PC       = paste0("PC", seq_along(var_explained)),
+  variance = var_explained)
+
+scree_plot <- scree_df |>
+  slice_head(n = 15) |>
+  ggplot(aes(x = PC, y = variance, group = 1)) +
+  geom_col() +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Variance explained by principal components",
+    x     = "Principal component",
+    y     = "Proportion of variance explained") +
+  theme_minimal()
+
+scree_plot
+
+```
+
+```{r}
+ggsave(
+  filename = "../results/05_pca_scree.png",
+  plot     = scree_plot,
+  width    = 7,
+  height   = 5)
+
+```
+
+## PC1 vs PC2 coloured by clinical variables
+
+We project each sample onto the first two principal components and colour points by `alive` and shape by `age_cat`.
+
+```{r}
+scores <- as_tibble(pca_res$x, rownames = "row_id") |>
+  bind_cols(expr_wide |>
+              select(sample, alive, age_cat, age_at_index.demographic)) |>
+  relocate(sample)
+
+scores |>
+  slice_head(n = 5)
+
+```
+
+```{r}
+pc1_label <- paste0("PC1 (", scales::percent(var_explained[1]), ")")
+
+pc2_label <- paste0("PC2 (", scales::percent(var_explained[2]), ")")
+
+pc1_pc2_plot <- scores |>
+  ggplot(aes(
+    x      = PC1,
+    y      = PC2,
+    colour = alive,
+    shape  = age_cat)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    title    = "PCA on top 500 most variable genes",
+    subtitle = "Colour: alive status, shape: age category",
+    x        = pc1_label,
+    y        = pc2_label) +
+  theme_minimal()
+
+pc1_pc2_plot
+```
+
+```{r}
+ggsave(
+  filename = "../results/05_pca_pc1_pc2.png",
+  plot     = pc1_pc2_plot,
+  width    = 7,
+  height   = 5)
+
+```
+
+## Genes contributing most to PC1 and PC2
+
+Finally, we inspect which genes contribute most to PC1 and PC2 by looking at the PCA loadings.
+
+```{r}
+loadings <- as_tibble(
+  pca_res$rotation,
+  rownames = "Ensembl_ID")
+
+top_pc1 <- loadings |>
+  select(Ensembl_ID, PC1) |>
+  arrange(desc(abs(PC1))) |>
+  slice_head(n = 20)
+
+top_pc2 <- loadings |>
+  select(Ensembl_ID, PC2) |>
+  arrange(desc(abs(PC2))) |>
+  slice_head(n = 20)
+
+top_pc1
+top_pc2
+
+```
+
+The genes with the largest absolute loadings on PC1 and PC2 are those that drive the main variation in the dataset. They could be further investigated in a biological context.

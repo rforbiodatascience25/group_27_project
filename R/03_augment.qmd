@@ -11,7 +11,6 @@ library("tidyverse")
 library("dplyr")
 ```
 
-
 ## Load cleaned tables
 
 ```{r}
@@ -19,13 +18,11 @@ gen_exp_clean <- readRDS("../data/gen_exp_clean.rds")
 phenotype_clean <- readRDS("../data/phenotype_clean.rds")
 ```
 
-
 ## Reshape gene expression table
 
 The current gene expression dataset is in a wide format:
 
-rows = genes
-columns = samples
+rows = genes columns = samples
 
 For further analyses, it's more convenient to work in a long format: one row per (gene × sample) measurement.
 
@@ -41,7 +38,6 @@ values_to = "expression"
 
 gen_exp_long |> slice_sample(n = 10)
 ```
-
 
 ## Join clinical metadata
 
@@ -60,7 +56,6 @@ full_data |>
 We now have:
 
 biological measurements (gene-exp) + patient characteristics (phenotype).
-
 
 ## Create additional variables
 
@@ -87,12 +82,10 @@ full_data |> slice_sample(n = 10)
 
 The +1 in the log transformation prevents issues when expression = 0. (goes to -inf with log)
 
-NA_character_ ensures that missing age values remain coded as valid character-type missing values in the age category variable.
+NA_character\_ ensures that missing age values remain coded as valid character-type missing values in the age category variable.
 
 ## Save augmented dataset
-
 
 ```{r}
 saveRDS(full_data, "../data/data_augmented.rds")
 ```
-
