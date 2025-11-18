@@ -4,14 +4,14 @@ format: html
 editor: visual
 ---
 
-## Load libraries
+# Load libraries
 
 ```{r}
 library("tidyverse")
 library("dplyr")
 ```
 
-## Clean gene table
+# Clean gene table
 
 ```{r}
 gen_exp <- readRDS("../data/gen_exp.rds")
@@ -171,11 +171,13 @@ phenotype_clean <- phenotype_clean |>
             status.annotations, 
             composition.samples, 
             days_to_sample_procurement.samples, 
-            state.treatments.diagnoses))
+            state.treatments.diagnoses,
+            tumor_grade.diagnoses,
+            progression_or_recurrence.diagnoses))
 
 ```
 
-These samples miss a lot of other information (NA in other columns), we will not keep them as there are only 8 samples and will disturb analysis without providing new information
+The samples with a disease_type value other than "Cystic, Mucinous and Serous Neoplasms" miss a lot of other information (NA in other columns). We will not keep them as there are only 8 samples and will disturb analysis without providing new information. It now makes no sense to keep this column.
 
 ```{r}
 # Check for other disease types 
@@ -185,35 +187,48 @@ phenotype_clean |>
 # Remove samples with missing values 
 phenotype_clean <- phenotype_clean |> 
   filter(disease_type == "Cystic, Mucinous and Serous Neoplasms")
+
+# Remove this column
+phenotype_clean <- phenotype_clean |> 
+  select(!disease_type)
+```
+
+The column prior_treatment.diagnoses is Not Reported or No for every samples except one Yes. This column will not be useful.
+
+```{r}
+# Show values other than "Not Reported" and "No" for prior_treatment.diagnoses
+phenotype_clean |> 
+  filter(prior_treatment.diagnoses!="Not Reported" &
+         prior_treatment.diagnoses != "No") |> 
+  relocate(prior_treatment.diagnoses, .before = 1)
 ```
 
 Some variables don't always contain the same information on paper, but further analysis shows us that the observations are very similar. For example alcohol_history.exposures is "Not reported" or NA:
 
-TO FINISH
-
 ```{r}
-phenotype_clean |> 
-  filter(prior_treatment.diagnoses!="Not Reported") |> 
-  relocate(prior_treatment.diagnoses, .before = 1)
-```
-
-```{r}
+# Show NAs in alcohol_history.exposures
 phenotype_clean |> 
   filter(is.na(alcohol_history.exposures)) 
 
+# Remove this column
 phenotype_clean <- phenotype_clean |> 
   select(!alcohol_history.exposures) 
 
 ```
 
+Modification of the variable vital_status.demographic to a binary variable "alive"
+
 ```{r}
-saveRDS(phenotype_clean, "../data/phenotype_clean.rds")
+phenotype_clean <- phenotype_clean |> 
+  mutate(vital_status.demographic = case_when(
+    vital_status.demographic == "Alive" ~ TRUE,
+    vital_status.demographic == "Dead" ~ FALSE,
+    TRUE ~ NA
+  ))|>
+  rename(alive=vital_status.demographic)
 ```
 
-a finir
+```{r}
+saveRDS(phenotype_clean, "../data/phenotype_clean.rds")
 
-à vérifier: tous les trucs avec les ages
-
-age_at_earliest
-
-treatment_or_therapy.treatments.diagnoses
+```

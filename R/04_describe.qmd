@@ -87,7 +87,7 @@ Overall the data seems of good quality without aberrant values or errors in the 
 
 ## 4. Visualisation
 
-The following graphs will allow to visualize the content of the data and the interaction of some of the variables with one another.
+The following graphs and statistics will allow to visualize the content of the data.
 
 ```{r}
 

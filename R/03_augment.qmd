@@ -48,10 +48,13 @@ gen_exp_long |> slice_sample(n = 10)
 Now we merge the gene expression table with the phenotype table using the common identifier sample.
 
 ```{r}
+# Merge expression data with phenotype metadata
 full_data <- gen_exp_long |>
-left_join(phenotype_clean, by = "sample")
+  left_join(phenotype_clean, by = "sample") |>
+  relocate(sample, .before = Ensembl_ID)
 
-full_data |> slice_sample(n = 10)
+full_data |> 
+  slice_sample(n = 10)
 ```
 
 We now have:
