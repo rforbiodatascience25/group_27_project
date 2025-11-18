@@ -72,10 +72,11 @@ gen_exp_clean |> slice_sample(n = 10)
 
 ```
 
+### Joining of the datasets
 
-These two datasets have been combined to one by matching the patient IDs. As the two datasets do not show the same amount of IDs, the IDs that could not be resolved between the two sets have been removed. ######
+These two datasets have been combined to one by matching the patient IDs (samples). As the two datasets do not show the same amount of samples (the phenotype dataset is bigger than the gene expression dataset), the IDs that could not be resolved between the two sets have been removed. This leaves only patients who have recorded gene expression data (no gene expression data is lost).
 
-### 3. Quality and intergrity
+## 3. Quality and intergrity
 
 In the phenotype datasets, a few columns containing only NAs have been removed. Some of the variables contained a label "Not Reported" instead of NA. As described above, many variables described redundant information and needed to be removed. 
 
@@ -84,7 +85,7 @@ The gene expression dataset is of good quality and integrity, the only correctio
 Overall the data seems of good quality without aberrant values or errors in the writing of the sets.
 
 
-### 4. Visualisation
+## 4. Visualisation
 
 The following graphs will allow to visualize the content of the data and the interaction of some of the variables with one another.
 
@@ -105,14 +106,13 @@ phenotype_clean_numeric_summary <- phenotype_clean |>
                         min = ~min(.x, na.rm = TRUE),
                         max = ~max(.x, na.rm = TRUE),
                         missing = ~sum(is.na(.x))),
-                   .names = "{.col}_{.fn}")) |> 
-  t()
+                   .names = "{.col}_{.fn}")) 
 
 phenotype_clean_numeric_summary
 
 ```
 
-#### Distribution of the age at diagnosis
+### Distribution of the age at diagnosis
 
 The age of diagnosis seems to be normally distributed at around ~60 years.
 
@@ -133,7 +133,7 @@ phenotype_clean |>
 ```
 
 
-#### Age distribution at tumor stage
+### Age distribution at tumor stage
 
 Does not seem relevant.
 
@@ -154,19 +154,20 @@ phenotype_clean |>
 
 ```
 
-#### Boxplot across all samples of a single gene
+### Boxplot across all samples of a single gene
 
 Look for an interesting gene.
 
 ```{r}
 
-gene <- "ENSG00000136108.15"
+gene <- "ENSG00000279461.2"
 
 gen_exp_clean |> 
   filter(Ensembl_ID == gene) |> 
-  pivot_longer(cols = -Ensembl_ID, names_to = "sample", values_to = "expression_level") |> 
+  pivot_longer(cols = -Ensembl_ID, names_to = "sample", values_to = "expression_level")|> 
+  slice(-1) |> 
   ggplot(aes(y = expression_level)) +
-  geom_boxplot(fill = "purple") +
+  geom_boxplot(fill = "skyblue") +
   theme_minimal() +
   labs(
     title = paste("Expression of", gene),
@@ -176,3 +177,18 @@ gen_exp_clean |>
 
 
 ```
+
+### Gene expression summary
+
+```{r}
+
+gen_exp_clean_summary <- gen_exp_clean |> 
+  summarise(across(everything(),
+                   list(mean = ~mean(.x, na.rm = TRUE),
+                        median = ~median(.x, na.rm = TRUE),
+                        sd = ~sd(.x, na.rm = TRUE))))
+
+gen_exp_clean_summary
+
+```
+
