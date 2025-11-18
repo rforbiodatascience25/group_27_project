@@ -131,6 +131,8 @@ ggsave(
 
 ```
 
+This suggests that most of the global variability in the gene expression profiles is driven by a single dominant axis (PC1). Biological separation between clinical groups, if present, is therefore expected to appear mainly along PC1 or PC2.
+
 ## PC1 vs PC2 coloured by clinical variables
 
 We project each sample onto the first two principal components and colour points by `alive` and shape by `age_cat`.
@@ -177,6 +179,8 @@ ggsave(
 
 ```
 
+There is no clear separation between alive and deceased patients along PC1 or PC2. Both groups are widely mixed across the PCA space. Similarly, the age categories do not form distinct clusters, and their points are evenly spread. Overall, the first two principal components capture variability in gene expression, but this variability does not appear to be driven by the clinical variables considered here.
+
 ## Genes contributing most to PC1 and PC2
 
 Finally, we inspect which genes contribute most to PC1 and PC2 by looking at the PCA loadings.
@@ -202,3 +206,7 @@ top_pc2
 ```
 
 The genes with the largest absolute loadings on PC1 and PC2 are those that drive the main variation in the dataset. They could be further investigated in a biological context.
+
+## Conclusion
+
+PCA on the top 500 most variable genes reveals that the major sources of transcriptomic variance do not correspond to clinical variables such as survival status or age. The first two PCs capture global variability in gene expression, but this variability appears unrelated to the metadata included here. Genes with the highest loadings drive these main axes of variation and could be investigated further to understand the underlying biological processes.
