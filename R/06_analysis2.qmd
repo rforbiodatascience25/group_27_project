@@ -1,5 +1,5 @@
 ---
-title: "05 - analysis 1"
+title: "06 - analysis 2"
 format: html
 editor: visual
 ---
@@ -22,14 +22,12 @@ library("tidyverse")
 full_data <- readRDS("../data/data_augmented.rds")
 
 full_data |>
-slice_sample(n = 10)
+  slice_sample(n = 10)
 ```
 
 ## Select most variable genes
 
-PCA is more informative when applied to genes that show substantial\
-variation across samples. We therefore select the top 500 most\
-variable genes based on the variance of `log2_expression`.
+PCA is more informative when applied to genes that show substantial variation across samples. We therefore select the top 500 most variable genes based on the variance of `log2_expression`.
 
 ```{r}
 gene_var <- full_data |>

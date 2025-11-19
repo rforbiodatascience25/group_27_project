@@ -1,0 +1,22 @@
+---
+title: "05 - analysis 1"
+format: html
+editor: visual
+---
+
+### Loading libraries and data
+
+```{r}
+library("tidyverse")
+```
+
+```{r}
+# Load 3 tables
+phenotype <- readRDS("../data/phenotype_clean.rds")
+gen_exp <- readRDS("../data/gen_exp_clean.rds")
+data_augmented <- readRDS("../data/data_augmented.rds")
+```
+
+```{r}
+View(data_augmented)
+```

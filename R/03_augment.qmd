@@ -20,23 +20,19 @@ phenotype_clean <- readRDS("../data/phenotype_clean.rds")
 
 ## Reshape gene expression table
 
-The current gene expression dataset is in a wide format:
-
-rows = genes columns = samples
-
-For further analyses, it's more convenient to work in a long format: one row per (gene × sample) measurement.
-
-Now its tidy !!
+The current gene expression dataset is in a wide format:\
+rows = genes columns = samples\
+For further analyses, it is more convenient to work in a long format: one row per (gene × sample) measurement. The dataset is now tidy.
 
 ```{r}
 gen_exp_long <- gen_exp_clean |>
-pivot_longer(
-cols = -c(Ensembl_ID, sum_gene_exp),
-names_to = "sample",
-values_to = "expression"
-)
+  pivot_longer(cols = -c(Ensembl_ID, sum_gene_exp),
+               names_to = "sample",
+               values_to = "expression"
+               )
 
-gen_exp_long |> slice_sample(n = 10)
+gen_exp_long |> 
+  slice_sample(n = 10)
 ```
 
 ## Join clinical metadata
@@ -53,31 +49,28 @@ full_data |>
   slice_sample(n = 10)
 ```
 
-We now have:
-
-biological measurements (gene-exp) + patient characteristics (phenotype).
+We now have: biological measurements (gene-exp) + patient characteristics (phenotype).
 
 ## Create additional variables
 
 We can also create new useful variables like:
 
-A log-transformed expression variable (log2_expression), commonly used in transcriptomics to reduce skewness and easier interpretation.
+-   A log-transformed expression variable (log2_expression), commonly used in transcriptomics to reduce skewness and easier interpretation.
 
-A categorical age variable (age_cat), based on common thresholds in clinical studies.
+-   A categorical age variable (age_cat), based on common thresholds in clinical studies.
 
 ```{r}
 full_data <- full_data |>
-mutate(
-log2_expression = log2(expression + 1),
-age_cat = case_when(
-age_at_index.demographic < 50 ~ "young",
-age_at_index.demographic >= 50 & age_at_index.demographic < 65 ~ "middle",
-age_at_index.demographic >= 65 ~ "senior",
-TRUE ~ NA_character_
-)
-)
+  mutate(log2_expression = log2(expression + 1),
+         age_cat = case_when(
+           age_at_index.demographic < 50 ~ "young",
+           age_at_index.demographic >= 50 & age_at_index.demographic < 65 ~ "middle",
+           age_at_index.demographic >= 65 ~ "senior",
+           TRUE ~ NA_character_)
+         )
 
-full_data |> slice_sample(n = 10)
+full_data |> 
+  slice_sample(n = 10)
 ```
 
 The +1 in the log transformation prevents issues when expression = 0. (goes to -inf with log)
