@@ -33,9 +33,11 @@ The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will
 
 -   Size: There are 632 patients as rows and 84 clinical variables as columns.
 
--   Key variables: The following variables are most relevant for the analysis, ###key variables### 
-
--   Data types: The data of the key variables comes in the following types respectively,  ###types###
+-   Key variables and data types: The following variables are most relevant for the analysis,      - `alive` (bool), 
+    - `figo_stage.diagnoses` (chr), 
+    - `morphology.diagnoses` (chr, the first part encodes the tumor type, the second part encodes the malignancy), 
+    - `age_at_earliest_diagnosis_in_years.diagnoses.xena_derived` (numeric),
+    - `treatment_type.treatments.diagnoses` (chr, indicating the type of treatement), 
 
 -   Needed cleaning: The dataset contains a lot of redundant variables (e.g. many instances of a variable indicating the ID), many have been combined into a single one or have been removed altogether. Also the variable containing information about the gender has been removed as all patients with ovarian cancer are female. Some variables contain annotations to the patients, but as most are empty and irrelevant for the analysis they have been removed as well.
 
@@ -76,7 +78,13 @@ gen_exp_clean |> slice_sample(n = 10)
 
 These two datasets have been combined to one by matching the patient IDs (samples). As the two datasets do not show the same amount of samples (the phenotype dataset is bigger than the gene expression dataset), the IDs that could not be resolved between the two sets have been removed. This leaves only patients who have recorded gene expression data (no gene expression data is lost).
 
-2 var added
+Two variables have been added: 
+- `log2_expression` (numeric, gene expression on logarithmic scale)
+- `age_cat` (chr, age category the patient belongs to: young, middle, senior)
+
+In addition to the key variables mentioned for the phenotype (clinical) data and the gene expression values from the gene expression data, these two variables will allow for easier visualization and analysis.
+
+In the `figo_stage.diagnoses` variable, the tumor stages IA, IB and the majority of IC have disappeared after joining. This is due to the fact that it it rare to have gene expression data for early stage cancers.
 
 Underneath, the 10 first rows of the joined set are shown to understand the structure:
 ```{r}
@@ -99,6 +107,8 @@ Overall the data seems of good quality without aberrant values or errors in the 
 
 The following graphs and statistics will allow to visualize the content of the data.
 
+A list of the variables contained in the full dataset:
+
 ```{r}
 
 full_data |> glimpse()
@@ -107,7 +117,7 @@ full_data |> glimpse()
 
 ```{r}
 
-phenotype_clean_numeric_summary <- phenotype_clean |> 
+full_data_numeric_summary <- full_data |> 
   select(where(is.numeric)) |> 
   summarise(across(everything(),
                    list(mean = ~mean(.x, na.rm = TRUE),
@@ -118,7 +128,7 @@ phenotype_clean_numeric_summary <- phenotype_clean |>
                         missing = ~sum(is.na(.x))),
                    .names = "{.col}_{.fn}")) 
 
-phenotype_clean_numeric_summary
+full_data_numeric_summary
 
 ```
 
@@ -128,35 +138,59 @@ The age of diagnosis seems to be normally distributed at around ~60 years.
 
 ```{r}
 
-phenotype_clean |> 
-  filter(!is.na(age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)) |> 
-  ggplot(aes(x = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)) +
+patient_level <- full_data |> 
+  distinct(
+    sample,
+    age = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived
+  ) |> 
+  filter(!is.na(age))
+
+patient_level |> 
+  ggplot(aes(x = age)) +
   geom_histogram(bins = 30, fill = "steelblue", color = "white") +
-  geom_vline(aes(xintercept = mean(age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)), color = "red", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = mean(age)), color = "red",
+             linetype = "dashed", size = 1) +
   theme_minimal() +
   labs(
-    title = "Distribution of Age at Diagnosis",
+    title = "Distribution of Age at Diagnosis (Patient Level)",
     x = "Age",
-    y = "Count"
+    y = "Number of Patients"
   )
+
 
 ```
 
 
 ### Age distribution at tumor stage
 
-Does not seem relevant.
+Tumor stages IA, IB and the majority of IC have disappeared after  joining.
 
 ```{r}
 
-phenotype_clean |> 
-  filter(!is.na(age_at_earliest_diagnosis_in_years.diagnoses.xena_derived) 
-         & !is.na(figo_stage.diagnoses)) |> 
-  ggplot(aes(x = figo_stage.diagnoses, y = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived)) +
+full_data |> 
+  distinct(sample, figo_stage.diagnoses) |> 
+  count(figo_stage.diagnoses)
+
+```
+
+```{r}
+
+# Collapse to one row per patient
+patient_level <- full_data |> 
+  distinct(
+    sample,
+    figo_stage = figo_stage.diagnoses,
+    age = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived
+  ) |> 
+  filter(!is.na(age), !is.na(figo_stage))
+
+# Plot
+patient_level |> 
+  ggplot(aes(x = figo_stage, y = age)) +
   geom_boxplot(fill = "orange") +
   theme_minimal() +
   labs(
-    title = "Age Distribution by Tumor Stage",
+    title = "Age Distribution by Tumor Stage (Patient Level)",
     x = "Tumor Stage",
     y = "Age at Diagnosis"
   )
@@ -164,41 +198,35 @@ phenotype_clean |>
 
 ```
 
-### Boxplot across all samples of a single gene
+
+### Boxplot across all samples of a set of genes
 
 Look for an interesting gene.
 
 ```{r}
 
-gene <- "ENSG00000279461.2"
+# Pick 5 random genes
+random_genes <- full_data |> 
+  distinct(Ensembl_ID) |> 
+  sample_n(5) |> 
+  pull(Ensembl_ID)
 
-gen_exp_clean |> 
-  filter(Ensembl_ID == gene) |> 
-  pivot_longer(cols = -Ensembl_ID, names_to = "sample", values_to = "expression_level")|> 
-  slice(-1) |> 
-  ggplot(aes(y = expression_level)) +
+# Filter the data for the chosen genes
+subset_data <- full_data |> 
+  filter(Ensembl_ID %in% random_genes)
+
+subset_data |> 
+  ggplot(aes(x = Ensembl_ID, y = expression)) +
   geom_boxplot(fill = "skyblue") +
   theme_minimal() +
   labs(
-    title = paste("Expression of", gene),
-    y = "Expression level"
-  )
+    title = "Expression of Randomly Selected Genes",
+    x = "Gene (Ensembl ID)",
+    y = "Expression"
+  ) 
 
 
 
-```
-
-### Gene expression summary
-
-```{r}
-
-gen_exp_clean_summary <- gen_exp_clean |> 
-  summarise(across(everything(),
-                   list(mean = ~mean(.x, na.rm = TRUE),
-                        median = ~median(.x, na.rm = TRUE),
-                        sd = ~sd(.x, na.rm = TRUE))))
-
-gen_exp_clean_summary
 
 ```
 
