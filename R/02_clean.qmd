@@ -229,6 +229,11 @@ phenotype_clean <- phenotype_clean |>
 ```
 
 ```{r}
+View(phenotype_clean
+     )
+```
+
+```{r}
 saveRDS(phenotype_clean, "../data/phenotype_clean.rds")
 
 ```

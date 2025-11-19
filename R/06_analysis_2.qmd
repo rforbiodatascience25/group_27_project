@@ -1,7 +1,0 @@
----
-title: "06 - analysis 2"
-format: html
-editor: visual
----
-
-## 
