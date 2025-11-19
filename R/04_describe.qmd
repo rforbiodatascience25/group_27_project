@@ -76,6 +76,16 @@ gen_exp_clean |> slice_sample(n = 10)
 
 These two datasets have been combined to one by matching the patient IDs (samples). As the two datasets do not show the same amount of samples (the phenotype dataset is bigger than the gene expression dataset), the IDs that could not be resolved between the two sets have been removed. This leaves only patients who have recorded gene expression data (no gene expression data is lost).
 
+2 var added
+
+Underneath, the 10 first rows of the joined set are shown to understand the structure:
+```{r}
+
+full_data |> head(10)
+
+```
+
+
 ## 3. Quality and intergrity
 
 In the phenotype datasets, a few columns containing only NAs have been removed. Some of the variables contained a label "Not Reported" instead of NA. As described above, many variables described redundant information and needed to be removed. 
@@ -91,7 +101,7 @@ The following graphs and statistics will allow to visualize the content of the d
 
 ```{r}
 
-phenotype_clean |> glimpse()
+full_data |> glimpse()
 
 ```
 
