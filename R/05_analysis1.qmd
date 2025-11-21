@@ -17,6 +17,62 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
+## Distribution of the variables
+
+age : dans describe
+
+figo stage : We can see that most of the patients are in stage IIIC
+
 ```{r}
-View(data_augmented)
+data_augmented |>
+  group_by(sample) |>
+  slice(1) |>
+  filter(!is.na(figo_stage.diagnoses)) |>
+  ggplot(aes(x = figo_stage.diagnoses)) +
+    geom_bar() +
+    labs(title = "distribution of FIGO stages",
+       x = "FIGO stage",
+       y = "number of patients")
+```
+
+alive vs dead : we can see that there is more dead patients than alive
+
+```{r}
+data_augmented |>
+  group_by(sample) |>
+  slice(1) |>
+  ggplot(aes(x = alive)) +
+    geom_bar() +
+    labs(title = "distribution of alive patients",
+       x = "alive",
+       y = "number of patients")
+```
+
+primary vs recurent tumor : we can see that for most of the patients, the tumor is primary
+
+```{r}
+data_augmented |>
+  group_by(sample) |>
+  slice(1) |>
+  ggplot(aes(x = tumor_descriptor.samples)) +
+    geom_bar() +
+    labs(title = "distribution of primary vs recurent tumor",
+       x = "primary vs recurent",
+       y = "number of patients")
+```
+
+types of treatment : the types of treatment are almost equally distributed
+
+```{r}
+data_augmented |>
+  group_by(sample) |>
+  slice(1) |>
+  ggplot(aes(x = treatment_type.treatments.diagnoses)) +
+    geom_bar() +
+    scale_x_discrete(labels = c(
+      "['Pharmaceutical Therapy, NOS', 'Radiation Therapy, NOS']" = "pharmaceutical before radiation",
+      "['Radiation Therapy, NOS', 'Pharmaceutical Therapy, NOS']" = "radiation before pharmaceutical")) +
+    labs(title = "distribution of ptypes of treatment",
+       x = "types of treatment",
+       y = "number of patients")
 ```
