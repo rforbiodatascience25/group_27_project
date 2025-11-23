@@ -134,7 +134,7 @@ full_data_numeric_summary
 
 ### Distribution of the age at diagnosis
 
-The age of diagnosis seems to be normally distributed at around ~60 years.
+The graph is a histogram showing the distribution of patient age at diagnosis. 
 
 ```{r}
 
@@ -147,7 +147,7 @@ patient_level <- full_data |>
 
 patient_level |> 
   ggplot(aes(x = age)) +
-  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  geom_histogram(bins = 30, fill = "skyblue", color = "white") +
   geom_vline(aes(xintercept = mean(age)), color = "red",
              linetype = "dashed", size = 1) +
   theme_minimal() +
@@ -157,13 +157,13 @@ patient_level |>
     y = "Number of Patients"
   )
 
-
 ```
+The age of patients at diagnosis seems to be normally distributed with a mean (red line) at around ~60 years.
 
 
 ### Age distribution at tumor stage
 
-Tumor stages IA, IB and the majority of IC have disappeared after  joining.
+Tumor stages IA, IB and the majority of IC have disappeared after joining the initial two datasets. Most patients, out of those which also have gene expression data, have ovarian cancer stage IIIC. There are very few data points for stages IC, IIA, IIB and IIIA. 
 
 ```{r}
 
@@ -184,10 +184,11 @@ patient_level <- full_data |>
   ) |> 
   filter(!is.na(age), !is.na(figo_stage))
 
-# Plot
+
 patient_level |> 
   ggplot(aes(x = figo_stage, y = age)) +
-  geom_boxplot(fill = "orange") +
+  geom_boxplot(fill = "skyblue") +
+  geom_jitter(color="black", size=0.4, alpha=0.5) +
   theme_minimal() +
   labs(
     title = "Age Distribution by Tumor Stage (Patient Level)",
@@ -197,11 +198,13 @@ patient_level |>
 
 
 ```
+The graph shows how age at diagnosis varies across different tumor stages.
+Stage IIB, IIC, IIIC, and IV show wide spreads in age, meaning patient ages vary a lot within those groups. As seen in the table above, there are few data points for stages IC, IIA, IIB and IIIA. There are some outliers, especially in Stage IIIB. 
 
 
 ### Boxplot across all samples of a set of genes
 
-Look for an interesting gene.
+The graph displays boxplots representing the distribution of gene expression levels for five randomly selected genes.
 
 ```{r}
 
@@ -216,17 +219,47 @@ subset_data <- full_data |>
   filter(Ensembl_ID %in% random_genes)
 
 subset_data |> 
-  ggplot(aes(x = Ensembl_ID, y = expression)) +
+  ggplot(aes(x = Ensembl_ID, y = log2_expression)) +
   geom_boxplot(fill = "skyblue") +
+  geom_jitter(color="black", size=0.4, alpha=0.5) +
   theme_minimal() +
   labs(
-    title = "Expression of Randomly Selected Genes",
+    title = "Log2 Expression of Randomly Selected Genes",
     x = "Gene (Ensembl ID)",
-    y = "Expression"
+    y = "Log2 Expression"
   ) 
 
 
 
+
+```
+
+The graph provides a glance on the gene expression of a selection of 5 genes. 
+
+
+### Histogram of gene expression levels
+
+```{r}
+
+full_data |> 
+  ggplot(aes(x = log2_expression)) +
+  geom_histogram(bins = 50, fill = "skyblue", color = "white") +
+  geom_vline(aes(xintercept = mean(log2_expression)), color = "red",
+             linetype = "dashed", size = 1) +
+  theme_minimal() +
+  labs(title = "Gene Expression Distribution",
+       x = "Expression Level",
+       y = "Count")
+
+```
+
+The mean log2 gene expression level is at around 1.8. 
+
+```{r}
+
+high_genes <- full_data$log2_expression[full_data$log2_expression > 3.5]
+
+high_genes
 
 ```
 
