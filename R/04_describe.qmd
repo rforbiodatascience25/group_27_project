@@ -7,6 +7,7 @@ editor: visual
 ## 0. Load libraries
 
 ```{r}
+
 library("tidyverse")
 
 ```
@@ -253,13 +254,5 @@ full_data |>
 
 ```
 
-The mean log2 gene expression level is at around 1.8. 
-
-```{r}
-
-high_genes <- full_data$log2_expression[full_data$log2_expression > 3.5]
-
-high_genes
-
-```
+The mean log2 gene expression level is at around 1.8. It seems to be normally distributed.
 
