@@ -34,23 +34,24 @@ The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will
 
 -   Size: There are 632 patients as rows and 84 clinical variables as columns.
 
--   Key variables and data types: The following variables are most relevant for the analysis,      - `alive` (bool), 
-    - `figo_stage.diagnoses` (chr), 
-    - `morphology.diagnoses` (chr, the first part encodes the tumor type, the second part encodes the malignancy), 
-    - `age_at_earliest_diagnosis_in_years.diagnoses.xena_derived` (numeric),
-    - `treatment_type.treatments.diagnoses` (chr, indicating the type of treatement), 
+-   Key variables and data types: The following variables are most relevant for the analysis, - `alive` (bool),
+
+    -   `figo_stage.diagnoses` (chr),
+    -   `morphology.diagnoses` (chr, the first part encodes the tumor type, the second part encodes the malignancy),
+    -   `age_at_earliest_diagnosis_in_years.diagnoses.xena_derived` (numeric),
+    -   `treatment_type.treatments.diagnoses` (chr, indicating the type of treatement),
 
 -   Needed cleaning: The dataset contains a lot of redundant variables (e.g. many instances of a variable indicating the ID), many have been combined into a single one or have been removed altogether. Also the variable containing information about the gender has been removed as all patients with ovarian cancer are female. Some variables contain annotations to the patients, but as most are empty and irrelevant for the analysis they have been removed as well.
 
 -   Size after cleaning: 624 patients on the rows, 52 clinical variables on the columns.
 
 Underneath, 10 randomly selected rows of the set are shown to understand the structure:
+
 ```{r}
 
 phenotype_clean |> slice_sample(n=10)
 
 ```
-
 
 ### Gene expression dataset
 
@@ -69,6 +70,7 @@ phenotype_clean |> slice_sample(n=10)
 -   Size after cleaning: 14157 genes on the rows, 431 variables on the columns.
 
 Underneath, 10 randomly selected rows of the set are shown to understand the structure:
+
 ```{r}
 
 gen_exp_clean |> slice_sample(n = 10)
@@ -80,33 +82,32 @@ gen_exp_clean |> slice_sample(n = 10)
 These two datasets have been combined to one by matching the patient IDs (samples). As the two datasets do not show the same amount of samples (the phenotype dataset is bigger than the gene expression dataset), the IDs that could not be resolved between the two sets have been removed. This leaves only patients who have recorded gene expression data (no gene expression data is lost).
 
 Two variables have been added: 
-- `log2_expression` (numeric, gene expression on logarithmic scale)
-- `age_cat` (chr, age category the patient belongs to: young, middle, senior)
+-   `log2_expression` (numeric, gene expression on logarithmic scale) 
+-   `age_cat` (chr, age category the patient belongs to: young, middle, senior)
 
 In addition to the key variables mentioned for the phenotype (clinical) data and the gene expression values from the gene expression data, these two variables will allow for easier visualization and analysis.
 
 In the `figo_stage.diagnoses` variable, the tumor stages IA, IB and the majority of IC have disappeared after joining. This is due to the fact that it it rare to have gene expression data for early stage cancers.
 
 Underneath, the 10 first rows of the joined set are shown to understand the structure:
+
 ```{r}
 
 full_data |> head(10)
 
 ```
 
-
 ## 3. Quality and intergrity
 
-In the phenotype datasets, a few columns containing only NAs have been removed. Some of the variables contained a label "Not Reported" instead of NA. As described above, many variables described redundant information and needed to be removed. 
+In the phenotype datasets, a few columns containing only NAs have been removed. Some of the variables contained a label "Not Reported" instead of NA. As described above, many variables described redundant information and needed to be removed.
 
 The gene expression dataset is of good quality and integrity, the only correction needed was to remove uninformative genes.
 
 Overall the data seems of good quality without aberrant values or errors in the writing of the sets.
 
-
 ## 4. Visualisation
 
-The following graphs and statistics will allow to visualize the content of the data.
+The following graphs will allow to visualize the content of the data set.
 
 A list of the variables contained in the full dataset:
 
@@ -135,7 +136,7 @@ full_data_numeric_summary
 
 ### Distribution of the age at diagnosis
 
-The graph is a histogram showing the distribution of patient age at diagnosis. 
+The graph is a histogram showing the distribution of patient age at diagnosis.
 
 ```{r}
 
@@ -159,12 +160,12 @@ patient_level |>
   )
 
 ```
-The age of patients at diagnosis seems to be normally distributed with a mean (red line) at around ~60 years.
 
+The age of patients at diagnosis seems to be normally distributed with a mean (red line) at around \~60 years.
 
 ### Age distribution at tumor stage
 
-Tumor stages IA, IB and the majority of IC have disappeared after joining the initial two datasets. Most patients, out of those which also have gene expression data, have ovarian cancer stage IIIC. There are very few data points for stages IC, IIA, IIB and IIIA. 
+Tumor stages IA, IB and the majority of IC have disappeared after joining the initial two datasets. Most patients, out of those which also have gene expression data, have ovarian cancer stage IIIC. There are very few data points for stages IC, IIA, IIB and IIIA.
 
 ```{r}
 
@@ -199,9 +200,8 @@ patient_level |>
 
 
 ```
-The graph shows how age at diagnosis varies across different tumor stages.
-Stage IIB, IIC, IIIC, and IV show wide spreads in age, meaning patient ages vary a lot within those groups. As seen in the table above, there are few data points for stages IC, IIA, IIB and IIIA. There are some outliers, especially in Stage IIIB. 
 
+The graph shows how age at diagnosis varies across different tumor stages. Stage IIB, IIC, IIIC, and IV show wide spreads in age, meaning patient ages vary a lot within those groups. As seen in the table above, there are few data points for stages IC, IIA, IIB and IIIA. There are some outliers, especially in Stage IIIB.
 
 ### Boxplot across all samples of a set of genes
 
@@ -235,8 +235,7 @@ subset_data |>
 
 ```
 
-The graph provides a glance on the gene expression of a selection of 5 genes. 
-
+The graph provides a glance on the gene expression of a selection of 5 genes.
 
 ### Histogram of gene expression levels
 
@@ -255,4 +254,3 @@ full_data |>
 ```
 
 The mean log2 gene expression level is at around 1.8. It seems to be normally distributed.
-
