@@ -77,4 +77,55 @@ data_augmented |>
        y = "number of patients")
 ```
 
-aaa
+```{r}
+# Select most variable gene
+gene_var <- full_data |>
+  group_by(Ensembl_ID) |>
+  summarise(var_log2 = var(log2_expression, na.rm = TRUE), .groups = "drop") |>
+  arrange(desc(var_log2))
+
+# Choose the top variable gene
+gene_x <- gene_var$Ensembl_ID[1]
+
+# Filter data for this gene and compute survival duration
+df_gene <- full_data |>
+  filter(Ensembl_ID == gene_x) |>
+  mutate(
+    survival_days = case_when(
+      alive == TRUE  ~ days_to_last_follow_up.diagnoses,
+      alive == FALSE ~ days_to_death.demographic,
+      TRUE ~ NA_real_
+    )
+  )
+
+# -------------------------------------------------------------
+# Boxplot: Expression vs Alive
+# -------------------------------------------------------------
+ggplot(df_gene, aes(x = alive, y = log2_expression)) +
+  geom_boxplot(fill = "#a6cee3") +
+  labs(
+    title = paste("Expression of gene", gene_x, "in alive vs dead patients"),
+    x = "Alive status",
+    y = "log2(expression)"
+  ) +
+  theme_minimal()
+
+# -------------------------------------------------------------
+# Scatter plot + Regression: Survival vs Expression
+# -------------------------------------------------------------
+ggplot(df_gene, aes(x = log2_expression, y = survival_days, color = alive)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    title = paste("Survival time vs expression for gene", gene_x),
+    x = "log2(expression)",
+    y = "Survival (days)"
+  ) +
+  theme_minimal()
+
+# -------------------------------------------------------------
+# Linear model summary
+# -------------------------------------------------------------
+lm(survival_days ~ log2_expression, data = df_gene) |> summary()
+```
+
