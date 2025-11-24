@@ -76,3 +76,5 @@ data_augmented |>
        x = "types of treatment",
        y = "number of patients")
 ```
+
+aaa
