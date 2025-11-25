@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-### Loading libraries and data
+## Loading libraries and data
 
 ```{r}
 library("tidyverse")
@@ -17,11 +17,9 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
-## Distribution of the variables
+## Distribution of the variables and analysis
 
-age : dans describe
-
-figo stage : We can see that most of the patients are in stage IIIC
+FIGO Stage Distribution : The bar plot shows the distribution of patients across FIGO stages. From the plot, it is clear that the majority of patients are classified as stage IIIC, while the numbers in other stages (stage IC, IIA, IIB, IIC, IIIA, IIIB, IIIC and IV) are considerably lower. This uneven distribution suggests that most patients in this dataset were diagnosed at an advanced stage of disease, which is common for ovarian cancers due to late detection. Because the dataset is heavily skewed toward Stage III, it is difficult to draw meaningful comparisons between stages or to identify trends related to clinical outcomes across the full spectrum of FIGO stages.
 
 ```{r}
 data_augmented |>
@@ -35,7 +33,7 @@ data_augmented |>
        y = "number of patients")
 ```
 
-alive vs dead : we can see that there is more dead patients than alive
+Alive or death status : The bar plot shows the distribution of patients classified as "alive" or "dead" in the dataset. While the plot provides a visual overview of survival status, the interpretation is limited because we lack detailed information about the causes of death, the timing of events, or the follow-up duration. Without this contextual information, it is not possible to draw meaningful conclusions regarding survival patterns, treatment effectiveness, or disease progression. The data simply indicate whether a patient was recorded as alive or dead at a certain point, but do not capture the underlying clinical or temporal context necessary for a robust survival analysis.
 
 ```{r}
 data_augmented |>
@@ -45,34 +43,5 @@ data_augmented |>
     geom_bar() +
     labs(title = "distribution of alive patients",
        x = "alive",
-       y = "number of patients")
-```
-
-primary vs recurent tumor : we can see that for most of the patients, the tumor is primary
-
-```{r}
-data_augmented |>
-  group_by(sample) |>
-  slice(1) |>
-  ggplot(aes(x = tumor_descriptor.samples)) +
-    geom_bar() +
-    labs(title = "distribution of primary vs recurent tumor",
-       x = "primary vs recurent",
-       y = "number of patients")
-```
-
-types of treatment : the types of treatment are almost equally distributed
-
-```{r}
-data_augmented |>
-  group_by(sample) |>
-  slice(1) |>
-  ggplot(aes(x = treatment_type.treatments.diagnoses)) +
-    geom_bar() +
-    scale_x_discrete(labels = c(
-      "['Pharmaceutical Therapy, NOS', 'Radiation Therapy, NOS']" = "pharmaceutical before radiation",
-      "['Radiation Therapy, NOS', 'Pharmaceutical Therapy, NOS']" = "radiation before pharmaceutical")) +
-    labs(title = "distribution of ptypes of treatment",
-       x = "types of treatment",
        y = "number of patients")
 ```
