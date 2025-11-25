@@ -2,14 +2,21 @@
 title: "04 - describe"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
 
-## 0. Load libraries
+### 0.Loading libraries and data
 
 ```{r}
-
 library("tidyverse")
+```
 
+```{r}
+# Load 3 tables
+phenotype_clean <- readRDS("../data/phenotype_clean.rds")
+gen_exp_clean <- readRDS("../data/gen_exp_clean.rds")
+data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
 ## 1. General information
@@ -81,9 +88,7 @@ gen_exp_clean |> slice_sample(n = 10)
 
 These two datasets have been combined to one by matching the patient IDs (samples). As the two datasets do not show the same amount of samples (the phenotype dataset is bigger than the gene expression dataset), the IDs that could not be resolved between the two sets have been removed. This leaves only patients who have recorded gene expression data (no gene expression data is lost).
 
-Two variables have been added: 
--   `log2_expression` (numeric, gene expression on logarithmic scale) 
--   `age_cat` (chr, age category the patient belongs to: young, middle, senior)
+Two variables have been added: - `log2_expression` (numeric, gene expression on logarithmic scale) - `age_cat` (chr, age category the patient belongs to: young, middle, senior)
 
 In addition to the key variables mentioned for the phenotype (clinical) data and the gene expression values from the gene expression data, these two variables will allow for easier visualization and analysis.
 
@@ -93,7 +98,7 @@ Underneath, the 10 first rows of the joined set are shown to understand the stru
 
 ```{r}
 
-full_data |> head(10)
+data_augmented |> head(10)
 
 ```
 
@@ -113,13 +118,13 @@ A list of the variables contained in the full dataset:
 
 ```{r}
 
-full_data |> glimpse()
+data_augmented |> glimpse()
 
 ```
 
 ```{r}
 
-full_data_numeric_summary <- full_data |> 
+data_augmented_numeric_summary <- data_augmented |> 
   select(where(is.numeric)) |> 
   summarise(across(everything(),
                    list(mean = ~mean(.x, na.rm = TRUE),
@@ -130,7 +135,7 @@ full_data_numeric_summary <- full_data |>
                         missing = ~sum(is.na(.x))),
                    .names = "{.col}_{.fn}")) 
 
-full_data_numeric_summary
+data_augmented_numeric_summary
 
 ```
 
@@ -140,7 +145,7 @@ The graph is a histogram showing the distribution of patient age at diagnosis.
 
 ```{r}
 
-patient_level <- full_data |> 
+patient_level <- data_augmented |> 
   distinct(
     sample,
     age = age_at_earliest_diagnosis_in_years.diagnoses.xena_derived
@@ -169,7 +174,7 @@ Tumor stages IA, IB and the majority of IC have disappeared after joining the in
 
 ```{r}
 
-full_data |> 
+data_augmented |> 
   distinct(sample, figo_stage.diagnoses) |> 
   count(figo_stage.diagnoses)
 
@@ -178,7 +183,7 @@ full_data |>
 ```{r}
 
 # Collapse to one row per patient
-patient_level <- full_data |> 
+patient_level <- data_augmented |> 
   distinct(
     sample,
     figo_stage = figo_stage.diagnoses,
@@ -210,13 +215,13 @@ The graph displays boxplots representing the distribution of gene expression lev
 ```{r}
 
 # Pick 5 random genes
-random_genes <- full_data |> 
+random_genes <- data_augmented |> 
   distinct(Ensembl_ID) |> 
   sample_n(5) |> 
   pull(Ensembl_ID)
 
 # Filter the data for the chosen genes
-subset_data <- full_data |> 
+subset_data <- data_augmented |> 
   filter(Ensembl_ID %in% random_genes)
 
 subset_data |> 
@@ -241,7 +246,7 @@ The graph provides a glance on the gene expression of a selection of 5 genes.
 
 ```{r}
 
-full_data |> 
+data_augmented |> 
   ggplot(aes(x = log2_expression)) +
   geom_histogram(bins = 50, fill = "skyblue", color = "white") +
   geom_vline(aes(xintercept = mean(log2_expression)), color = "red",

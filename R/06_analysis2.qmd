@@ -2,6 +2,8 @@
 title: "06 - analysis 2"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
 
 ## Aim
@@ -19,9 +21,9 @@ library("tidyverse")
 ## Load augmented data
 
 ```{r}
-full_data <- readRDS("../data/data_augmented.rds")
+data_augmented <- readRDS("../data/data_augmented.rds")
 
-full_data |>
+data_augmented |>
   slice_sample(n = 10)
 ```
 
@@ -30,7 +32,7 @@ full_data |>
 PCA is more informative when applied to genes that show substantial variation across samples. We therefore select the top 500 most variable genes based on the variance of `log2_expression`.
 
 ```{r}
-gene_var <- full_data |>
+gene_var <- data_augmented |>
   group_by(Ensembl_ID) |>
   summarise(var_log2 = var(log2_expression, na.rm = TRUE), .groups  = "drop") |>
   arrange(desc(var_log2))
@@ -50,13 +52,13 @@ length(top_genes)
 We construct a wide expression matrix with one row per sample and one column per gene (for the selected top 500 genes). We also keep a separate table with clinical covariates per sample.
 
 ```{r}
-expr_wide <- full_data |>
+expr_wide <- data_augmented |>
   filter(Ensembl_ID %in% top_genes) |>
   select(sample, Ensembl_ID, log2_expression) |>
   distinct() |>
   pivot_wider(names_from  = Ensembl_ID,values_from = log2_expression)
 
-pheno_pca <- full_data |>
+pheno_pca <- data_augmented |>
   select(sample, alive, age_cat, age_at_index.demographic) |>
   distinct()
 

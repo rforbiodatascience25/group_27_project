@@ -1,26 +1,23 @@
 ---
-title: "00 - all"
-author: "TO DO"
+title: "Full Analysis Pipeline"
 format: html
 editor: visual
 execute:
-  echo: false
-  cache: true
+  cache: false
 ---
 
 ```{r}
 library("tidyverse")
 ```
 
-## Include files
 
 ```{r}
-library("tidyverse")
-```
-
-```{r}
-#| child: "R/01_load.qmd"
-#| child: "R/02_clean.qmd"
-#| child: "R/03_augment.qmd"
+#| child:
+#|   - "01_load.qmd"
+#|   - "02_clean.qmd"
+#|   - "03_augment.qmd"
+#|   - "04_describe.qmd"
+#|   - "05_analysis1.qmd"
+#|   - "06_analysis2.qmd"
 
 ```

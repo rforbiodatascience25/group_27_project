@@ -2,6 +2,8 @@
 title: "05 - analysis 1"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
 
 ### Loading libraries and data
@@ -79,7 +81,7 @@ data_augmented |>
 
 ```{r}
 # Select most variable gene
-gene_var <- full_data |>
+gene_var <- data_augmented |>
   group_by(Ensembl_ID) |>
   summarise(var_log2 = var(log2_expression, na.rm = TRUE), .groups = "drop") |>
   arrange(desc(var_log2))
@@ -88,7 +90,7 @@ gene_var <- full_data |>
 gene_x <- gene_var$Ensembl_ID[1]
 
 # Filter data for this gene and compute survival duration
-df_gene <- full_data |>
+df_gene <- data_augmented |>
   filter(Ensembl_ID == gene_x) |>
   mutate(
     survival_days = case_when(
@@ -128,4 +130,3 @@ ggplot(df_gene, aes(x = log2_expression, y = survival_days, color = alive)) +
 # -------------------------------------------------------------
 lm(survival_days ~ log2_expression, data = df_gene) |> summary()
 ```
-
