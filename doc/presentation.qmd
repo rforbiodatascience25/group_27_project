@@ -1,26 +1,54 @@
 ---
 title: "Presentation"
-format: html
+author: "Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), Yann Ducrest (s251889), Hedi Khemakhem (s251900)"
+format: 
+  revealjs:
+    font-scale: 0.1
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Load
 
 ```{r}
-1 + 1
+library("tidyverse")
 ```
-
-You can add options to executable code like this
 
 ```{r}
-#| echo: false
-2 * 2
+phenotype <- readRDS("../data/phenotype_clean.rds")
+gen_exp <- readRDS("../data/gen_exp_clean.rds")
+data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+article : *Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects*
+
+dataset :
+
+-   clinical dataset : phenotype for ovarian cancer
+
+-   gene expression dataset : RNAseq for ovarian cancer
+
+source : The Cancer Genome Atlas (TCGA) ovarian cancer collection
+
+## Clean
+
+-   gene table : remove some genes
+
+```{r}
+knitr::kable(head(gen_exp, 8))
+```
+
+-   phenotype table : remove some variables (repetitive or useless)
+
+```{r}
+phenotype |> slice_sample(n=10)
+```
+
+## Augment
+
+joining of the datasets
+
+## Describe
+
+![](images/age.png)
+
+## Analysis
