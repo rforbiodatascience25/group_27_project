@@ -10,6 +10,7 @@ execute:
 
 ```{r}
 library("tidyverse")
+library("dplyr")
 ```
 
 ```{r}
@@ -19,7 +20,11 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
-## Distribution of the variables and analysis
+```{r}
+View(phenotype)
+```
+
+## Analysis of the distribution of variables
 
 FIGO Stage Distribution : The bar plot shows the distribution of patients across FIGO stages. From the plot, it is clear that the majority of patients are classified as stage IIIC, while the numbers in other stages (stage IC, IIA, IIB, IIC, IIIA, IIIB, IIIC and IV) are considerably lower. This uneven distribution suggests that most patients in this dataset were diagnosed at an advanced stage of disease, which is common for ovarian cancers due to late detection. Because the dataset is heavily skewed toward Stage III, it is difficult to draw meaningful comparisons between stages or to identify trends related to clinical outcomes across the full spectrum of FIGO stages.
 
@@ -98,4 +103,114 @@ ggplot(df_gene, aes(x = log2_expression, y = survival_days, color = alive)) +
 # Linear model summary
 # -------------------------------------------------------------
 lm(survival_days ~ log2_expression, data = df_gene) |> summary()
+```
+
+```{r}
+gen_exp <- gen_exp |> 
+  select(!sum_gene_exp)
+```
+
+## Biological relevance of most variant genes
+
+In this section we will extract the top 10 genes by variance of FPKM, found their biological signification and plotted expression values across all samples.
+
+### Finding most variant genes
+
+```{r}
+# Compute variance of expression per gene
+gene_var <- gen_exp |>
+  rowwise() |>
+  mutate(var_expression = var(c_across(-Ensembl_ID), na.rm = TRUE), .before = 2) |>
+  ungroup() |>
+  arrange(desc(var_expression))
+
+# Extract top 10 genes
+genes_of_interest <- gene_var |> 
+  slice_head(n = 10) |> 
+  pull(Ensembl_ID) # Makes genes_of_interest a character vector with genes names
+
+
+View(gene_var)
+```
+
+```{r}
+genes_of_interest
+```
+
+The genes are listed using their Ensembl ID, which is a unique identifier assigned by the Ensembl projects. we will convert them to gene symbols to make them more understandable.
+
+| Ensembl_ID        | Gene symbol |
+|-------------------|-------------|
+| ENSG00000211592.8 | IGKC        |
+| ENSG00000211896.7 | IGHG1       |
+| ENSG00000239951.1 | IGKV3-20    |
+| ENSG00000211598.2 | IGKV4-1     |
+| ENSG00000253755.1 | IGHGP       |
+| ENSG00000211673.2 | IGLV3-1     |
+| ENSG00000243466.1 | IGKV1-5     |
+| ENSG00000157005.4 | SST         |
+| ENSG00000211677.2 | IGLC2       |
+| ENSG00000241351.3 | IGKV3-11    |
+
+These are all immunoglobulin genes, except for SST gene. They are expressed by B cells and plasma cells, not by tumor cells. Their high variability likely reflects differences in immune infiltration across ovarian tumor samples.
+
+This suggests that immune involvement varies substantially among patients, which is consistent with known heterogeneity in the tumor microenvironment. In other words, different patients' tumors contain different levels of immune cells, a result that is expected in ovarian cancer.
+
+### Expression across samples
+
+```{r}
+# Boxplot of expression
+gen_exp |>
+  filter(Ensembl_ID %in% genes_of_interest) |>
+  mutate(Ensembl_ID = factor(Ensembl_ID, levels = genes_of_interest)) |>
+  pivot_longer(cols = -Ensembl_ID,
+               names_to = "sample",
+               values_to = "expression") |>
+  ggplot(aes(x = Ensembl_ID, y = expression)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(
+    angle = 45,        
+    hjust = 1,         
+    size = 6           
+    )
+  ) +
+  labs(
+    title = "Expression of the 10 most variable genes across patients",
+    y = "Expression"
+  )
+    
+```
+
+### Relationship with phenotype variables
+
+```{r}
+# Joining the genes of interest expressions with phenotype
+joined <- gen_exp |>
+  filter(Ensembl_ID %in% genes_of_interest) |>
+  pivot_longer(cols = -Ensembl_ID,
+               names_to = "sample",
+               values_to = "expr") |>
+  group_by(sample) |>
+  summarize(immune_score = mean(expr)) |>
+  left_join(phenotype, by = "sample")
+
+```
+
+After several attempts, we found no clear relationship between these genes expressions and any patients characteristics, such as age or alive status. These plots show the lack of association between the variables.
+
+```{r}
+# Immune genes vs age
+ggplot(joined, aes(x = immune_score, y = age_at_index.demographic)) + 
+  geom_point()
+
+# Immune genese vs alive/dead
+ggplot(joined, aes(x = immune_score, y = alive)) + 
+  geom_boxplot()
+
+# Immune genes vs age
+ggplot(joined, aes(x = immune_score, y = race.demographic)) + 
+  geom_boxplot()
 ```
