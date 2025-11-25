@@ -100,7 +100,7 @@ We visualise how much variance is explained by the first principal components.
 
 ```{r}
 scree_df <- tibble(
-  PC       = paste0("PC", seq_along(var_explained)),
+  PC = paste0("PC", seq_along(var_explained)),
   variance = var_explained)
 
 scree_plot <- scree_df |>
@@ -112,8 +112,8 @@ scree_plot <- scree_df |>
   scale_y_continuous(labels = scales::percent) +
   labs(
     title = "Variance explained by principal components",
-    x     = "Principal component",
-    y     = "Proportion of variance explained") +
+    x = "Principal component",
+    y = "Proportion of variance explained") +
   theme_minimal()
 
 scree_plot
@@ -123,9 +123,9 @@ scree_plot
 ```{r}
 ggsave(
   filename = "../results/05_pca_scree.png",
-  plot     = scree_plot,
-  width    = 7,
-  height   = 5)
+  plot = scree_plot,
+  width = 7,
+  height = 5)
 
 ```
 
@@ -153,16 +153,16 @@ pc2_label <- paste0("PC2 (", scales::percent(var_explained[2]), ")")
 
 pc1_pc2_plot <- scores |>
   ggplot(aes(
-    x      = PC1,
-    y      = PC2,
+    x = PC1,
+    y = PC2,
     colour = alive,
     shape  = age_cat)) +
   geom_point(alpha = 0.8) +
   labs(
-    title    = "PCA on top 500 most variable genes",
+    title = "PCA on top 500 most variable genes",
     subtitle = "Colour: alive status, shape: age category",
-    x        = pc1_label,
-    y        = pc2_label) +
+    x = pc1_label,
+    y = pc2_label) +
   theme_minimal()
 
 pc1_pc2_plot
@@ -171,9 +171,9 @@ pc1_pc2_plot
 ```{r}
 ggsave(
   filename = "../results/05_pca_pc1_pc2.png",
-  plot     = pc1_pc2_plot,
-  width    = 7,
-  height   = 5)
+  plot = pc1_pc2_plot,
+  width = 7,
+  height = 5)
 
 ```
 
