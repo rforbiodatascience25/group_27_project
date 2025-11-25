@@ -48,35 +48,6 @@ data_augmented |>
        y = "number of patients")
 ```
 
-primary vs recurent tumor : we can see that for most of the patients, the tumor is primary
-
-```{r}
-data_augmented |>
-  group_by(sample) |>
-  slice(1) |>
-  ggplot(aes(x = tumor_descriptor.samples)) +
-    geom_bar() +
-    labs(title = "distribution of primary vs recurent tumor",
-       x = "primary vs recurent",
-       y = "number of patients")
-```
-
-types of treatment : the types of treatment are almost equally distributed
-
-```{r}
-data_augmented |>
-  group_by(sample) |>
-  slice(1) |>
-  ggplot(aes(x = treatment_type.treatments.diagnoses)) +
-    geom_bar() +
-    scale_x_discrete(labels = c(
-      "['Pharmaceutical Therapy, NOS', 'Radiation Therapy, NOS']" = "pharmaceutical before radiation",
-      "['Radiation Therapy, NOS', 'Pharmaceutical Therapy, NOS']" = "radiation before pharmaceutical")) +
-    labs(title = "distribution of ptypes of treatment",
-       x = "types of treatment",
-       y = "number of patients")
-```
-
 ```{r}
 # Select most variable gene
 gene_var <- data_augmented |>
