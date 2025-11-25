@@ -2,6 +2,8 @@
 title: "02 - clean"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
 
 # Load libraries
@@ -234,10 +236,6 @@ phenotype_clean <- phenotype_clean |>
   rename(alive=vital_status.demographic)
 ```
 
-```{r}
-View(phenotype_clean
-     )
-```
 
 ```{r}
 saveRDS(phenotype_clean, "../data/phenotype_clean.rds")

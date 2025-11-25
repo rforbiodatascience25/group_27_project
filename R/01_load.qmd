@@ -2,6 +2,8 @@
 title: "01 - load"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
 
 ```{r}
@@ -11,31 +13,21 @@ library("readr")
 Download files from websource
 
 ```{r}
-#| eval: !file.exists("data/TCGA-OV.star_fpkm.tsv.gz")
-#| message: true
-#| warning: false
+library("readr")
 
-dir.create("../data/_raw", recursive = TRUE, showWarnings = FALSE)
+# Download files only if missing
+if (!file.exists("../data/_raw/TCGA-OV.star_fpkm.tsv.gz")) {
+  dir.create("../data/_raw", recursive = TRUE, showWarnings = FALSE)
 
-urls <- c(
-  "https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-OV.clinical.tsv.gz",
-  "https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-OV.star_fpkm.tsv.gz"
-)
+  urls <- c(
+    "https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-OV.clinical.tsv.gz",
+    "https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-OV.star_fpkm.tsv.gz"
+  )
 
-files <- file.path("../data/_raw", basename(urls))
-options(timeout = 600) # To load heavy file
-
-for (i in seq_along(urls)) {
-  if (!file.exists(files[i])) {
+  files <- file.path("../data/_raw", basename(urls))
+  for (i in seq_along(urls)) {
     message("Downloading ", basename(urls[i]), " ...")
-    download.file(
-      urls[i], 
-      files[i], 
-      mode = "wb",
-      method = "curl" # For large files
-      )
-  } else {
-    message(basename(urls[i]), " already exists, skipping.")
+    download.file(urls[i], files[i])
   }
 }
 

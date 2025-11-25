@@ -2,6 +2,8 @@
 title: "03 - augment"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
 
 ## Load Libraries
