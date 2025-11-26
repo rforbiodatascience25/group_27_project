@@ -30,7 +30,7 @@ gen_exp_clean <- gen_exp |>
 dim(gen_exp_clean)
 ```
 
-We steel have too much genes (57825) so we want to see which genes are unuseful
+We still have too much genes (57825) so we want to see which genes are useless
 
 We calculate the sum of all the gene expression for each gene
 
@@ -43,7 +43,7 @@ gen_exp_clean |>
   slice_sample(n = 10)
 ```
 
-Now we want to visualise this new varaible to know what treshold we are going to use to select the relevant genes
+Now we want to visualize this new variable to know what threshold we are going to use to select the relevant genes
 
 ```{r}
 ggplot(gen_exp_clean, aes(x = Ensembl_ID, y = sum_gene_exp)) +
@@ -54,7 +54,7 @@ ggplot(gen_exp_clean, aes(y = sum_gene_exp)) +
   geom_boxplot()
 ```
 
-We can see that a lot of genes have the sum around 0 (with the boxplot). In the histogram, the binwidth is 100 and 4 bars are higher than the others and correspond to irelevant genes. So we can choose a treshold of 400. There are 431 samples so a threshold of 400 means that in average, apromimativelly all the genes expressions are higher than 1.
+We can see that a lot of genes have the sum around 0 (with the boxplot). In the histogram, the binwidth is 100 and 4 bars are higher than the others and correspond to irrelevant genes. So we can choose a threshold of 400. There are 431 samples so a threshold of 400 means that in average, approximately all the genes expressions are higher than 1.
 
 ```{r}
 gen_exp_clean <- gen_exp_clean |>
