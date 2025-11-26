@@ -53,13 +53,6 @@ data_augmented |>
        y = "number of patients")
 ```
 
-```{r}
-
-# à enlever !!!!!
-gen_exp <- gen_exp |> 
-  select(!sum_gene_exp)
-```
-
 ## Biological relevance of most variant genes
 
 In this section we will extract the top 10 genes by variance of FPKM, found their biological signification and plotted expression values across all samples.
