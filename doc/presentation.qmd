@@ -9,6 +9,12 @@ editor: visual
 class: center, middle
 ---
 
+## Flow Chart
+
+
+![](images/FlowChart.drawio.svg)
+
+
 ## Load
 
 ```{r}
