@@ -6,10 +6,11 @@ execute:
   cache: false
 ---
 
-### Loading libraries and data
+## Loading libraries and data
 
 ```{r}
 library("tidyverse")
+library("dplyr")
 ```
 
 ```{r}
@@ -19,11 +20,11 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
-## Distribution of the variables
+## Analysis of the distribution of variables
 
-age : dans describe
+**FIGO Stage Distribution**
 
-figo stage : We can see that most of the patients are in stage IIIC
+The bar plot shows the distribution of patients across FIGO stages. From the plot, it is clear that the majority of patients are classified as stage IIIC, while the numbers in other stages (stage IC, IIA, IIB, IIC, IIIA, IIIB, IIIC and IV) are considerably lower. This uneven distribution suggests that most patients in this dataset were diagnosed at an advanced stage of disease, which is common for ovarian cancers due to late detection. Because the dataset is heavily skewed toward Stage III, it is difficult to draw meaningful comparisons between stages or to identify trends related to clinical outcomes across the full spectrum of FIGO stages.
 
 ```{r}
 data_augmented |>
@@ -37,7 +38,9 @@ data_augmented |>
        y = "number of patients")
 ```
 
-alive vs dead : we can see that there is more dead patients than alive
+**Alive or death status**
+
+The bar plot shows the distribution of patients classified as "alive" or "dead" in the dataset. While the plot provides a visual overview of survival status, the interpretation is limited because we lack detailed information about the causes of death, the timing of events, or the follow-up duration. Without this contextual information, it is not possible to draw meaningful conclusions regarding survival patterns, treatment effectiveness, or disease progression. The data simply indicate whether a patient was recorded as alive or dead at a certain point, but do not capture the underlying clinical or temporal context necessary for a robust survival analysis.
 
 ```{r}
 data_augmented |>
@@ -50,83 +53,112 @@ data_augmented |>
        y = "number of patients")
 ```
 
-primary vs recurent tumor : we can see that for most of the patients, the tumor is primary
-
 ```{r}
-data_augmented |>
-  group_by(sample) |>
-  slice(1) |>
-  ggplot(aes(x = tumor_descriptor.samples)) +
-    geom_bar() +
-    labs(title = "distribution of primary vs recurent tumor",
-       x = "primary vs recurent",
-       y = "number of patients")
+
+# à enlever !!!!!
+gen_exp <- gen_exp |> 
+  select(!sum_gene_exp)
 ```
 
-types of treatment : the types of treatment are almost equally distributed
+## Biological relevance of most variant genes
+
+In this section we will extract the top 10 genes by variance of FPKM, found their biological signification and plotted expression values across all samples.
+
+### Finding most variant genes
 
 ```{r}
-data_augmented |>
-  group_by(sample) |>
-  slice(1) |>
-  ggplot(aes(x = treatment_type.treatments.diagnoses)) +
-    geom_bar() +
-    scale_x_discrete(labels = c(
-      "['Pharmaceutical Therapy, NOS', 'Radiation Therapy, NOS']" = "pharmaceutical before radiation",
-      "['Radiation Therapy, NOS', 'Pharmaceutical Therapy, NOS']" = "radiation before pharmaceutical")) +
-    labs(title = "distribution of ptypes of treatment",
-       x = "types of treatment",
-       y = "number of patients")
+# Compute variance of expression per gene
+gene_var <- gen_exp |>
+  rowwise() |>
+  mutate(var_expression = var(c_across(-Ensembl_ID), na.rm = TRUE), .before = 2) |>
+  ungroup() |>
+  arrange(desc(var_expression))
+
+# Extract top 10 genes
+genes_of_interest <- gene_var |> 
+  slice_head(n = 10) |> 
+  pull(Ensembl_ID) # Makes genes_of_interest a character vector with genes names
+
 ```
 
 ```{r}
-# Select most variable gene
-gene_var <- data_augmented |>
-  group_by(Ensembl_ID) |>
-  summarise(var_log2 = var(log2_expression, na.rm = TRUE), .groups = "drop") |>
-  arrange(desc(var_log2))
+genes_of_interest
+```
 
-# Choose the top variable gene
-gene_x <- gene_var$Ensembl_ID[1]
+The genes are listed using their Ensembl ID, which is a unique identifier assigned by the Ensembl projects. we will convert them to gene symbols to make them more understandable.
 
-# Filter data for this gene and compute survival duration
-df_gene <- data_augmented |>
-  filter(Ensembl_ID == gene_x) |>
-  mutate(
-    survival_days = case_when(
-      alive == TRUE  ~ days_to_last_follow_up.diagnoses,
-      alive == FALSE ~ days_to_death.demographic,
-      TRUE ~ NA_real_
+| Ensembl_ID        | Gene symbol |
+|-------------------|-------------|
+| ENSG00000211592.8 | IGKC        |
+| ENSG00000211896.7 | IGHG1       |
+| ENSG00000239951.1 | IGKV3-20    |
+| ENSG00000211598.2 | IGKV4-1     |
+| ENSG00000253755.1 | IGHGP       |
+| ENSG00000211673.2 | IGLV3-1     |
+| ENSG00000243466.1 | IGKV1-5     |
+| ENSG00000157005.4 | SST         |
+| ENSG00000211677.2 | IGLC2       |
+| ENSG00000241351.3 | IGKV3-11    |
+
+These are all immunoglobulin genes, except for SST gene. They are expressed by B cells and plasma cells, not by tumor cells. Their high variability likely reflects differences in immune infiltration across ovarian tumor samples.
+
+This suggests that immune involvement varies substantially among patients, which is consistent with known heterogeneity in the tumor microenvironment. In other words, different patients' tumors contain different levels of immune cells, a result that is expected in ovarian cancer.
+
+### Expression across samples
+
+```{r}
+# Boxplot of expression
+gen_exp |>
+  filter(Ensembl_ID %in% genes_of_interest) |>
+  mutate(Ensembl_ID = factor(Ensembl_ID, levels = genes_of_interest)) |>
+  pivot_longer(cols = -Ensembl_ID,
+               names_to = "sample",
+               values_to = "expression") |>
+  ggplot(aes(x = Ensembl_ID, y = expression)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(
+    angle = 45,        
+    hjust = 1,         
+    size = 6           
     )
+  ) +
+  labs(
+    title = "Expression of the 10 most variable genes across patients",
+    y = "Expression"
   )
+    
+```
 
-# -------------------------------------------------------------
-# Boxplot: Expression vs Alive
-# -------------------------------------------------------------
-ggplot(df_gene, aes(x = alive, y = log2_expression)) +
-  geom_boxplot(fill = "#a6cee3") +
-  labs(
-    title = paste("Expression of gene", gene_x, "in alive vs dead patients"),
-    x = "Alive status",
-    y = "log2(expression)"
-  ) +
-  theme_minimal()
+### Relationship with phenotype variables
 
-# -------------------------------------------------------------
-# Scatter plot + Regression: Survival vs Expression
-# -------------------------------------------------------------
-ggplot(df_gene, aes(x = log2_expression, y = survival_days, color = alive)) +
-  geom_point(alpha = 0.7) +
-  geom_smooth(method = "lm", se = TRUE) +
-  labs(
-    title = paste("Survival time vs expression for gene", gene_x),
-    x = "log2(expression)",
-    y = "Survival (days)"
-  ) +
-  theme_minimal()
+```{r}
+# Joining the genes of interest expressions with phenotype
+joined <- gen_exp |>
+  filter(Ensembl_ID %in% genes_of_interest) |>
+  pivot_longer(cols = -Ensembl_ID,
+               names_to = "sample",
+               values_to = "expr") |>
+  group_by(sample) |>
+  summarize(immune_score = mean(expr)) |>
+  left_join(phenotype, by = "sample")
 
-# -------------------------------------------------------------
-# Linear model summary
-# -------------------------------------------------------------
-lm(survival_days ~ log2_expression, data = df_gene) |> summary()
+```
+
+After several attempts, we found no clear relationship between these genes expressions and any patients characteristics, such as age or alive status. These plots show the lack of association between the variables.
+
+```{r}
+# Immune genes vs age
+ggplot(joined, aes(x = immune_score, y = age_at_index.demographic)) + 
+  geom_point()
+
+# Immune genese vs alive/dead
+ggplot(joined, aes(x = immune_score, y = alive)) + 
+  geom_boxplot()
+
+# Immune genes vs age
+ggplot(joined, aes(x = immune_score, y = race.demographic)) + 
+  geom_boxplot()
 ```
