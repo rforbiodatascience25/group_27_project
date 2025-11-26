@@ -6,9 +6,7 @@ editor: visual
 
 ## Aim
 
-In this document we perform a simple differential expression analysis to investigate whether gene expression differs between patients who are alive versus dead at follow-up.
-
-We use the augmented tidy dataset created in `03_augment.qmd`.
+In this document, I run a simple differential expression analysis to see whether gene expression differs between patients who were alive or dead at follow-up.
 
 ## Setup
 
@@ -28,7 +26,7 @@ full_data |>
 
 ## Filter to samples with known vital status
 
-We first restrict the dataset to samples with a non-missing `alive` status and check the number of samples in each group.
+I first keep only the samples where the alive variable is not missing. Then, I check how many samples fall into each group.
 
 ```{r}
 full_data_alive <- full_data |> 
@@ -42,7 +40,7 @@ full_data_alive |>
 
 ## Differential expression per gene
 
-For each gene, we compare log2-transformed expression between patients who are alive (`alive == TRUE`) and dead (`alive == FALSE`) using a two-sample t-test.
+For each gene, I compare log2 expression between alive (alive == TRUE) and dead (alive == FALSE) patients using a two-sample t-test.
 
 ```{r}
 de_results <- full_data_alive |>
@@ -56,19 +54,11 @@ de_results <- full_data_alive |>
 
 de_results |>
   slice_head(n = 10)
-
-```
-
-We save the full table of differential expression results for downstream use.
-
-```{r}
-readr::write_tsv(de_results, "../results/07_de_results_alive_vs_dead.tsv")
-
 ```
 
 ## **Summary of differential expression**
 
-We inspect how many genes are significant at a false discovery rate (FDR) threshold of 0.05.
+I check how many genes remain significant after controlling for multiple testing (FDR \< 0.05).
 
 ```{r}
 de_summary <- de_results |>
@@ -80,11 +70,11 @@ de_summary <- de_results |>
 de_summary
 ```
 
-Only 2 out of 14,157 genes show a significant association with vital status at an FDR threshold of 0.05, representing \~0.014% of all tested genes. This indicates that differences between alive and dead patients are very subtle at the transcriptome-wide level, consistent with our PCA results, which also showed no clear separation between the two groups.
+Only 2 out of 14,157 genes are significant at FDR \< 0.05 (around 0.014%). This suggests that differences between alive and dead patients are extremely small, which matches what we saw in the PCA: the two groups do not separate clearly in expression space.
 
 ## Volcano plot
 
-We next create a volcano plot, showing the log2 fold change versus the negative log10 adjusted p-value. Genes with FDR \< 0.05 are highlighted.
+Here, I create a volcano plot showing log2 fold changes and adjusted p-values. Genes with FDR \< 0.05 are highlighted.
 
 ```{r}
 volcano_data <- de_results |>
@@ -106,24 +96,23 @@ volcano_plot
 ```
 
 ```{r}
-ggsave(filename = "../results/07_volcano_alive_vs_dead.png",
+ggsave(filename = "../results/plots/07_volcano_alive_vs_dead.png",
        plot = volcano_plot,
        width = 7,
-       height   = 5)
-
+       height = 5)
 ```
 
-The volcano plot shows that only a very small number of genes reach statistical significance after FDR correction (highlighted in blue). Most genes cluster near zero on the x-axis, indicating that log2 fold changes are extremely small between alive and dead patients. This suggests that vital status has only a weak effect on gene expression levels, consistent with our PCA results and the low number of significantly differentially expressed genes.
+The volcano plot confirms that only a few genes are significant. Most points lie close to zero on the x-axis, meaning the fold changes are very small. So overall, vital status has only a weak influence on gene expression.
 
 ## Top differentially expressed genes
 
-We extract the top 20 genes with the smallest adjusted p-values.
+I extract the 3 genes with the smallest adjusted p-values.
 
 ```{r}
 top_de_genes <- de_results |>
   filter(!is.na(p_adj)) |>
   arrange(p_adj) |>
-  slice_head(n = 20)
+  slice_head(n = 3)
 
 top_de_genes
 
@@ -131,9 +120,9 @@ top_de_genes
 
 These genes show the strongest association between expression and vital status according to this simple model.
 
-## Boxplots for the top 3 genes
+## Boxplots for those 3 genes
 
-To visualise the effect more directly, we plot the distribution of log2 expression for the top 3 genes in alive vs dead patients.
+To visualise the differences directly, I create boxplots for the top 3 genes.
 
 ```{r}
 top3_ids <- top_de_genes |>
@@ -158,11 +147,19 @@ gene_boxplot
 ```
 
 ```{r}
-ggsave(filename = "../results/07_top3_boxplots_alive_vs_dead.png",
+ggsave(filename = "../results/plots/07_top3_boxplots_alive_vs_dead.png",
        plot = gene_boxplot,
        width = 7,
        height = 5)
 
 ```
 
-For all three top differentially expressed genes, expression levels tend to be slightly higher in patients who are alive compared to those who are dead. However, the differences remain small in magnitude, consistent with the modest log2 fold changes observed in the volcano plot. While these genes show statistically significant associations with vital status, the effect sizes are limited, suggesting that the biological relevance may be subtle and that survival differences are unlikely to be driven by strong single-gene expression shifts.
+For these genes, expression tends to be slightly higher in patients who are alive, but the differences remain small. Even for the most significant genes, the effect size is limited, which supports the idea that vital status has only a subtle impact on gene expression.
+
+## Conclusion
+
+This differential expression analysis shows that gene expression is almost identical between alive and dead patients at follow-up. Out of \~14,157 genes, only two pass the FDR threshold, and their fold changes are small.
+
+These results match the PCA: the two groups do not form distinct transcriptomic profiles, and the main variation in the dataset is driven by other factors.
+
+Overall, the transcriptome does not show a strong or clear signature of survival status in this dataset.

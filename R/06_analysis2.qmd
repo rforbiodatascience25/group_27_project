@@ -8,9 +8,9 @@ execute:
 
 ## Aim
 
-In this document, we perform an exploratory analysis of the gene expression data using Principal Component Analysis (PCA).
+In this document, I explore the gene expression dataset using Principal Component Analysis (PCA).
 
-We use the augmented tidy dataset created in `03_augment.qmd` and investigate whether patients separate in PCA space according to clinical variables such as `alive` status and age category.
+I work with the augmented tidy dataset created in 03_augment.qmd and check whether patients separate in the PCA space depending on clinical variables such as the alive status and age category.
 
 ## Setup
 
@@ -29,7 +29,7 @@ data_augmented |>
 
 ## Select most variable genes
 
-PCA is more informative when applied to genes that show substantial variation across samples. We therefore select the top 500 most variable genes based on the variance of `log2_expression`.
+Since PCA works best with genes that vary a lot across samples, I select the top 500 most variable genes based on the variance of log2_expression.
 
 ```{r}
 gene_var <- data_augmented |>
@@ -49,7 +49,7 @@ length(top_genes)
 
 ## Build expression matrix for PCA
 
-We construct a wide expression matrix with one row per sample and one column per gene (for the selected top 500 genes). We also keep a separate table with clinical covariates per sample.
+Here, I create a wide matrix with one row per sample (patient) and one column per gene (for the selected 500 genes). I also extract the clinical variables so I can link them to the PCA results later.
 
 ```{r}
 expr_wide <- data_augmented |>
@@ -71,7 +71,7 @@ expr_wide |>
 
 ## Run PCA
 
-We extract the numeric gene expression columns, centre and scale them, and run PCA with `prcomp`.
+I extract the numeric expression data, centre and scale it, and run PCA using prcomp().
 
 ```{r}
 expr_mat <- expr_wide |>
@@ -98,7 +98,7 @@ var_explained[1:5]
 
 ## Scree plot
 
-We visualise how much variance is explained by the first principal components.
+This plot shows how much variance is explained by each principal component.
 
 ```{r}
 scree_df <- tibble(
@@ -123,29 +123,25 @@ scree_plot
 ```
 
 ```{r}
-ggsave(
-  filename = "../results/06_pca_scree.png",
+ggsave(filename = "../results/plots/06_pca_scree.png",
   plot = scree_plot,
   width = 7,
   height = 5)
-
 ```
 
-This suggests that most of the global variability in the gene expression profiles is driven by a single dominant axis (PC1). Biological separation between clinical groups, if present, is therefore expected to appear mainly along PC1 or PC2.
+The scree plot shows that most of the global variation comes from PC1. If there is a biological separation between patient groups, it should appear mainly along PC1 or PC2.
 
 ## PC1 vs PC2 coloured by clinical variables
 
-We project each sample onto the first two principal components and colour points by `alive` and shape by `age_cat`.
+Here, I plot PC1 vs PC2 and colour the samples by alive status and shape by age category.
 
 ```{r}
 scores <- as_tibble(pca_res$x, rownames = "row_id") |>
-  bind_cols(expr_wide |>
-              select(sample, alive, age_cat, age_at_index.demographic)) |>
+  bind_cols(expr_wide |> select(sample, alive, age_cat, age_at_index.demographic)) |>
   relocate(sample)
 
 scores |>
   slice_head(n = 5)
-
 ```
 
 ```{r}
@@ -171,42 +167,14 @@ pc1_pc2_plot
 ```
 
 ```{r}
-ggsave(
-  filename = "../results/06_pca_pc1_pc2.png",
+ggsave(filename = "../results/plots/06_pca_pc1_pc2.png",
   plot = pc1_pc2_plot,
   width = 7,
   height = 5)
-
 ```
 
-There is no clear separation between alive and deceased patients along PC1 or PC2. Both groups are widely mixed across the PCA space. Similarly, the age categories do not form distinct clusters, and their points are evenly spread. Overall, the first two principal components capture variability in gene expression, but this variability does not appear to be driven by the clinical variables considered here.
-
-## Genes contributing most to PC1 and PC2
-
-Finally, we inspect which genes contribute most to PC1 and PC2 by looking at the PCA loadings.
-
-```{r}
-loadings <- as_tibble(
-  pca_res$rotation,
-  rownames = "Ensembl_ID")
-
-top_pc1 <- loadings |>
-  select(Ensembl_ID, PC1) |>
-  arrange(desc(abs(PC1))) |>
-  slice_head(n = 20)
-
-top_pc2 <- loadings |>
-  select(Ensembl_ID, PC2) |>
-  arrange(desc(abs(PC2))) |>
-  slice_head(n = 20)
-
-top_pc1
-top_pc2
-
-```
-
-The genes with the largest absolute loadings on PC1 and PC2 are those that drive the main variation in the dataset. They could be further investigated in a biological context.
+There is no clear separation between the groups in PC1–PC2 space. Both the alive/deceased groups and the age categories are mixed together, so these variables do not seem to drive the main variation.
 
 ## Conclusion
 
-PCA on the top 500 most variable genes reveals that the major sources of transcriptomic variance do not correspond to clinical variables such as survival status or age. The first two PCs capture global variability in gene expression, but this variability appears unrelated to the metadata included here. Genes with the highest loadings drive these main axes of variation and could be investigated further to understand the underlying biological processes.
+Running PCA on the 500 most variable genes shows that the major variation in gene expression is not linked to the clinical variables considered here. PC1 and PC2 capture global transcriptomic patterns, but these patterns do not reflect differences in survival status or age.
