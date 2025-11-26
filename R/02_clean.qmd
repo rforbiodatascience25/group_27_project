@@ -72,7 +72,6 @@ Now, we have 14157 genes which is more appropriate for our case.
 ```{r}
 gen_exp_clean <- gen_exp_clean |>
   select(!c(sum_gene_exp))
-View(gen_exp_clean)
 ```
 
 ```{r}

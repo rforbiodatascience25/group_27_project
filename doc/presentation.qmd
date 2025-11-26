@@ -98,3 +98,39 @@ joining of the datasets
 5
 
 ```
+
+## PCA on gene expression (top 500 most variable genes)
+
+-   **Aim:** Explore global transcriptomic variation and test whether patients separate by\
+    **survival status** (*alive vs deceased*) or **age category**.
+-   **Methods:**
+    -   Selected **500 most variable genes** (variance of log2 expression)\
+    -   Built sample × gene matrix and ran **PCA** (centered & scaled)
+-   **Results:**
+    -   **PC1 explains most variance** (dominant axis of variation)\
+    -   **No separation** by survival status\
+    -   **No clustering** by age category\
+-   **Conclusion:**\
+    Major transcriptional differences **do not reflect clinical variables** considered here.\
+    Genes with strong loadings may relate to other biological or technical sources of variation.
+
+![](../results/06_pca_pc1_pc2.png){width="55%"} ![](../results/06_pca_scree.png){width="40%"}
+
+## Differential expression: alive vs dead
+
+-   **Aim:** Test whether gene expression differs between patients who are **alive** vs **dead** at follow-up.
+-   **Methods:**
+    -   Used augmented dataset (`data_augmented`)
+    -   Kept samples with known vital status
+    -   For each gene:
+        -   log2 expression compared with **two-sample t-test** (`alive` \~ `log2_expression`)
+        -   Adjusted p-values using **Benjamini–Hochberg (FDR)**
+-   **Results:**
+    -   \~14,157 genes tested\
+    -   **Only 2 genes** significant at FDR \< 0.05 (\~0.014%)\
+    -   Most genes have **very small log2 fold changes**
+-   **Conclusion:**
+    -   Vital status has only a **weak effect** on gene expression at the transcriptome-wide level\
+    -   Consistent with PCA: **no strong separation** between alive and dead patients
+
+![](../results/07_volcano_alive_vs_dead.png){width="55%"} ![](../results/07_top3_boxplots_alive_vs_dead.png){width="40%"}

@@ -209,25 +209,18 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 <h3 id="article">Article</h3>
 <p><strong>Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects</strong></p>
 <h3 id="dataset">Dataset</h3>
-<ol type="1">
-<li><u>Gene expression dataset</u></li>
-</ol>
+<h4 id="gene-expression-dataset"><u>Gene expression dataset</u></h4>
 <ul>
-<li>TCGA ovarian cancer cohort <strong>FPKM</strong> = <em>Fragments Per Kilobase of transcript per Million mapped reads</em> → normalized gene-expression metric<br>
-</li>
-<li><strong>Format:</strong> TSV (<code>TCGA-OV.star_fpkm.tsv</code>)<br>
-</li>
-<li><strong>Dimensions:</strong> <strong>60 660 genes</strong> × <strong>430 samples</strong></li>
+<li><p>TCGA ovarian cancer cohort</p></li>
+<li><p><strong>FPKM</strong> = <em>Fragments Per Kilobase of transcript per Million mapped reads</em> → normalized gene-expression metric</p></li>
+<li><p><strong>Format:</strong> TSV (<code>TCGA-OV.star_fpkm.tsv</code>)</p></li>
+<li><p><strong>Dimensions:</strong> <strong>60 660 genes</strong> × <strong>430 samples</strong></p></li>
 </ul>
-<ol start="2" type="1">
-<li><u>Clinical dataset</u></li>
-</ol>
+<h4 id="clinical-dataset"><u>Clinical dataset</u></h4>
 <ul>
-<li>Patient phenotype / clinical variables from TCGA-OV<br>
-</li>
-<li><strong>Format:</strong> TSV (<code>TCGA-OV.clinical.tsv</code>)<br>
-</li>
-<li><strong>Dimensions:</strong> <strong>632 patients</strong> × <strong>84 clinical variables</strong></li>
+<li><p>Patient phenotype / clinical variables from TCGA-OV</p></li>
+<li><p><strong>Format:</strong> TSV (<code>TCGA-OV.clinical.tsv</code>)</p></li>
+<li><p><strong>Dimensions:</strong> <strong>632 patients</strong> × <strong>84 clinical variables</strong></p></li>
 </ul>
 <h3 id="source">Source</h3>
 <p><strong>The Cancer Genome Atlas (TCGA) – Ovarian cancer collection</strong></p>
@@ -5125,6 +5118,63 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 <pre><code>[1] 5</code></pre>
 </div>
 </div>
+</section>
+<section id="pca-on-gene-expression-top-500-most-variable-genes" class="slide level2">
+<h2>PCA on gene expression (top 500 most variable genes)</h2>
+<ul>
+<li><strong>Aim:</strong> Explore global transcriptomic variation and test whether patients separate by<br>
+<strong>survival status</strong> (<em>alive vs deceased</em>) or <strong>age category</strong>.</li>
+<li><strong>Methods:</strong>
+<ul>
+<li>Selected <strong>500 most variable genes</strong> (variance of log2 expression)<br>
+</li>
+<li>Built sample × gene matrix and ran <strong>PCA</strong> (centered &amp; scaled)</li>
+</ul></li>
+<li><strong>Results:</strong>
+<ul>
+<li><strong>PC1 explains most variance</strong> (dominant axis of variation)<br>
+</li>
+<li><strong>No separation</strong> by survival status<br>
+</li>
+<li><strong>No clustering</strong> by age category<br>
+</li>
+</ul></li>
+<li><strong>Conclusion:</strong><br>
+Major transcriptional differences <strong>do not reflect clinical variables</strong> considered here.<br>
+Genes with strong loadings may relate to other biological or technical sources of variation.</li>
+</ul>
+<p><img data-src="../results/06_pca_pc1_pc2.png" style="width:55.0%"> <img data-src="../results/06_pca_scree.png" style="width:40.0%"></p>
+</section>
+<section id="differential-expression-alive-vs-dead" class="slide level2">
+<h2>Differential expression: alive vs dead</h2>
+<ul>
+<li><strong>Aim:</strong> Test whether gene expression differs between patients who are <strong>alive</strong> vs <strong>dead</strong> at follow-up.</li>
+<li><strong>Methods:</strong>
+<ul>
+<li>Used augmented dataset (<code>data_augmented</code>)</li>
+<li>Kept samples with known vital status</li>
+<li>For each gene:
+<ul>
+<li>log2 expression compared with <strong>two-sample t-test</strong> (<code>alive</code> ~ <code>log2_expression</code>)</li>
+<li>Adjusted p-values using <strong>Benjamini–Hochberg (FDR)</strong></li>
+</ul></li>
+</ul></li>
+<li><strong>Results:</strong>
+<ul>
+<li>~14,157 genes tested<br>
+</li>
+<li><strong>Only 2 genes</strong> significant at FDR &lt; 0.05 (~0.014%)<br>
+</li>
+<li>Most genes have <strong>very small log2 fold changes</strong></li>
+</ul></li>
+<li><strong>Conclusion:</strong>
+<ul>
+<li>Vital status has only a <strong>weak effect</strong> on gene expression at the transcriptome-wide level<br>
+</li>
+<li>Consistent with PCA: <strong>no strong separation</strong> between alive and dead patients</li>
+</ul></li>
+</ul>
+<p><img data-src="../results/07_volcano_alive_vs_dead.png" style="width:55.0%"> <img data-src="../results/07_top3_boxplots_alive_vs_dead.png" style="width:40.0%"></p>
 
 </section>
     </div>
