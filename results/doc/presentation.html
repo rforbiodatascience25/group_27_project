@@ -852,12 +852,10 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
-<col style="width: 0%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Ensembl_ID</th>
-<th style="text-align: right;">sum_gene_exp</th>
 <th style="text-align: right;">TCGA-24-1104-01A</th>
 <th style="text-align: right;">TCGA-25-1320-01A</th>
 <th style="text-align: right;">TCGA-24-1850-01A</th>
@@ -1292,7 +1290,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ENSG00000271553.1</td>
-<td style="text-align: right;">400.0202</td>
 <td style="text-align: right;">1.3958306</td>
 <td style="text-align: right;">0.6240541</td>
 <td style="text-align: right;">0.5234616</td>
@@ -1725,7 +1722,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="even">
 <td style="text-align: left;">ENSG00000166446.15</td>
-<td style="text-align: right;">400.0447</td>
 <td style="text-align: right;">0.6156046</td>
 <td style="text-align: right;">1.7316177</td>
 <td style="text-align: right;">1.2241638</td>
@@ -2158,7 +2154,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ENSG00000178977.3</td>
-<td style="text-align: right;">400.0475</td>
 <td style="text-align: right;">1.1212807</td>
 <td style="text-align: right;">1.3511760</td>
 <td style="text-align: right;">0.9414820</td>
@@ -2591,7 +2586,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="even">
 <td style="text-align: left;">ENSG00000229567.1</td>
-<td style="text-align: right;">400.0609</td>
 <td style="text-align: right;">1.1875144</td>
 <td style="text-align: right;">0.2263852</td>
 <td style="text-align: right;">0.8228525</td>
@@ -3024,7 +3018,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ENSG00000197632.9</td>
-<td style="text-align: right;">400.0688</td>
 <td style="text-align: right;">0.5126820</td>
 <td style="text-align: right;">1.0411028</td>
 <td style="text-align: right;">1.4861480</td>
@@ -3457,7 +3450,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="even">
 <td style="text-align: left;">ENSG00000177875.5</td>
-<td style="text-align: right;">400.1411</td>
 <td style="text-align: right;">0.4711354</td>
 <td style="text-align: right;">1.1298105</td>
 <td style="text-align: right;">1.3348543</td>
@@ -3890,7 +3882,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ENSG00000176597.12</td>
-<td style="text-align: right;">400.1630</td>
 <td style="text-align: right;">0.5917751</td>
 <td style="text-align: right;">1.0585936</td>
 <td style="text-align: right;">1.0617762</td>
@@ -4323,7 +4314,6 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </tr>
 <tr class="even">
 <td style="text-align: left;">ENSG00000167634.12</td>
-<td style="text-align: right;">400.1725</td>
 <td style="text-align: right;">0.3924273</td>
 <td style="text-align: right;">1.1889705</td>
 <td style="text-align: right;">4.4776644</td>
@@ -4766,16 +4756,16 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 <pre><code># A tibble: 10 × 49
    sample    race.demographic ethnicity.demographic alive age_at_index.demogra…¹
    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;                  &lt;dbl&gt;
- 1 TCGA-61-… white            not reported          TRUE                      56
- 2 TCGA-13-… white            not hispanic or lati… TRUE                      64
- 3 TCGA-04-… white            not hispanic or lati… TRUE                      50
- 4 TCGA-09-… white            not hispanic or lati… TRUE                      61
- 5 TCGA-57-… white            not reported          FALSE                     50
- 6 TCGA-61-… white            not reported          TRUE                      57
- 7 TCGA-25-… white            not hispanic or lati… FALSE                     65
- 8 TCGA-24-… white            not reported          TRUE                      45
- 9 TCGA-24-… white            not reported          FALSE                     50
-10 TCGA-36-… asian            not hispanic or lati… TRUE                      59
+ 1 TCGA-13-… asian            not hispanic or lati… TRUE                      44
+ 2 TCGA-61-… white            not reported          TRUE                      62
+ 3 TCGA-25-… white            not hispanic or lati… FALSE                     71
+ 4 TCGA-29-… white            not hispanic or lati… TRUE                      82
+ 5 TCGA-13-… white            not hispanic or lati… TRUE                      74
+ 6 TCGA-25-… not reported     not reported          NA                        80
+ 7 TCGA-20-… white            not hispanic or lati… TRUE                      59
+ 8 TCGA-13-… white            not hispanic or lati… FALSE                     48
+ 9 TCGA-13-… white            not hispanic or lati… FALSE                     71
+10 TCGA-30-… white            not hispanic or lati… FALSE                     61
 # ℹ abbreviated name: ¹​age_at_index.demographic
 # ℹ 44 more variables: days_to_birth.demographic &lt;dbl&gt;,
 #   year_of_birth.demographic &lt;dbl&gt;, days_to_death.demographic &lt;dbl&gt;,
