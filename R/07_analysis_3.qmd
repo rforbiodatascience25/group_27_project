@@ -1,0 +1,65 @@
+---
+title: "07_analysis_3"
+format: html
+---
+
+
+```{r}
+
+# BRCA1 and BRCA2
+# target_genes <- c("ENSG00000012048.27", "ENSG00000139618.19")
+
+# two random ones
+target_genes <- c("ENSG00000271553.1", "ENSG00000166446.15")
+
+full_data |> 
+  filter(Ensembl_ID %in% target_genes) |> 
+  ggplot(aes(x = log2_expression, fill = Ensembl_ID)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 40, alpha = 0.45) +
+  geom_density(alpha = 0.7) +
+  facet_wrap(~ Ensembl_ID, scales = "free") +
+  theme_minimal() +
+  labs(
+    title = "Expression Distribution for BRCA1 and BRCA2",
+    x = "FPKM Expression",
+    y = "Density"
+  )
+
+
+```
+
+
+
+```{r}
+
+target_gene <- "ENSG00000012048"   # change to any gene 
+
+# Have to tidy the treatment variables first
+
+
+full_data |> distinct(sample, treatment_type.treatments.diagnoses)
+  mutate(
+    treatment_type = map(treatment_type.treatments.diagnoses, ~ unlist(.x)),
+    treatment_flag = map(treatment_or_therapy.treatments.diagnoses, ~ unlist(.x))
+  ) %>%
+  unnest(c(treatment_type, treatment_flag)) %>%
+  mutate(received = treatment_flag == "yes") |> 
+
+  filter(!is.na(treatment_type)) |> 
+  ggplot(aes(x = treatment_type, y = log2_expression, fill = received)) +
+  geom_violin(trim = FALSE, alpha = 0.6) +
+  geom_boxplot(width = 0.15, outlier.shape = NA, alpha = 0.8) +
+  labs(
+    title = paste("Expression of", target_gene, "Across Treatment Types"),
+    x = "Treatment Type",
+    y = "Gene Expression (FPKM)"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 30, hjust = 1),
+    plot.title = element_text(size = 16, face = "bold")
+  )
+
+
+```
+
