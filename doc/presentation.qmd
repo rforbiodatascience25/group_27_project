@@ -27,17 +27,22 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 
 ### Dataset
 
-1.  [Gene expression dataset]{.underline}
+#### [Gene expression dataset]{.underline}
 
--   TCGA ovarian cancer cohort\
--   **FPKM** = *Fragments Per Kilobase of transcript per Million mapped reads* → normalized gene-expression metric\
--   **Format:** TSV (`TCGA-OV.star_fpkm.tsv`)\
+-   TCGA ovarian cancer cohort
+
+-   **FPKM** = *Fragments Per Kilobase of transcript per Million mapped reads* → normalized gene-expression metric
+
+-   **Format:** TSV (`TCGA-OV.star_fpkm.tsv`)
+
 -   **Dimensions:** **60 660 genes** × **430 samples**
 
-2.  [Clinical dataset]{.underline}
+#### [Clinical dataset]{.underline}
 
--   Patient phenotype / clinical variables from TCGA-OV\
--   **Format:** TSV (`TCGA-OV.clinical.tsv`)\
+-   Patient phenotype / clinical variables from TCGA-OV
+
+-   **Format:** TSV (`TCGA-OV.clinical.tsv`)
+
 -   **Dimensions:** **632 patients** × **84 clinical variables**
 
 ### Source
