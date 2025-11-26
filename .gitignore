@@ -18,3 +18,5 @@ data/*.tsv
 # Backup or temporary files
 *~
 *.bak
+
+/.quarto/

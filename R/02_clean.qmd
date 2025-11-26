@@ -236,7 +236,6 @@ phenotype_clean <- phenotype_clean |>
   rename(alive=vital_status.demographic)
 ```
 
-
 ```{r}
 saveRDS(phenotype_clean, "../data/phenotype_clean.rds")
 

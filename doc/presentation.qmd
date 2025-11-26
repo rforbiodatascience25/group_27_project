@@ -1,10 +1,12 @@
 ---
 title: "Presentation"
 author: "Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), Yann Ducrest (s251889), Hedi Khemakhem (s251900)"
-format: 
+format:
   revealjs:
-    font-scale: 0.1
+    theme: moon
+    css: styles.css
 editor: visual
+class: center, middle
 ---
 
 ## Load
@@ -16,7 +18,7 @@ library("tidyverse")
 ```{r}
 phenotype <- readRDS("../data/phenotype_clean.rds")
 gen_exp <- readRDS("../data/gen_exp_clean.rds")
-data_augmented <- readRDS("../data/data_augmented.rds")
+#data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
 article : *Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects*
@@ -52,3 +54,17 @@ joining of the datasets
 ![](images/age.png)
 
 ## Analysis
+
+```{r}
+#| echo: true      # show code
+#| eval: false     # don’t run it
+5
+
+```
+
+```{r}
+#| echo: true      # show code
+#| eval: true     # run it
+5
+
+```
