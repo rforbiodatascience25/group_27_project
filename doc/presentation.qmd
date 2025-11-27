@@ -11,9 +11,7 @@ class: center, middle
 
 ## Flow Chart
 
-
 ![](images/FlowChart.drawio.svg)
-
 
 ## Load
 
@@ -56,6 +54,8 @@ phenotype |> slice_sample(n=10)
 joining of the datasets
 
 ## Describe
+
+
 
 ![](images/age.png)
 
