@@ -129,3 +129,25 @@ data_augmented |>
 5
 
 ```
+
+## Describe 2
+
+### Gene Expression Distribution
+
+The histogram displays the distribution of log2-transformed gene-expression values.\
+
+After removing genes with zero or extremely low expression, the overall mean expression shifts upward and the distribution becomes more symmetric.\
+
+This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
+
+```{r}
+data_augmented |> 
+  ggplot(aes(x = log2_expression)) +
+  geom_histogram(bins = 50, fill = "skyblue", color = "white") +
+  geom_vline(aes(xintercept = mean(log2_expression)), color = "red",
+             linetype = "dashed", size = 1) +
+  theme_minimal() +
+  labs(title = "Gene Expression Distribution",
+       x = "Expression Level",
+       y = "Count")
+```
