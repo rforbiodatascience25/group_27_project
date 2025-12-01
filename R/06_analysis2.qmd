@@ -17,14 +17,17 @@ We work with the augmented tidy dataset created in 03_augment.qmd and check whet
 ## Setup
 
 ```{r}
+# Load packages
 library("tidyverse")
 ```
 
 ## Load augmented data
 
 ```{r}
+# Load the augmented dataset
 data_augmented <- readRDS("../data/data_augmented.rds")
 
+# Show 10 random rows to check the data
 data_augmented |>
   slice_sample(n = 10)
 ```
@@ -34,14 +37,18 @@ data_augmented |>
 Since PCA works best with genes that vary a lot across samples, we select the top 500 most variable genes based on the variance of log2_expression.
 
 ```{r}
+# Calculate variance for each gene
+# We keep genes that change the most across samples
 gene_var <- data_augmented |>
   group_by(Ensembl_ID) |>
   summarise(var_log2 = var(log2_expression, na.rm = TRUE), .groups  = "drop") |>
   arrange(desc(var_log2))
 
+# Show top 10 most variable genes
 gene_var |>
   slice_head(n = 10)
 
+# Select the 500 most variable genes
 top_genes <- gene_var |>
   slice_head(n = 500) |>
   pull(Ensembl_ID)
@@ -54,21 +61,24 @@ length(top_genes)
 Here, we create a wide matrix with one row per sample (patient) and one column per gene (for the selected 500 genes). We also extract the clinical variables so we can link them to the PCA results later.
 
 ```{r}
+# Build a wide expression matrix for PCA
+# One row = one sample, one column = one gene
 expr_wide <- data_augmented |>
   filter(Ensembl_ID %in% top_genes) |>
   select(sample, Ensembl_ID, log2_expression) |>
   distinct() |>
   pivot_wider(names_from  = Ensembl_ID,values_from = log2_expression)
 
+# Keep clinical information for each sample
 pheno_pca <- data_augmented |>
   select(sample, alive, age_cat, age_at_index.demographic) |>
   distinct()
 
-expr_wide <- expr_wide |>
-  left_join(pheno_pca, by = "sample")
+# Add clinical variables to the expression matrix
+expr_wide <- expr_wide |> left_join(pheno_pca, by = "sample")
 
-expr_wide |>
-  slice_head(n = 5)
+# Check the first rows
+expr_wide |> slice_head(n = 5)
 ```
 
 ## Run PCA
@@ -76,6 +86,7 @@ expr_wide |>
 We extract the numeric expression data, centre and scale it, and run PCA using prcomp().
 
 ```{r}
+# Prepare the numeric matrix for PCA
 expr_mat <- expr_wide |>
   select(-sample, -alive, -age_cat, -age_at_index.demographic) |>
   as.matrix()
@@ -85,20 +96,17 @@ dim(expr_mat)
 ```
 
 ```{r}
+# Run PCA (data is centered and scaled)
 set.seed(123)
-
 pca_res <- prcomp(
   x      = expr_mat,
   center = TRUE,
   scale. = TRUE)
 
-
+# Calculate variance explained by each PC
 var_explained <- tibble(
   component = seq_along(pca_res$sdev),
   var_explained = pca_res$sdev^2 / sum(pca_res$sdev^2))
-
-var_explained |>  
-  slice(1:5)
 
 ```
 
@@ -107,7 +115,7 @@ var_explained |>
 This plot shows how much variance is explained by each principal component.
 
 ```{r}
-
+# Prepare data for the scree plot
 scree_df <- var_explained |>
   transmute(
     component,
@@ -116,7 +124,7 @@ scree_df <- var_explained |>
   mutate(
     PC = forcats::fct_reorder(PC, component))
 
-
+# Plot the variance explained by the first PCs
 scree_plot <- scree_df |>
   slice_head(n = 15) |>
   ggplot(aes(x = PC, y = variance, group = 1)) +
@@ -132,6 +140,7 @@ scree_plot
 ```
 
 ```{r}
+# Save the scree plot
 ggsave(filename = "../results/06_pca_scree.png",
   plot = scree_plot,
   width = 7,
@@ -145,6 +154,7 @@ The scree plot shows that most of the global variation comes from PC1. If there 
 Here, we plot PC1 vs PC2 and colour the samples by alive status and shape by age category.
 
 ```{r}
+# Build a table with PCA scores + clinical data
 scores <- as_tibble(pca_res$x, rownames = "row_id") |>
   bind_cols(expr_wide |> select(sample, alive, age_cat, age_at_index.demographic)) |>
   relocate(sample)
@@ -154,6 +164,7 @@ scores |>
 ```
 
 ```{r}
+# Labels for the axes including the explained variance
 pc1_label <- var_explained |>
   slice(1) |>
   mutate(label = stringr::str_c("PC1 (", scales::percent(var_explained), ")")) |>
@@ -164,7 +175,7 @@ pc2_label <- var_explained |>
   mutate(label = stringr::str_c("PC2 (", scales::percent(var_explained), ")")) |>
   pull(label)
 
-
+# Plot PC1 vs PC2 coloured by clinical variables
 pc1_pc2_plot <- scores |>
   ggplot(aes(
     x = PC1,
@@ -182,6 +193,7 @@ pc1_pc2_plot
 ```
 
 ```{r}
+# Save the PC1–PC2 plot
 ggsave(filename = "../results/06_pca_pc1_pc2.png",
   plot = pc1_pc2_plot,
   width = 7,

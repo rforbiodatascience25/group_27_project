@@ -15,16 +15,18 @@ In this document, we run a simple differential expression analysis to see whethe
 ## Setup
 
 ```{r}
+# Load packages
 library("tidyverse")
 ```
 
 ## Load augmented data
 
 ```{r}
+# Load the augmented dataset
 full_data <- readRDS("../data/data_augmented.rds")
 
-full_data |>
-  slice_sample(n = 10)
+# Show 10 random rows to check the data
+full_data |> slice_sample(n = 10)
 
 ```
 
@@ -33,9 +35,12 @@ full_data |>
 We first keep only the samples where the alive variable is not missing. Then, we check how many samples fall into each group.
 
 ```{r}
-full_data_alive <- full_data |> 
-  filter(!is.na(alive))
 
+# Filter samples with known alive status
+# We remove samples where alive is missing
+full_data_alive <- full_data |> filter(!is.na(alive))
+
+# Count how many samples are alive vs dead
 full_data_alive |>
   distinct(sample, alive) |>
   count(alive)
@@ -47,15 +52,25 @@ full_data_alive |>
 For each gene, we compare log2 expression between alive (alive == TRUE) and dead (alive == FALSE) patients using a two-sample t-test.
 
 ```{r}
+# Differential expression for each gene
+# We compare log2 expression between alive and dead patients
 de_results <- full_data_alive |>
   group_by(Ensembl_ID) |>
-  summarise(mean_alive = mean(log2_expression[alive], na.rm = TRUE), 
-            mean_dead = mean(log2_expression[!alive], na.rm = TRUE), 
-            log2_fc = mean_alive - mean_dead, 
-            p_value = tryCatch(t.test(log2_expression ~ alive)$p.value, error = function(e) NA_real_), 
+  summarise(
+    # Mean expression in alive patients
+    mean_alive = mean(log2_expression[alive], na.rm = TRUE), 
+    # Mean expression in dead patients
+    mean_dead = mean(log2_expression[!alive], na.rm = TRUE), 
+    # Log2 fold change: alive - dead
+    log2_fc = mean_alive - mean_dead, 
+    # Two-sample t-test for alive vs dead
+    p_value = tryCatch(t.test(log2_expression ~ alive)$p.value, error = function(e) NA_real_), 
             .groups = "drop") |>
+  # Adjust p-values for multiple testing (FDR)
   mutate(p_adj = p.adjust(p_value, method = "BH"))
 
+
+# Show the first 10 results
 de_results |>
   slice_head(n = 10)
 ```
@@ -65,6 +80,8 @@ de_results |>
 We check how many genes remain significant after controlling for multiple testing (FDR \< 0.05).
 
 ```{r}
+# Summary of significant genes
+# We check how many genes have FDR < 0.05
 de_summary <- de_results |>
   filter(!is.na(p_adj)) |>
   summarise(n_genes = n(),
@@ -81,11 +98,15 @@ Only 2 out of 14,157 genes are significant at FDR \< 0.05 (around 0.014%). This 
 Here, we create a volcano plot showing log2 fold changes and adjusted p-values. Genes with FDR \< 0.05 are highlighted.
 
 ```{r}
+# Prepare data for volcano plot
+# - log2 fold changes on x-axis
+# - -log10(FDR) on y-axis
 volcano_data <- de_results |>
   filter(!is.na(p_adj)) |>
   mutate(neg_log10_p = -log10(p_adj),
          significant = p_adj < 0.05)
 
+# Volcano plot
 volcano_plot <- volcano_data |>
   ggplot(aes(x = log2_fc, y = neg_log10_p, colour = significant)) +
   geom_point(alpha = 0.7) +
@@ -99,6 +120,7 @@ volcano_plot
 ```
 
 ```{r}
+# Save the volcano plot
 ggsave(filename = "../results/07_volcano_alive_vs_dead.png",
        plot = volcano_plot,
        width = 7,
@@ -112,6 +134,7 @@ The volcano plot confirms that only a few genes are significant. Most points lie
 We extract the 3 genes with the smallest adjusted p-values.
 
 ```{r}
+# Select the top 3 most significant genes
 top_de_genes <- de_results |>
   filter(!is.na(p_adj)) |>
   arrange(p_adj) |>
@@ -128,6 +151,8 @@ These genes show the strongest association between expression and vital status a
 To visualise the differences directly, we create boxplots for the top 3 genes.
 
 ```{r}
+# Boxplots for the top 3 genes
+# We show expression by alive status
 top3_ids <- top_de_genes |>
   slice_head(n = 3) |>
   pull(Ensembl_ID)
@@ -149,6 +174,7 @@ gene_boxplot
 ```
 
 ```{r}
+# Save the boxplots
 ggsave(filename = "../results/07_boxplots_alive_vs_dead.png",
        plot = gene_boxplot,
        width = 7,
