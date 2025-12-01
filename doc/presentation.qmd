@@ -12,26 +12,33 @@ class: center, middle
 ## Load
 
 ```{r}
+#| echo: false
+#| eval: true 
+     
 library("tidyverse")
 ```
 
 ```{r}
+#| echo: false
+#| eval: true 
+
 phenotype <- readRDS("../data/phenotype_clean.rds")
 gen_exp <- readRDS("../data/gen_exp_clean.rds")
+phenotype_og <- readRDS("../data/phenotype.rds")
 #data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
 article : *Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects*
 
-dataset :
+Dataset :
 
--   clinical dataset : phenotype for ovarian cancer
+-   Clinical dataset : phenotype for ovarian cancer
 
--   gene expression dataset : RNAseq for ovarian cancer
+-   Gene expression dataset : RNAseq for ovarian cancer
 
 source : The Cancer Genome Atlas (TCGA) ovarian cancer collection
 
-## Clean
+## Clean 1
 
 -   gene table : remove some genes
 
@@ -39,11 +46,83 @@ source : The Cancer Genome Atlas (TCGA) ovarian cancer collection
 knitr::kable(head(gen_exp, 8))
 ```
 
--   phenotype table : remove some variables (repetitive or useless)
+## Clean 2
+
+::::: columns
+::: column
+*Removal of [columns]{style="color:#f8a47d;"}:*
+
+-   Long lists of characters used for identification
+
+-   Repeated content in different columns
+
+-   Columns with the same observation for each sample
+
+-   Columns with "NA" or "Not reported" for each row
+
+-   Replace categorical variable with 2 possible cases by a boolean
+
+*Removal of [rows]{style="color:#f8a47d;"}:* 8 samples with NAs for (almost) all columns
+:::
+
+::: column
+```{r}
+#| echo: true    # show code
+#| eval: false   # don't run it
+phenotype_clean <- phenotype_clean |> 
+  mutate(
+    vital_status.demographic = case_when(
+      vital_status.demographic == "Alive" ~ TRUE,
+      vital_status.demographic == "Dead" ~ FALSE,
+      TRUE ~ NA)
+    )|>
+  rename(alive=vital_status.demographic)
+
+```
+:::
+:::::
 
 ```{r}
-phenotype |> slice_sample(n=10)
+#| echo: false    # don't show code
+#| eval: true     # run it
+
+# Show repetitive content
+table1 <- phenotype_og |> 
+  slice_sample(n = 10) |> 
+  select(c(sample, submitter_id))
+
+# Show alive/dead old variable
+table2 <- phenotype_og |>
+  slice_head(n = 10)
+
+# Show alive/dead new variable
+table3 <- phenotype |>
+  slice_head(n = 10)
+
+# Combine columns for presentation
+table4 <- bind_cols(
+  table2 |> select(vital_status.demographic),
+  table3 |> select(alive)
+)
+
 ```
+
+::::: columns
+::: column
+```{r}
+knitr::kable(head(table1, 8))
+
+```
+:::
+
+::: column
+```{r}
+knitr::kable(head(table4, 8))
+
+
+```
+:::
+:::::
 
 ## Augment
 
@@ -53,18 +132,48 @@ joining of the datasets
 
 ![](images/age.png)
 
-## Analysis
+## Analysis 1
 
+::::: columns
+::: column
+[*Analysis of the distribution of variables*]{style="color:#f8a47d;"}
+
+-   Grouping by sample
+
+-   Plot for FIGO stage, alive status, age, etc.
+
+=\> No correlation was found, but this allowed us to conclude that the phenotype data set lacked sufficient variability to reveal real biological effects.
+
+[*Biological relevance of most variant genes*]{style="color:#f8a47d;"}
+
+-   Extract top 10 genes with most variance
+
+-   Translate Ensembl ID to gene code
+
+-   The genes found are all immunoglobulin genes, which reflect variance in immune involvement among patients
+
+| Ensembl_ID        | Gene symbol |
+|-------------------|-------------|
+| ENSG00000211592.8 | IGKC        |
+| ENSG00000211896.7 | IGHG1       |
+| ENSG00000239951.1 | IGKV3-20    |
+| ENSG00000211598.2 | IGKV4-1     |
+| ENSG00000253755.1 | IGHGP       |
+:::
+
+::: column
 ```{r}
 #| echo: true      # show code
 #| eval: false     # don’t run it
-5
+
+data_augmented |>
+  group_by(sample) |>
+  slice(1) |>
+  ggplot(aes(x = figo_stage.diagnoses)) +
+    geom_bar()
 
 ```
 
-```{r}
-#| echo: true      # show code
-#| eval: true     # run it
-5
-
-```
+![](../results/figostages_analysis1.png){width="70%"} ![](../results/IS_ethnicity_analysis1.png){width="85%"}
+:::
+:::::
