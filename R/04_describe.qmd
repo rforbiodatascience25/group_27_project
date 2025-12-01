@@ -72,7 +72,7 @@ phenotype_clean |> slice_sample(n=10)
 
 -   Data types: numeric non‐negative values
 
--   Needed cleaning: Some genes have a null expression level for all samples, these genes have been removed from the dataset. To further reduce the number of genes and keep only the most relevant ones, the summed expression level over all samples for each gene has been computed and the relevant genes were kept based on a threshold. A variable representing this sum of the expression levels for each gene has been added.
+-   Needed cleaning: Some genes have a null expression level for all samples, these genes have been removed from the dataset. To further reduce the number of genes and keep only the most relevant ones, the summed expression level over all samples for each gene has been computed and the relevant genes were kept based on a threshold.
 
 -   Size after cleaning: 14157 genes on the rows, 431 variables on the columns.
 
@@ -163,7 +163,7 @@ patient_level |>
     x = "Age",
     y = "Number of Patients"
   )
-ggsave("../doc/images/age.png")
+ggsave("../results/04_age_distribution.png")
 ```
 
 The age of patients at diagnosis seems to be normally distributed with a mean (red line) at around \~60 years.
@@ -203,7 +203,7 @@ patient_level |>
     y = "Age at Diagnosis"
   )
 
-
+ggsave("../results/04_age_tumorstage.png")
 ```
 
 The graph shows how age at diagnosis varies across different tumor stages. Stage IIB, IIC, IIIC, and IV show wide spreads in age, meaning patient ages vary a lot within those groups. As seen in the table above, there are few data points for stages IC, IIA, IIB and IIIA. There are some outliers, especially in Stage IIIB.

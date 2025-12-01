@@ -9,6 +9,10 @@ editor: visual
 class: center, middle
 ---
 
+## Flow Chart
+
+![](images/FlowChart.drawio.svg)
+
 ## Load
 
 ```{r}
@@ -79,9 +83,22 @@ knitr::kable(head(phenotype, 8))
 
 joining of the datasets
 
-## Describe
+## Describe 
 
-![](plots/age.png)
+**Full data:**
+
+-   Size: 6'073'353 samples (rows), 53 variables (columns)
+-   Impacted variable: figo_stage.diagnosis (cancer stage)
+-   Quality and integrity
+
+![](../results/04_age_distribution.png)
+
+
+## Describe 
+
+
+![](../results/04_age_tumorstage.png)
+
 
 ## Analysis
 
