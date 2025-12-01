@@ -29,7 +29,7 @@ library("tidyverse")
 phenotype <- readRDS("../data/phenotype_clean.rds")
 gen_exp <- readRDS("../data/gen_exp_clean.rds")
 phenotype_og <- readRDS("../data/phenotype.rds")
-#data_augmented <- readRDS("../data/data_augmented.rds")
+data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
 ### Article
@@ -241,7 +241,7 @@ After removing genes with zero or extremely low expression, the overall mean exp
 
 This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
 
-![](images/gene exp distribution)
+![](images/gene%20exp%20distribution)
 
 ## Analysis 1
 

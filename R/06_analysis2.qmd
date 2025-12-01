@@ -6,11 +6,13 @@ execute:
   cache: false
 ---
 
+# PCA analysis 
+
 ## Aim
 
-In this document, I explore the gene expression dataset using Principal Component Analysis (PCA).
+We explore the gene expression dataset using Principal Component Analysis (PCA).
 
-I work with the augmented tidy dataset created in 03_augment.qmd and check whether patients separate in the PCA space depending on clinical variables such as the alive status and age category.
+We work with the augmented tidy dataset created in 03_augment.qmd and check whether patients separate in the PCA space depending on clinical variables such as the alive status and age category.
 
 ## Setup
 
@@ -29,7 +31,7 @@ data_augmented |>
 
 ## Select most variable genes
 
-Since PCA works best with genes that vary a lot across samples, I select the top 500 most variable genes based on the variance of log2_expression.
+Since PCA works best with genes that vary a lot across samples, we select the top 500 most variable genes based on the variance of log2_expression.
 
 ```{r}
 gene_var <- data_augmented |>
@@ -49,7 +51,7 @@ length(top_genes)
 
 ## Build expression matrix for PCA
 
-Here, I create a wide matrix with one row per sample (patient) and one column per gene (for the selected 500 genes). I also extract the clinical variables so I can link them to the PCA results later.
+Here, we create a wide matrix with one row per sample (patient) and one column per gene (for the selected 500 genes). We also extract the clinical variables so we can link them to the PCA results later.
 
 ```{r}
 expr_wide <- data_augmented |>
@@ -71,7 +73,7 @@ expr_wide |>
 
 ## Run PCA
 
-I extract the numeric expression data, centre and scale it, and run PCA using prcomp().
+We extract the numeric expression data, centre and scale it, and run PCA using prcomp().
 
 ```{r}
 expr_mat <- expr_wide |>
@@ -123,7 +125,7 @@ scree_plot
 ```
 
 ```{r}
-ggsave(filename = "../results/plots/06_pca_scree.png",
+ggsave(filename = "../results/06_pca_scree.png",
   plot = scree_plot,
   width = 7,
   height = 5)
@@ -133,7 +135,7 @@ The scree plot shows that most of the global variation comes from PC1. If there 
 
 ## PC1 vs PC2 coloured by clinical variables
 
-Here, I plot PC1 vs PC2 and colour the samples by alive status and shape by age category.
+Here, we plot PC1 vs PC2 and colour the samples by alive status and shape by age category.
 
 ```{r}
 scores <- as_tibble(pca_res$x, rownames = "row_id") |>
@@ -167,7 +169,7 @@ pc1_pc2_plot
 ```
 
 ```{r}
-ggsave(filename = "../results/plots/06_pca_pc1_pc2.png",
+ggsave(filename = "../results/06_pca_pc1_pc2.png",
   plot = pc1_pc2_plot,
   width = 7,
   height = 5)
@@ -178,3 +180,5 @@ There is no clear separation between the groups in PC1–PC2 space. Both the ali
 ## Conclusion
 
 Running PCA on the 500 most variable genes shows that the major variation in gene expression is not linked to the clinical variables considered here. PC1 and PC2 capture global transcriptomic patterns, but these patterns do not reflect differences in survival status or age.
+
+# 

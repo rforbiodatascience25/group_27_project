@@ -1,12 +1,16 @@
 ---
-title: "07_analysis3"
+title: "07 - analysis 3"
 format: html
 editor: visual
+execute:
+  cache: false
 ---
+
+## Differential expression analysis 
 
 ## Aim
 
-In this document, I run a simple differential expression analysis to see whether gene expression differs between patients who were alive or dead at follow-up.
+In this document, we run a simple differential expression analysis to see whether gene expression differs between patients who were alive or dead at follow-up.
 
 ## Setup
 
@@ -26,7 +30,7 @@ full_data |>
 
 ## Filter to samples with known vital status
 
-I first keep only the samples where the alive variable is not missing. Then, I check how many samples fall into each group.
+We first keep only the samples where the alive variable is not missing. Then, we check how many samples fall into each group.
 
 ```{r}
 full_data_alive <- full_data |> 
@@ -40,7 +44,7 @@ full_data_alive |>
 
 ## Differential expression per gene
 
-For each gene, I compare log2 expression between alive (alive == TRUE) and dead (alive == FALSE) patients using a two-sample t-test.
+For each gene, we compare log2 expression between alive (alive == TRUE) and dead (alive == FALSE) patients using a two-sample t-test.
 
 ```{r}
 de_results <- full_data_alive |>
@@ -58,7 +62,7 @@ de_results |>
 
 ## **Summary of differential expression**
 
-I check how many genes remain significant after controlling for multiple testing (FDR \< 0.05).
+We check how many genes remain significant after controlling for multiple testing (FDR \< 0.05).
 
 ```{r}
 de_summary <- de_results |>
@@ -74,7 +78,7 @@ Only 2 out of 14,157 genes are significant at FDR \< 0.05 (around 0.014%). This 
 
 ## Volcano plot
 
-Here, I create a volcano plot showing log2 fold changes and adjusted p-values. Genes with FDR \< 0.05 are highlighted.
+Here, we create a volcano plot showing log2 fold changes and adjusted p-values. Genes with FDR \< 0.05 are highlighted.
 
 ```{r}
 volcano_data <- de_results |>
@@ -96,7 +100,7 @@ volcano_plot
 ```
 
 ```{r}
-ggsave(filename = "../results/plots/07_volcano_alive_vs_dead.png",
+ggsave(filename = "../results/07_volcano_alive_vs_dead.png",
        plot = volcano_plot,
        width = 7,
        height = 5)
@@ -106,7 +110,7 @@ The volcano plot confirms that only a few genes are significant. Most points lie
 
 ## Top differentially expressed genes
 
-I extract the 3 genes with the smallest adjusted p-values.
+We extract the 3 genes with the smallest adjusted p-values.
 
 ```{r}
 top_de_genes <- de_results |>
@@ -122,7 +126,7 @@ These genes show the strongest association between expression and vital status a
 
 ## Boxplots for those 3 genes
 
-To visualise the differences directly, I create boxplots for the top 3 genes.
+To visualise the differences directly, we create boxplots for the top 3 genes.
 
 ```{r}
 top3_ids <- top_de_genes |>
@@ -147,7 +151,7 @@ gene_boxplot
 ```
 
 ```{r}
-ggsave(filename = "../results/plots/07_top3_boxplots_alive_vs_dead.png",
+ggsave(filename = "../results/07_boxplots_alive_vs_dead.png",
        plot = gene_boxplot,
        width = 7,
        height = 5)
