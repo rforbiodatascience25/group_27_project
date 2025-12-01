@@ -218,7 +218,7 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </ul>
 <h3 id="approach"><strong>Approach</strong></h3>
 
-<img data-src="plots/FlowChart.drawio.svg" class="r-stretch"></section>
+<img data-src="plots/FlowChart.svg" class="r-stretch"></section>
 <section id="materials---load" class="slide level2">
 <h2>Materials - Load</h2>
 <h3 id="article">Article</h3>
@@ -255,7 +255,7 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 <li>Remove genes under this threshold</li>
 </ul></li>
 </ol>
-<p>→ <strong>Final number of genes: 14 157</strong></p>
+<p>→ <span style="color:#f8a47d;"><strong>Final number of genes: 14 157</strong></span></p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top" style="width:100%;">
@@ -4625,36 +4625,36 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">TCGA-09-2048-01A</td>
-<td style="text-align: left;">TCGA-09-2048</td>
+<td style="text-align: left;">TCGA-13-1817-02A</td>
+<td style="text-align: left;">TCGA-13-1817</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-59-2351-01A</td>
-<td style="text-align: left;">TCGA-59-2351</td>
+<td style="text-align: left;">TCGA-24-1427-01A</td>
+<td style="text-align: left;">TCGA-24-1427</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TCGA-24-2029-01A</td>
-<td style="text-align: left;">TCGA-24-2029</td>
+<td style="text-align: left;">TCGA-30-1891-01A</td>
+<td style="text-align: left;">TCGA-30-1891</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-VG-A8LO-01A</td>
-<td style="text-align: left;">TCGA-VG-A8LO</td>
+<td style="text-align: left;">TCGA-61-2002-01A</td>
+<td style="text-align: left;">TCGA-61-2002</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TCGA-29-1692-02A</td>
-<td style="text-align: left;">TCGA-29-1692</td>
+<td style="text-align: left;">TCGA-61-1907-01A</td>
+<td style="text-align: left;">TCGA-61-1907</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-24-1467-01A</td>
-<td style="text-align: left;">TCGA-24-1467</td>
+<td style="text-align: left;">TCGA-10-0926-01A</td>
+<td style="text-align: left;">TCGA-10-0926</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TCGA-25-1626-01A</td>
-<td style="text-align: left;">TCGA-25-1626</td>
+<td style="text-align: left;">TCGA-13-0805-01A</td>
+<td style="text-align: left;">TCGA-13-0805</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-29-1762-01A</td>
-<td style="text-align: left;">TCGA-29-1762</td>
+<td style="text-align: left;">TCGA-10-0936-01A</td>
+<td style="text-align: left;">TCGA-10-0936</td>
 </tr>
 </tbody>
 </table>
@@ -4818,10 +4818,12 @@ using the identifier <strong>sample</strong></li>
 <p><img data-src="plots/04_age_distribution.png"></p>
 </div><div class="column">
 <h4 id="gene-expression-distribution">Gene Expression Distribution</h4>
-<p>The histogram displays the distribution of log2-transformed gene-expression values.</p>
-<p>After removing genes with zero or extremely low expression, the overall mean expression shifts upward and the distribution becomes more symmetric.</p>
-<p>This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.</p>
-<p><img data-src="plots/04_age_tumorstage.png"></p>
+<p>The histogram displays the distribution of log2-transformed gene-expression values. - Histogram of log2-transformed gene-expression values</p>
+<ul>
+<li><p>Genes with zero or extremely low expression removed</p></li>
+<li><p>Mean expression shifted upward; distribution more symmetric</p></li>
+</ul>
+<p><img data-src="plots/04_age_tumorstage.png"> - Confirms dataset is clean and suitable for analysis</p>
 </div></div>
 </section>
 <section id="methods---analysis-1" class="slide level2">
@@ -4833,7 +4835,7 @@ using the identifier <strong>sample</strong></li>
 <li><p>Grouping by sample</p></li>
 <li><p>Plot for FIGO stage, alive status, age, etc.</p></li>
 </ul>
-<p>=&gt; No correlation was found, but this allowed us to conclude that the phenotype data set lacked sufficient variability to reveal real biological effects.</p>
+<p>→ No correlation was found, but this allowed us to conclude that the phenotype data set lacked sufficient variability to reveal real biological effects.</p>
 <p><span style="color:#f8a47d;"><em>Biological relevance of most variant genes</em></span></p>
 <ul>
 <li><p>Extract top 10 genes with most variance</p></li>
@@ -4952,6 +4954,16 @@ on gene expression at the genome-wide level<br>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
+<ol type="1">
+<li><p><span style="color:#f8a47d;"><em>Clinical variables distributions</em></span>: Exploration of FIGO stage, age, ethnicity and vital status show highly imbalanced distribution</p>
+<p>→ Difficult to detect strong association</p></li>
+<li><p><span style="color:#f8a47d;"><em>PCA of gene expression</em></span> : Showed that the major sources of variation in transcriptomic data were not related to other clinical variables (no distinct clusters)</p>
+<p>→ Transcriptomic differences betweens groups are subtle</p></li>
+<li><p><span style="color:#f8a47d;"><em>Differential expression</em></span>: Out of 14’000 tested genes, only two genes remained significant after FDR correction</p>
+<p>→ Survival is not a major driver expression differences in this cohort</p></li>
+</ol>
+<p><span style="color:#f8a47d;"><strong>Conclusion</strong></span></p>
+<p>The analyses show that clinical variables alone cannot explain expression variability, and demonstrate that the dataset likely reflects complex biology, where survival differences cannot be captured by single-gene effects.</p>
 
 </section>
     </div>

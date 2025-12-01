@@ -24,7 +24,7 @@ execute:
 
 ### **Approach**
 
-![](plots/FlowChart.drawio.svg)
+![](plots/FlowChart.svg)
 
 ## Materials - Load
 
@@ -250,23 +250,15 @@ data_augmented |>
 ::: column
 #### Gene Expression Distribution
 
-<<<<<<< HEAD
 The histogram displays the distribution of log2-transformed gene-expression values.
-=======
 -   Histogram of log2-transformed gene-expression values
 
 -   Genes with zero or extremely low expression removed
->>>>>>> 2a195a7d10e33bc5029c39b186ac558c4ee74dc9
 
 -   Mean expression shifted upward; distribution more symmetric
 
-<<<<<<< HEAD
 ![](plots/04_age_tumorstage.png)
-=======
 -   Confirms dataset is clean and suitable for analysis
-
-![](../results/04_age_tumorstage.png)
->>>>>>> 2a195a7d10e33bc5029c39b186ac558c4ee74dc9
 :::
 :::::
 
@@ -344,11 +336,7 @@ data_augmented |>
 :::
 
 ::: column
-<<<<<<< HEAD
 ![](plots/06_pca_scree.png){width="80%"} ![](plots/06_pca_pc1_pc2.png){width="80%"}
-=======
-![](../results/06_pca_scree.png){width="80%"} ![](../results/06_pca_pc1_pc2.png){width="80%"}
->>>>>>> 2a195a7d10e33bc5029c39b186ac558c4ee74dc9
 :::
 :::::
 
@@ -385,11 +373,7 @@ data_augmented |>
 :::
 
 ::: column
-<<<<<<< HEAD
 ![](plots/07_volcano_alive_vs_dead.png){width="80%"} ![](plots/07_boxplots_alive_vs_dead.png){width="80%"}
-=======
-![](../results/07_volcano_alive_vs_dead.png){width="80%"} ![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
->>>>>>> 2a195a7d10e33bc5029c39b186ac558c4ee74dc9
 :::
 :::::
 
