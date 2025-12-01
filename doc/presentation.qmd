@@ -24,7 +24,7 @@ execute:
 
 ### **Approach**
 
-![](plots/FlowChart.svg)
+![](../results/Flowchart.svg)
 
 ## Materials - Load
 
@@ -242,6 +242,7 @@ data_augmented |>
 -   Impacted variable: figo_stage.diagnosis (cancer stage)
 -   Quality and integrity
 
+
 ![](plots/04_age_tumorstage.png)
 
 
@@ -287,9 +288,9 @@ data_augmented |>
 
 ```
 
-![](plots/05_figo_stages.png){width="70%"}
+![](../results/05_figo_stages.png){width="70%"}
 
-![](plots/05_immune_ethnicity.png){width="85%"}
+![](../results/05_immune_ethnicity.png){width="85%"}
 :::
 :::::
 
@@ -319,7 +320,7 @@ data_augmented |>
 :::
 
 ::: column
-![](plots/06_pca_scree.png){width="80%"} ![](plots/06_pca_pc1_pc2.png){width="80%"}
+![](../results/06_pca_scree.png){width="80%"} ![](../results/06_pca_pc1_pc2.png){width="80%"}
 :::
 :::::
 
@@ -352,7 +353,7 @@ data_augmented |>
 :::
 
 ::: column
-![](plots/07_volcano_alive_vs_dead.png){width="80%"} ![](plots/07_boxplots_alive_vs_dead.png){width="80%"}
+![](../results/07_volcano_alive_vs_dead.png){width="80%"} ![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
 :::
 :::::
 
