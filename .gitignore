@@ -1,7 +1,7 @@
 # Raw data
 data/
 
-# 🔧 Intermediate data files (automatically generated)
+# Intermediate data files (automatically generated)
 data/*.tsv
 
 # R / Quarto temporary files
@@ -21,6 +21,4 @@ data/*.tsv
 *.bak
 
 /.quarto/
-
-*_files/
 _freeze/
