@@ -96,7 +96,7 @@ volcano_plot
 ```
 
 ```{r}
-ggsave(filename = "../results/plots/07_volcano_alive_vs_dead.png",
+ggsave(filename = "../results/07_volcano_alive_vs_dead.png",
        plot = volcano_plot,
        width = 7,
        height = 5)
