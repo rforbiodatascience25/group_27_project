@@ -9,15 +9,26 @@ editor: visual
 class: center, middle
 ---
 
+## Flow Chart
+
+![](images/FlowChart.drawio.svg)
+
 ## Load
 
 ```{r}
+#| echo: false
+#| eval: true 
+     
 library("tidyverse")
 ```
 
 ```{r}
+#| echo: false
+#| eval: true 
+
 phenotype <- readRDS("../data/phenotype_clean.rds")
 gen_exp <- readRDS("../data/gen_exp_clean.rds")
+phenotype_og <- readRDS("../data/phenotype.rds")
 #data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
@@ -30,11 +41,8 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 #### [Gene expression dataset]{.underline}
 
 -   TCGA ovarian cancer cohort
-
 -   **FPKM** = *Fragments Per Kilobase of transcript per Million mapped reads* → normalized gene-expression metric
-
 -   **Format:** TSV (`TCGA-OV.star_fpkm.tsv`)
-
 -   **Dimensions:** **60 660 genes** × **430 samples**
 
 #### [Clinical dataset]{.underline}
@@ -65,39 +73,221 @@ Too many genes in the dataset for analysis (60 600 genes)
 knitr::kable(head(gen_exp, 8))
 ```
 
-## Clean
+## Clean 2
 
-phenotype table :
+::::: columns
+::: column
+*Removal of [columns]{style="color:#f8a47d;"}:*
 
--   remove some variables (repetitive or useless)
+-   Long lists of characters used for identification
+
+-   Repeated content in different columns
+
+-   Columns with the same observation for each sample
+
+-   Columns with "NA" or "Not reported" for each row
+
+-   Replace categorical variable with 2 possible cases by a boolean
+
+*Removal of [rows]{style="color:#f8a47d;"}:* 8 samples with NAs for (almost) all columns
+:::
+
+::: column
+```{r}
+#| echo: true    # show code
+#| eval: false   # don't run it
+phenotype_clean <- phenotype_clean |> 
+  mutate(
+    vital_status.demographic = case_when(
+      vital_status.demographic == "Alive" ~ TRUE,
+      vital_status.demographic == "Dead" ~ FALSE,
+      TRUE ~ NA)
+    )|>
+  rename(alive=vital_status.demographic)
+
+```
+:::
+:::::
 
 ```{r}
-knitr::kable(head(phenotype, 8))
+#| echo: false    # don't show code
+#| eval: true     # run it
+
+# Show repetitive content
+table1 <- phenotype_og |> 
+  slice_sample(n = 10) |> 
+  select(c(sample, submitter_id))
+
+# Show alive/dead old variable
+table2 <- phenotype_og |>
+  slice_head(n = 10)
+
+# Show alive/dead new variable
+table3 <- phenotype |>
+  slice_head(n = 10)
+
+# Combine columns for presentation
+table4 <- bind_cols(
+  table2 |> select(vital_status.demographic),
+  table3 |> select(alive)
+)
+
 ```
+
+::::: columns
+::: column
+```{r}
+knitr::kable(head(table1, 8))
+
+```
+:::
+
+::: column
+```{r}
+knitr::kable(head(table4, 8))
+
+
+```
+:::
+:::::
 
 ## Augment
 
-joining of the datasets
+::::: columns
+::: column
+### 1. Reshape
+
+-   Convert gene-expression table **wide → long**\
+    (1 row = 1 gene × 1 sample)
+
+### 2. Join
+
+-   Merge **gene expression + clinical phenotype**\
+    using the identifier **sample**
+
+### 3. Create
+
+-   `log2_expression` (variance-stabilized)
+-   `age_cat` (young / middle / senior)
+
+**Output:** one **tidy**, **merged**, **augmented** dataset\
+(saved as `data_augmented.rds`)
+:::
+
+::: column
+```{r}
+#| echo: true 
+#| eval: false  
+
+gen_exp_long <- gen_exp_clean |> 
+  pivot_longer(
+    cols = -Ensembl_ID,
+    names_to = "sample",
+    values_to = "expression"
+  )
+
+
+
+full_data <- gen_exp_long |> 
+  left_join(phenotype_clean, by = "sample") |> 
+  relocate(sample, .before = Ensembl_ID)
+
+
+
+full_data <- full_data |> 
+  mutate(
+    log2_expression = log2(expression + 1),
+    age_cat = case_when(
+      age_at_index.demographic < 50 ~ "young",
+      age_at_index.demographic < 65 ~ "middle",
+      age_at_index.demographic >= 65 ~ "senior",
+      TRUE ~ NA_character_
+    )
+  )
+```
+:::
+:::::
+
+```{r}
+data_augmented |> 
+  select(
+    sample, 
+    Ensembl_ID, 
+    expression, 
+    race.demographic, 
+    alive
+  ) |> 
+  slice_head(n = 3) |> 
+  knitr::kable()
+```
 
 ## Describe
 
-![](plots/age.png)
+**Full data:**
 
-## Analysis
+-   Size: 6'073'353 samples (rows), 53 variables (columns)
+-   Impacted variable: figo_stage.diagnosis (cancer stage)
+-   Quality and integrity
 
+![](../results/04_age_distribution.png)
+
+## Describe
+
+### Gene Expression Distribution
+
+The histogram displays the distribution of log2-transformed gene-expression values.
+
+After removing genes with zero or extremely low expression, the overall mean expression shifts upward and the distribution becomes more symmetric.
+
+This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
+
+![](images/gene exp distribution)
+
+## Analysis 1
+
+::::: columns
+::: column
+[*Analysis of the distribution of variables*]{style="color:#f8a47d;"}
+
+-   Grouping by sample
+
+-   Plot for FIGO stage, alive status, age, etc.
+
+=\> No correlation was found, but this allowed us to conclude that the phenotype data set lacked sufficient variability to reveal real biological effects.
+
+[*Biological relevance of most variant genes*]{style="color:#f8a47d;"}
+
+-   Extract top 10 genes with most variance
+
+-   Translate Ensembl ID to gene code
+
+-   The genes found are all immunoglobulin genes, which reflect variance in immune involvement among patients
+
+| Ensembl_ID        | Gene symbol |
+|-------------------|-------------|
+| ENSG00000211592.8 | IGKC        |
+| ENSG00000211896.7 | IGHG1       |
+| ENSG00000239951.1 | IGKV3-20    |
+| ENSG00000211598.2 | IGKV4-1     |
+| ENSG00000253755.1 | IGHGP       |
+:::
+
+::: column
 ```{r}
 #| echo: true      # show code
 #| eval: false     # don’t run it
-5
+
+data_augmented |>
+  group_by(sample) |>
+  slice(1) |>
+  ggplot(aes(x = figo_stage.diagnoses)) +
+    geom_bar()
 
 ```
 
-```{r}
-#| echo: true      # show code
-#| eval: true     # run it
-5
-
-```
+![](../results/figostages_analysis1.png){width="70%"} ![](../results/IS_ethnicity_analysis1.png){width="85%"}
+:::
+:::::
 
 ## Analysis 2 - PCA on gene expression (top 500 most variable genes)
 
@@ -125,43 +315,43 @@ joining of the datasets
 :::
 
 ::: column
-<img src="plots/06_pca_scree.png" style="background:white; width:80%;">
-<img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;">
+<img src="plots/06_pca_scree.png" style="background:white; width:80%;"/> <img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;"/>
 :::
 :::::
 
-
 ## Analysis 3 - Differential expression: alive vs dead
 
-::: columns
+::::: columns
 ::: column
 #### Aim
-- Test whether gene expression differs  
-  between **alive** and **dead** patients.
+
+-   Test whether gene expression differs\
+    between **alive** and **dead** patients.
 
 #### Methods
-- Augmented dataset (`data_augmented`)
-- Kept samples with known **alive** status
-- Per gene:
-  - log2 expression
-  - **two-sample t-test**
-  - FDR correction (Benjamini–Hochberg)
+
+-   Augmented dataset (`data_augmented`)
+-   Kept samples with known **alive** status
+-   Per gene:
+    -   log2 expression
+    -   **two-sample t-test**
+    -   FDR correction (Benjamini–Hochberg)
 
 #### Key results
-- ~14,157 genes tested
-- **Only 2 genes** significant at FDR < 0.05  
-  (~0.014% of all genes)
-- Most genes have **very small** log2 fold changes
+
+-   \~14,157 genes tested
+-   **Only 2 genes** significant at FDR \< 0.05\
+    (\~0.014% of all genes)
+-   Most genes have **very small** log2 fold changes
 
 #### Conclusion
-- Vital status has only a **weak effect**  
-  on gene expression at the genome-wide level  
-  → consistent with PCA (no clear separation)
+
+-   Vital status has only a **weak effect**\
+    on gene expression at the genome-wide level\
+    → consistent with PCA (no clear separation)
 :::
 
 ::: column
-  <img src="plots/07_volcano_alive_vs_dead.png" style="background:white; width:80%;">
-    <img src="plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;">
+<img src="plots/07_volcano_alive_vs_dead.png" style="background:white; width:80%;"/> <img src="plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;"/>
 :::
-:::
-
+:::::
