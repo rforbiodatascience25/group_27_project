@@ -53,11 +53,21 @@ phenotype |> slice_sample(n=10)
 
 joining of the datasets
 
-## Describe
+## Describe 
+
+Full data:
+- Size: 6073353 samples (rows), 53 variables (columns)
+- Impacted variable: figo_stage.diagnosis (cancer stage)
+- Quality and integrity
+
+![](../results/04_age_distribution.png)
 
 
+## Describe 
 
-![](images/age.png)
+
+![](../results/04_age_tumorstage.png)
+
 
 ## Analysis
 
