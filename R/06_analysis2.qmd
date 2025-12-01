@@ -125,8 +125,7 @@ scree_plot <- scree_df |>
   labs(
     title = "Variance explained by principal components",
     x = "Principal component",
-    y = "Proportion of variance explained") +
-  theme_minimal()
+    y = "Proportion of variance explained")
 
 scree_plot
 
@@ -177,8 +176,7 @@ pc1_pc2_plot <- scores |>
     title = "PCA on top 500 most variable genes",
     subtitle = "Colour: alive status, shape: age category",
     x = pc1_label,
-    y = pc2_label) +
-  theme_minimal()
+    y = pc2_label)
 
 pc1_pc2_plot
 ```

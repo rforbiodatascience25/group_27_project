@@ -224,6 +224,8 @@ data_augmented |>
 
 ## Methods - Describe
 
+::::: columns
+::: column
 **Full data:**
 
 -   Size: 6'073'353 samples (rows), 53 variables (columns)
@@ -231,9 +233,9 @@ data_augmented |>
 -   Quality and integrity
 
 ![](../results/04_age_distribution.png)
+:::
 
-## Methods - Describe
-
+::: column
 ### Gene Expression Distribution
 
 The histogram displays the distribution of log2-transformed gene-expression values.
@@ -243,6 +245,9 @@ After removing genes with zero or extremely low expression, the overall mean exp
 This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
 
 ![](../results/04_age_tumorstage.png)
+:::
+:::::
+
 
 ## Methods - Analysis 1
 
@@ -318,7 +323,8 @@ data_augmented |>
 :::
 
 ::: column
-<img src="plots/06_pca_scree.png" style="background:white; width:80%;"/> <img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;"/>
+![](../results/06_pca_scree.png){width="80%"}
+![](../results/06_pca_pc1_pc2.png){width="80%"}
 :::
 :::::
 
@@ -355,7 +361,7 @@ data_augmented |>
 :::
 
 ::: column
-![](../results/07_volcano_alive_vs_deadpng){width="80%"}
+![](../results/07_volcano_alive_vs_dead.png){width="80%"}
 ![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
 :::
 :::::

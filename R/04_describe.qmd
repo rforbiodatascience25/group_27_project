@@ -159,7 +159,6 @@ patient_level |>
   geom_histogram(bins = 30, fill = "skyblue", color = "white") +
   geom_vline(aes(xintercept = mean(age)), color = "red",
              linetype = "dashed", size = 1) +
-  theme_minimal() +
   labs(
     title = "Distribution of Age at Diagnosis (Patient Level)",
     x = "Age",
@@ -198,7 +197,6 @@ patient_level |>
   ggplot(aes(x = figo_stage, y = age)) +
   geom_boxplot(fill = "skyblue") +
   geom_jitter(color="black", size=0.4, alpha=0.5) +
-  theme_minimal() +
   labs(
     title = "Age Distribution by Tumor Stage (Patient Level)",
     x = "Tumor Stage",
@@ -230,7 +228,6 @@ subset_data |>
   ggplot(aes(x = Ensembl_ID, y = log2_expression)) +
   geom_boxplot(fill = "skyblue") +
   geom_jitter(color="black", size=0.4, alpha=0.5) +
-  theme_minimal() +
   labs(
     title = "Log2 Expression of Randomly Selected Genes",
     x = "Gene (Ensembl ID)",
@@ -252,7 +249,6 @@ data_augmented |>
   geom_histogram(bins = 50, fill = "skyblue", color = "white") +
   geom_vline(aes(xintercept = mean(log2_expression)), color = "red",
              linetype = "dashed", size = 1) +
-  theme_minimal() +
   labs(title = "Gene Expression Distribution",
        x = "Expression Level",
        y = "Count")
