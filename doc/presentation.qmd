@@ -25,28 +25,58 @@ gen_exp <- readRDS("../data/gen_exp_clean.rds")
 #data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
-article : *Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects*
+### Article
 
-dataset :
+**Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects**
 
--   clinical dataset : phenotype for ovarian cancer
+### Dataset
 
--   gene expression dataset : RNAseq for ovarian cancer
+#### [Gene expression dataset]{.underline}
 
-source : The Cancer Genome Atlas (TCGA) ovarian cancer collection
+-   TCGA ovarian cancer cohort
 
-## Clean
+-   **FPKM** = *Fragments Per Kilobase of transcript per Million mapped reads* → normalized gene-expression metric
 
--   gene table : remove some genes
+-   **Format:** TSV (`TCGA-OV.star_fpkm.tsv`)
+
+-   **Dimensions:** **60 660 genes** × **430 samples**
+
+#### [Clinical dataset]{.underline}
+
+-   Patient phenotype / clinical variables from TCGA-OV
+
+-   **Format:** TSV (`TCGA-OV.clinical.tsv`)
+
+-   **Dimensions:** **632 patients** × **84 clinical variables**
+
+### Source
+
+**The Cancer Genome Atlas (TCGA) – Ovarian cancer collection**
+
+## Clean 1 : Gene table
+
+Too many genes in the dataset for analysis (60 600 genes)
+
+1.  Delete all genes with no expression for each sample\
+2.  Find non-relevant genes:
+    -   Calculate the sum of expression for each gene\
+    -   Plot the sum to choose a threshold\
+    -   Remove genes under this threshold
+
+→ **Final number of genes: 14 157**
 
 ```{r}
 knitr::kable(head(gen_exp, 8))
 ```
 
--   phenotype table : remove some variables (repetitive or useless)
+## Clean
+
+phenotype table :
+
+-   remove some variables (repetitive or useless)
 
 ```{r}
-phenotype |> slice_sample(n=10)
+knitr::kable(head(phenotype, 8))
 ```
 
 ## Augment
@@ -55,9 +85,9 @@ joining of the datasets
 
 ## Describe 
 
-Full data:
+**Full data:**
 
--   Size: 6073353 samples (rows), 53 variables (columns)
+-   Size: 6'073'353 samples (rows), 53 variables (columns)
 -   Impacted variable: figo_stage.diagnosis (cancer stage)
 -   Quality and integrity
 
@@ -85,3 +115,70 @@ Full data:
 5
 
 ```
+
+## Analysis 2 - PCA on gene expression (top 500 most variable genes)
+
+::::: columns
+::: column
+#### Aim
+
+-   Explore global structure of RNA-seq data\
+-   Check if patients separate by:
+    -   **survival status** (alive vs dead)
+    -   **age category**
+
+#### Approach
+
+-   Use augmented dataset (`data_augmented`)
+-   Select **500 most variable genes** (variance of log2 expression)
+-   Build sample × gene matrix
+-   Run **PCA** on centred & scaled expression
+
+#### Key result
+
+-   PC1 captures most of the variance
+-   **No visible clustering** by survival or age\
+    → main transcriptomic variation **not explained** by these clinical variables
+:::
+
+::: column
+<img src="plots/06_pca_scree.png" style="background:white; width:80%;">
+<img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;">
+:::
+:::::
+
+
+## Analysis 3 - Differential expression: alive vs dead
+
+::: columns
+::: column
+#### Aim
+- Test whether gene expression differs  
+  between **alive** and **dead** patients.
+
+#### Methods
+- Augmented dataset (`data_augmented`)
+- Kept samples with known **alive** status
+- Per gene:
+  - log2 expression
+  - **two-sample t-test**
+  - FDR correction (Benjamini–Hochberg)
+
+#### Key results
+- ~14,157 genes tested
+- **Only 2 genes** significant at FDR < 0.05  
+  (~0.014% of all genes)
+- Most genes have **very small** log2 fold changes
+
+#### Conclusion
+- Vital status has only a **weak effect**  
+  on gene expression at the genome-wide level  
+  → consistent with PCA (no clear separation)
+:::
+
+::: column
+  <img src="plots/07_volcano_alive_vs_dead.png" style="background:white; width:80%;">
+    <img src="plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;">
+:::
+:::
+
