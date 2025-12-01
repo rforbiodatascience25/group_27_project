@@ -377,26 +377,25 @@ data_augmented |>
 
 1. <span style="color:#f8a47d;">Clinical variables distributions</span><br>
    When exploring the clinical variables, we found that the dataset is **extremely unbalanced**:  
-   most patients are late‐stage high-grade serous ovarian cancer, with very similar ages and clinical characteristics.
+   most patients have late stage ovarian cancer, with very similar ages and clinical characteristics.
    <br>  
-   
    → This **lack of variability** reduces our ability to detect strong associations.
 
 2. <span style="color:#f8a47d;">*PCA of gene expression*</span><br>
    PCA on the most variable genes showed **no clustering** for age, survival or any other phenotype.  
-   
    → This indicates that the **main differences in gene expression** across patients do **not correspond** to the clinical groups tested.
    <br>
 
 3. <span style="color:#f8a47d;">*Differential expression*</span><br>
-   Differential expression confirmed this: out of ~14’000 tested genes, **only two** remained significant after FDR correction.  
-   
+   Differential expression showed that **only two** genes remained significant after FDR correction.  
    → Survival is therefore **not associated with strong transcriptomic changes** in this cohort.
    <br><br>
 
 ### **Conclusion**
 
 Overall, our analyses show that the **TCGA-OV dataset lacks sufficient clinical and molecular variability** to identify transcriptomic signatures linked to survival or other phenotypes.  
+
 Most patients share the **same tumor type** and **late disease stage**, which likely masks underlying biological differences.  
+
 Therefore, in this cohort, **no strong conclusion can be drawn** regarding gene-expression predictors of clinical outcomes.
 
