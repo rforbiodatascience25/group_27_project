@@ -378,8 +378,8 @@ data_augmented |>
 1. <span style="color:#f8a47d;">Clinical variables distributions</span><br>
    When exploring the clinical variables, we found that the dataset is **extremely unbalanced**:  
    most patients have late stage ovarian cancer, with very similar ages and clinical characteristics.
-   <br>  
    → This **lack of variability** reduces our ability to detect strong associations.
+   <br>
 
 2. <span style="color:#f8a47d;">*PCA of gene expression*</span><br>
    PCA on the most variable genes showed **no clustering** for age, survival or any other phenotype.  
