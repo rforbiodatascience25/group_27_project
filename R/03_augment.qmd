@@ -28,7 +28,7 @@ For further analyses, it is more convenient to work in a long format: one row pe
 
 ```{r}
 gen_exp_long <- gen_exp_clean |>
-  pivot_longer(cols = -c(Ensembl_ID, sum_gene_exp),
+  pivot_longer(cols = -c(Ensembl_ID),
                names_to = "sample",
                values_to = "expression"
                )

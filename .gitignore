@@ -10,6 +10,7 @@ data/*.tsv
 .Rproj.user/
 .Ruserdata
 .DS_Store
+.RDataTmp
 
 # Quarto cache and log files
 *_cache/
@@ -20,3 +21,6 @@ data/*.tsv
 *.bak
 
 /.quarto/
+
+*_files/
+_freeze/

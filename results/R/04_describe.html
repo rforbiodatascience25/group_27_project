@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>04 - describe</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="04_describe_files/libs/clipboard/clipboard.min.js"></script>
+<script src="04_describe_files/libs/quarto-html/quarto.js"></script>
+<script src="04_describe_files/libs/quarto-html/popper.min.js"></script>
+<script src="04_describe_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="04_describe_files/libs/quarto-html/anchor.min.js"></script>
+<link href="04_describe_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="04_describe_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="04_describe_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="04_describe_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="04_describe_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">04 - describe</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="loading-libraries-and-data" class="level3">
+<h3 class="anchored" data-anchor-id="loading-libraries-and-data">0.Loading libraries and data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load 3 tables</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>phenotype_clean <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/phenotype_clean.rds"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>gen_exp_clean <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/gen_exp_clean.rds"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/data_augmented.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="general-information" class="level2">
+<h2 class="anchored" data-anchor-id="general-information">1. General information</h2>
+<p>The analysis will be based on the article <em>Comparison of gene expression patterns across twelve tumor types identifies a cancer supercluster characterized by TP53 mutations and cell cycle defects</em>. The datasets used in the article are from the The Cancer Genome Atlas (TCGA) ovarian cancer collection. In the article, compares gene-expression profiles across multiple tumor types to identify transcriptional superclusters.</p>
+<p>Two different data sets are used:</p>
+<ul>
+<li><p>A clinical dataset: TCGA-OV.clinical.tsv</p></li>
+<li><p>A gene expression dataset: TCGA-OV.star_fpkm.tsv</p></li>
+</ul>
+<p>The clinical and transcriptomic datasets for the TCGA ovarian cancer cohort will be used to search for gene expression associations with clinical variables and outcomes.</p>
+</section>
+<section id="dataset-descriptions" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-descriptions">2. Dataset descriptions</h2>
+<section id="clinical-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="clinical-dataset">Clinical dataset</h3>
+<ul>
+<li><p>Format: Tab-separated values (TSV) file.</p></li>
+<li><p>Contains clinical variables from the TCGA ovarian cancer cohort. As it contains observations about the patients, it is called <code>phenotype</code> in this project.</p></li>
+<li><p>Size: There are 632 patients as rows and 84 clinical variables as columns.</p></li>
+<li><p>Key variables and data types: The following variables are most relevant for the analysis, - <code>alive</code> (bool),</p>
+<ul>
+<li><code>figo_stage.diagnoses</code> (chr),</li>
+<li><code>morphology.diagnoses</code> (chr, the first part encodes the tumor type, the second part encodes the malignancy),</li>
+<li><code>age_at_earliest_diagnosis_in_years.diagnoses.xena_derived</code> (numeric),</li>
+<li><code>treatment_type.treatments.diagnoses</code> (chr, indicating the type of treatement),</li>
+</ul></li>
+<li><p>Needed cleaning: The dataset contains a lot of redundant variables (e.g.&nbsp;many instances of a variable indicating the ID), many have been combined into a single one or have been removed altogether. Also the variable containing information about the gender has been removed as all patients with ovarian cancer are female. Some variables contain annotations to the patients, but as most are empty and irrelevant for the analysis they have been removed as well.</p></li>
+<li><p>Size after cleaning: 624 patients on the rows, 52 clinical variables on the columns.</p></li>
+</ul>
+<p>Underneath, 10 randomly selected rows of the set are shown to understand the structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>phenotype_clean <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 49
+   sample    race.demographic ethnicity.demographic alive age_at_index.demogra…¹
+   &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;                  &lt;dbl&gt;
+ 1 TCGA-13-… white            not hispanic or lati… TRUE                      57
+ 2 TCGA-25-… white            not hispanic or lati… FALSE                     71
+ 3 TCGA-30-… not reported     not reported          FALSE                     46
+ 4 TCGA-61-… not reported     not reported          TRUE                      65
+ 5 TCGA-04-… white            not hispanic or lati… FALSE                     53
+ 6 TCGA-13-… white            not hispanic or lati… TRUE                      42
+ 7 TCGA-30-… white            not hispanic or lati… FALSE                     56
+ 8 TCGA-24-… black or africa… not reported          FALSE                     82
+ 9 TCGA-13-… white            not hispanic or lati… FALSE                     60
+10 TCGA-13-… white            not hispanic or lati… TRUE                      53
+# ℹ abbreviated name: ¹​age_at_index.demographic
+# ℹ 44 more variables: days_to_birth.demographic &lt;dbl&gt;,
+#   year_of_birth.demographic &lt;dbl&gt;, days_to_death.demographic &lt;dbl&gt;,
+#   year_of_death.demographic &lt;dbl&gt;, code.tissue_source_site &lt;chr&gt;,
+#   name.tissue_source_site &lt;chr&gt;, bcr_id.tissue_source_site &lt;chr&gt;,
+#   notes.annotations &lt;chr&gt;, submitter_id.annotations &lt;chr&gt;,
+#   classification.annotations &lt;chr&gt;, created_datetime.annotations &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="gene-expression-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="gene-expression-dataset">Gene expression dataset</h3>
+<ul>
+<li><p>Format: Tab-separated values (TSV) file.</p></li>
+<li><p>Contains gene expression data (FPKM) from the TCGA ovarian cancer cohort.</p></li>
+<li><p>The values are FPKM (Fragments Per Kilobase of transcript per Million mapped reads) which is a normalized gene-expression metric.</p></li>
+<li><p>Size: There are 60660 genes on the rows and 430 samples on the columns.</p></li>
+<li><p>Data types: numeric non‐negative values</p></li>
+<li><p>Needed cleaning: Some genes have a null expression level for all samples, these genes have been removed from the dataset. To further reduce the number of genes and keep only the most relevant ones, the summed expression level over all samples for each gene has been computed and the relevant genes were kept based on a threshold. A variable representing this sum of the expression levels for each gene has been added.</p></li>
+<li><p>Size after cleaning: 14157 genes on the rows, 431 variables on the columns.</p></li>
+</ul>
+<p>Underneath, 10 randomly selected rows of the set are shown to understand the structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gen_exp_clean <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 430
+   Ensembl_ID         `TCGA-24-1104-01A` `TCGA-25-1320-01A` `TCGA-24-1850-01A`
+   &lt;chr&gt;                           &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;
+ 1 ENSG00000207696.1                0                 1.22               1.42 
+ 2 ENSG00000106351.13               4.88              2.99               2.32 
+ 3 ENSG00000146232.17               2.16              2.70               3.03 
+ 4 ENSG00000248092.8                1.59              1.42               2.35 
+ 5 ENSG00000075218.19               1.28              2.75               3.42 
+ 6 ENSG00000130787.14               2.32              2.96               2.80 
+ 7 ENSG00000151366.13               4.90              2.85               4.27 
+ 8 ENSG00000171603.18               6.30              6.40               5.00 
+ 9 ENSG00000176014.13               2.79              3.93               4.71 
+10 ENSG00000162873.15               2.82              0.698              0.428
+# ℹ 426 more variables: `TCGA-61-2101-01A` &lt;dbl&gt;, `TCGA-23-1111-01A` &lt;dbl&gt;,
+#   `TCGA-25-2396-01A` &lt;dbl&gt;, `TCGA-30-1714-01A` &lt;dbl&gt;,
+#   `TCGA-04-1347-01A` &lt;dbl&gt;, `TCGA-59-2351-01A` &lt;dbl&gt;,
+#   `TCGA-09-1659-01B` &lt;dbl&gt;, `TCGA-24-1431-01A` &lt;dbl&gt;,
+#   `TCGA-31-1951-01A` &lt;dbl&gt;, `TCGA-29-1769-01A` &lt;dbl&gt;,
+#   `TCGA-13-0916-01A` &lt;dbl&gt;, `TCGA-61-1721-01A` &lt;dbl&gt;,
+#   `TCGA-61-2008-02A` &lt;dbl&gt;, `TCGA-20-1687-01A` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="joining-of-the-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="joining-of-the-datasets">Joining of the datasets</h3>
+<p>These two datasets have been combined to one by matching the patient IDs (samples). As the two datasets do not show the same amount of samples (the phenotype dataset is bigger than the gene expression dataset), the IDs that could not be resolved between the two sets have been removed. This leaves only patients who have recorded gene expression data (no gene expression data is lost).</p>
+<p>Two variables have been added: - <code>log2_expression</code> (numeric, gene expression on logarithmic scale) - <code>age_cat</code> (chr, age category the patient belongs to: young, middle, senior)</p>
+<p>In addition to the key variables mentioned for the phenotype (clinical) data and the gene expression values from the gene expression data, these two variables will allow for easier visualization and analysis.</p>
+<p>In the <code>figo_stage.diagnoses</code> variable, the tumor stages IA, IB and the majority of IC have disappeared after joining. This is due to the fact that it it rare to have gene expression data for early stage cancers.</p>
+<p>Underneath, the 10 first rows of the joined set are shown to understand the structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 53
+   sample     Ensembl_ID expression race.demographic ethnicity.demographic alive
+   &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;
+ 1 TCGA-24-1… ENSG00000…      1.40  white            not reported          FALSE
+ 2 TCGA-25-1… ENSG00000…      0.624 white            not hispanic or lati… FALSE
+ 3 TCGA-24-1… ENSG00000…      0.523 white            not reported          TRUE 
+ 4 TCGA-61-2… ENSG00000…      0.371 white            not hispanic or lati… FALSE
+ 5 TCGA-23-1… ENSG00000…      1.37  white            not reported          TRUE 
+ 6 TCGA-25-2… ENSG00000…      0.462 white            not hispanic or lati… FALSE
+ 7 TCGA-30-1… ENSG00000…      1.51  white            not hispanic or lati… FALSE
+ 8 TCGA-04-1… ENSG00000…      0.901 white            not hispanic or lati… TRUE 
+ 9 TCGA-59-2… ENSG00000…      0.490 white            not hispanic or lati… TRUE 
+10 TCGA-09-1… ENSG00000…      0.796 white            not hispanic or lati… FALSE
+# ℹ 47 more variables: age_at_index.demographic &lt;dbl&gt;,
+#   days_to_birth.demographic &lt;dbl&gt;, year_of_birth.demographic &lt;dbl&gt;,
+#   days_to_death.demographic &lt;dbl&gt;, year_of_death.demographic &lt;dbl&gt;,
+#   code.tissue_source_site &lt;chr&gt;, name.tissue_source_site &lt;chr&gt;,
+#   bcr_id.tissue_source_site &lt;chr&gt;, notes.annotations &lt;chr&gt;,
+#   submitter_id.annotations &lt;chr&gt;, classification.annotations &lt;chr&gt;,
+#   created_datetime.annotations &lt;chr&gt;, updated_datetime.annotations &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="quality-and-intergrity" class="level2">
+<h2 class="anchored" data-anchor-id="quality-and-intergrity">3. Quality and intergrity</h2>
+<p>In the phenotype datasets, a few columns containing only NAs have been removed. Some of the variables contained a label “Not Reported” instead of NA. As described above, many variables described redundant information and needed to be removed.</p>
+<p>The gene expression dataset is of good quality and integrity, the only correction needed was to remove uninformative genes.</p>
+<p>Overall the data seems of good quality without aberrant values or errors in the writing of the sets.</p>
+</section>
+<section id="visualisation" class="level2">
+<h2 class="anchored" data-anchor-id="visualisation">4. Visualisation</h2>
+<p>The following graphs will allow to visualize the content of the data set.</p>
+<p>A list of the variables contained in the full dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,073,353
+Columns: 53
+$ sample                                                    &lt;chr&gt; "TCGA-24-110…
+$ Ensembl_ID                                                &lt;chr&gt; "ENSG0000027…
+$ expression                                                &lt;dbl&gt; 1.3958306, 0…
+$ race.demographic                                          &lt;chr&gt; "white", "wh…
+$ ethnicity.demographic                                     &lt;chr&gt; "not reporte…
+$ alive                                                     &lt;lgl&gt; FALSE, FALSE…
+$ age_at_index.demographic                                  &lt;dbl&gt; 56, 65, 72, …
+$ days_to_birth.demographic                                 &lt;dbl&gt; -20527, -240…
+$ year_of_birth.demographic                                 &lt;dbl&gt; 1945, 1936, …
+$ days_to_death.demographic                                 &lt;dbl&gt; 1933, 1155, …
+$ year_of_death.demographic                                 &lt;dbl&gt; 2006, 2004, …
+$ code.tissue_source_site                                   &lt;chr&gt; "24", "25", …
+$ name.tissue_source_site                                   &lt;chr&gt; "Washington …
+$ bcr_id.tissue_source_site                                 &lt;chr&gt; "IGC", "IGC"…
+$ notes.annotations                                         &lt;chr&gt; NA, NA, NA, …
+$ submitter_id.annotations                                  &lt;chr&gt; NA, NA, NA, …
+$ classification.annotations                                &lt;chr&gt; NA, NA, NA, …
+$ created_datetime.annotations                              &lt;chr&gt; NA, NA, NA, …
+$ updated_datetime.annotations                              &lt;chr&gt; NA, NA, NA, …
+$ category.annotations                                      &lt;chr&gt; NA, NA, NA, …
+$ case_submitter_id.annotations                             &lt;chr&gt; NA, NA, NA, …
+$ figo_stage.diagnoses                                      &lt;chr&gt; "Stage IV", …
+$ synchronous_malignancy.diagnoses                          &lt;chr&gt; "Not Reporte…
+$ days_to_last_follow_up.diagnoses                          &lt;dbl&gt; 1933, 1124, …
+$ age_at_diagnosis.diagnoses                                &lt;dbl&gt; 20527, 24018…
+$ primary_diagnosis.diagnoses                               &lt;chr&gt; "Serous cyst…
+$ prior_malignancy.diagnoses                                &lt;chr&gt; "not reporte…
+$ year_of_diagnosis.diagnoses                               &lt;dbl&gt; 2001, 2001, …
+$ prior_treatment.diagnoses                                 &lt;chr&gt; "No", "No", …
+$ morphology.diagnoses                                      &lt;chr&gt; "8441/3", "8…
+$ classification_of_tumor.diagnoses                         &lt;chr&gt; "not reporte…
+$ icd_10_code.diagnoses                                     &lt;chr&gt; "C56.9", "C5…
+$ site_of_resection_or_biopsy.diagnoses                     &lt;chr&gt; "Ovary", "Ov…
+$ age_at_earliest_diagnosis.diagnoses.xena_derived          &lt;dbl&gt; 20527, 24018…
+$ age_at_earliest_diagnosis_in_years.diagnoses.xena_derived &lt;dbl&gt; 56.23836, 65…
+$ updated_datetime.treatments.diagnoses                     &lt;chr&gt; "['2019-07-3…
+$ treatment_type.treatments.diagnoses                       &lt;chr&gt; "['Radiation…
+$ treatment_or_therapy.treatments.diagnoses                 &lt;chr&gt; "['yes', 'ye…
+$ created_datetime.treatments.diagnoses                     &lt;chr&gt; "['', '2019-…
+$ sample_type_id.samples                                    &lt;chr&gt; "01", "01", …
+$ tumor_descriptor.samples                                  &lt;chr&gt; "Primary", "…
+$ sample_type.samples                                       &lt;chr&gt; "Primary Tum…
+$ days_to_collection.samples                                &lt;dbl&gt; NA, NA, NA, …
+$ initial_weight.samples                                    &lt;dbl&gt; NA, NA, NA, …
+$ intermediate_dimension.samples                            &lt;dbl&gt; 1.0, 3.0, 1.…
+$ shortest_dimension.samples                                &lt;dbl&gt; 0.7, 1.0, 0.…
+$ oct_embedded.samples                                      &lt;lgl&gt; NA, NA, NA, …
+$ specimen_type.samples                                     &lt;chr&gt; "Unknown", "…
+$ longest_dimension.samples                                 &lt;dbl&gt; 1.5, 3.4, 2.…
+$ tissue_type.samples                                       &lt;chr&gt; "Tumor", "Tu…
+$ annotations.samples                                       &lt;chr&gt; NA, NA, NA, …
+$ log2_expression                                           &lt;dbl&gt; 1.2605259, 0…
+$ age_cat                                                   &lt;chr&gt; "middle", "s…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_augmented_numeric_summary <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">sd =</span> <span class="sc">~</span><span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">min =</span> <span class="sc">~</span><span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">max =</span> <span class="sc">~</span><span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">missing =</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.x))),</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)) </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>data_augmented_numeric_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 102
+  expression_mean expression_median expression_sd expression_min expression_max
+            &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+1            2.80              2.53          1.68              0           16.1
+# ℹ 97 more variables: expression_missing &lt;int&gt;,
+#   age_at_index.demographic_mean &lt;dbl&gt;, age_at_index.demographic_median &lt;dbl&gt;,
+#   age_at_index.demographic_sd &lt;dbl&gt;, age_at_index.demographic_min &lt;dbl&gt;,
+#   age_at_index.demographic_max &lt;dbl&gt;, age_at_index.demographic_missing &lt;int&gt;,
+#   days_to_birth.demographic_mean &lt;dbl&gt;,
+#   days_to_birth.demographic_median &lt;dbl&gt;, days_to_birth.demographic_sd &lt;dbl&gt;,
+#   days_to_birth.demographic_min &lt;dbl&gt;, days_to_birth.demographic_max &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<section id="distribution-of-the-age-at-diagnosis" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-the-age-at-diagnosis">Distribution of the age at diagnosis</h3>
+<p>The graph is a histogram showing the distribution of patient age at diagnosis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>patient_level <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    sample,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> age_at_earliest_diagnosis_in_years.diagnoses.xena_derived</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>patient_level <span class="sc">|&gt;</span> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(age)), <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Age at Diagnosis (Patient Level)"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Patients"</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_describe_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"../doc/images/age.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+</div>
+<p>The age of patients at diagnosis seems to be normally distributed with a mean (red line) at around ~60 years.</p>
+</section>
+<section id="age-distribution-at-tumor-stage" class="level3">
+<h3 class="anchored" data-anchor-id="age-distribution-at-tumor-stage">Age distribution at tumor stage</h3>
+<p>Tumor stages IA, IB and the majority of IC have disappeared after joining the initial two datasets. Most patients, out of those which also have gene expression data, have ovarian cancer stage IIIC. There are very few data points for stages IC, IIA, IIB and IIIA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(sample, figo_stage.diagnoses) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(figo_stage.diagnoses)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  figo_stage.diagnoses     n
+  &lt;chr&gt;                &lt;int&gt;
+1 Stage IC                 1
+2 Stage IIA                3
+3 Stage IIB                5
+4 Stage IIC               18
+5 Stage IIIA               7
+6 Stage IIIB              17
+7 Stage IIIC             311
+8 Stage IV                64
+9 &lt;NA&gt;                     3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Collapse to one row per patient</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>patient_level <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    sample,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">figo_stage =</span> figo_stage.diagnoses,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> age_at_earliest_diagnosis_in_years.diagnoses.xena_derived</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age), <span class="sc">!</span><span class="fu">is.na</span>(figo_stage))</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>patient_level <span class="sc">|&gt;</span> </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> figo_stage, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution by Tumor Stage (Patient Level)"</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tumor Stage"</span>,</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age at Diagnosis"</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_describe_files/figure-html/unnamed-chunk-10-1.svg" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph shows how age at diagnosis varies across different tumor stages. Stage IIB, IIC, IIIC, and IV show wide spreads in age, meaning patient ages vary a lot within those groups. As seen in the table above, there are few data points for stages IC, IIA, IIB and IIIA. There are some outliers, especially in Stage IIIB.</p>
+</section>
+<section id="boxplot-across-all-samples-of-a-set-of-genes" class="level3">
+<h3 class="anchored" data-anchor-id="boxplot-across-all-samples-of-a-set-of-genes">Boxplot across all samples of a set of genes</h3>
+<p>The graph displays boxplots representing the distribution of gene expression levels for five randomly selected genes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick 5 random genes</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>random_genes <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Ensembl_ID) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Ensembl_ID)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data for the chosen genes</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Ensembl_ID <span class="sc">%in%</span> random_genes)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>subset_data <span class="sc">|&gt;</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Ensembl_ID, <span class="at">y =</span> log2_expression)) <span class="sc">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Log2 Expression of Randomly Selected Genes"</span>,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gene (Ensembl ID)"</span>,</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Log2 Expression"</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_describe_files/figure-html/unnamed-chunk-11-1.svg" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph provides a glance on the gene expression of a selection of 5 genes.</p>
+</section>
+<section id="histogram-of-gene-expression-levels" class="level3">
+<h3 class="anchored" data-anchor-id="histogram-of-gene-expression-levels">Histogram of gene expression levels</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log2_expression)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(log2_expression)), <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gene Expression Distribution"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Expression Level"</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_describe_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The mean log2 gene expression level is at around 1.8. It seems to be normally distributed.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
