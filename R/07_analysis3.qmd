@@ -6,7 +6,7 @@ execute:
   cache: false
 ---
 
-## Differential expression analysis 
+## Differential expression analysis
 
 ## Aim
 

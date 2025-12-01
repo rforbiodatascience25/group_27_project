@@ -238,8 +238,7 @@ subset_data |>
   ) 
 
 
-
-
+ggsave("../results/04_log2_expression.png")
 ```
 
 The graph provides a glance on the gene expression of a selection of 5 genes.
@@ -258,6 +257,7 @@ data_augmented |>
        x = "Expression Level",
        y = "Count")
 
+ggsave("../results/04_histogram_expression.png")
 ```
 
 The mean log2 gene expression level is at around 1.8. It seems to be normally distributed.

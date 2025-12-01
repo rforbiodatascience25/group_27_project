@@ -6,7 +6,7 @@ execute:
   cache: false
 ---
 
-# PCA analysis 
+# PCA analysis
 
 ## Aim
 
