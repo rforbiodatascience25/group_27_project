@@ -41,12 +41,8 @@ phenotype_og <- readRDS("../data/phenotype.rds")
 #### [Gene expression dataset]{.underline}
 
 -   TCGA ovarian cancer cohort
-
-## Clean 1
 -   **FPKM** = *Fragments Per Kilobase of transcript per Million mapped reads* → normalized gene-expression metric
-
 -   **Format:** TSV (`TCGA-OV.star_fpkm.tsv`)
-
 -   **Dimensions:** **60 660 genes** × **430 samples**
 
 #### [Clinical dataset]{.underline}
@@ -159,7 +155,7 @@ knitr::kable(head(table4, 8))
 
 joining of the datasets
 
-## Describe 
+## Describe
 
 **Full data:**
 
@@ -169,12 +165,9 @@ joining of the datasets
 
 ![](../results/04_age_distribution.png)
 
-
-## Describe 
-
+## Describe
 
 ![](../results/04_age_tumorstage.png)
-
 
 ## Analysis 1
 
@@ -221,6 +214,7 @@ data_augmented |>
 ![](../results/figostages_analysis1.png){width="70%"} ![](../results/IS_ethnicity_analysis1.png){width="85%"}
 :::
 :::::
+
 ## Analysis 2 - PCA on gene expression (top 500 most variable genes)
 
 ::::: columns
@@ -247,43 +241,43 @@ data_augmented |>
 :::
 
 ::: column
-<img src="plots/06_pca_scree.png" style="background:white; width:80%;">
-<img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;">
+<img src="plots/06_pca_scree.png" style="background:white; width:80%;"/> <img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;"/>
 :::
 :::::
 
-
 ## Analysis 3 - Differential expression: alive vs dead
 
-::: columns
+::::: columns
 ::: column
 #### Aim
-- Test whether gene expression differs  
-  between **alive** and **dead** patients.
+
+-   Test whether gene expression differs\
+    between **alive** and **dead** patients.
 
 #### Methods
-- Augmented dataset (`data_augmented`)
-- Kept samples with known **alive** status
-- Per gene:
-  - log2 expression
-  - **two-sample t-test**
-  - FDR correction (Benjamini–Hochberg)
+
+-   Augmented dataset (`data_augmented`)
+-   Kept samples with known **alive** status
+-   Per gene:
+    -   log2 expression
+    -   **two-sample t-test**
+    -   FDR correction (Benjamini–Hochberg)
 
 #### Key results
-- ~14,157 genes tested
-- **Only 2 genes** significant at FDR < 0.05  
-  (~0.014% of all genes)
-- Most genes have **very small** log2 fold changes
+
+-   \~14,157 genes tested
+-   **Only 2 genes** significant at FDR \< 0.05\
+    (\~0.014% of all genes)
+-   Most genes have **very small** log2 fold changes
 
 #### Conclusion
-- Vital status has only a **weak effect**  
-  on gene expression at the genome-wide level  
-  → consistent with PCA (no clear separation)
+
+-   Vital status has only a **weak effect**\
+    on gene expression at the genome-wide level\
+    → consistent with PCA (no clear separation)
 :::
 
 ::: column
-  <img src="plots/07_volcano_alive_vs_dead.png" style="background:white; width:80%;">
-    <img src="plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;">
+<img src="plots/07_volcano_alive_vs_dead.png" style="background:white; width:80%;"/> <img src="plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;"/>
 :::
-:::
-
+:::::
