@@ -186,16 +186,16 @@ lgl  (2): oct_embedded.samples, is_ffpe.samples
 <pre><code># A tibble: 10 × 430
    Ensembl_ID         `TCGA-24-1104-01A` `TCGA-25-1320-01A` `TCGA-24-1850-01A`
    &lt;chr&gt;                           &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;
- 1 ENSG00000008394.13              4.87               2.30               4.14 
- 2 ENSG00000110696.10              3.86               3.91               4.37 
- 3 ENSG00000105963.15              0.851              0.763              0.890
- 4 ENSG00000097007.19              3.49               4.15               4.71 
- 5 ENSG00000087053.20              1.83               1.91               2.10 
- 6 ENSG00000095397.16              1.63               2.02               1.99 
- 7 ENSG00000068001.14              3.44               3.96               3.62 
- 8 ENSG00000056586.16              2.76               2.61               2.12 
- 9 ENSG00000070614.15              4.47               3.77               3.51 
-10 ENSG00000109099.16              1.55               2.78               2.42 
+ 1 ENSG00000039139.9              0.0842              0.182              0.164
+ 2 ENSG00000006377.11             0.0372              0.524              1.76 
+ 3 ENSG00000083838.16             0.789               1.33               1.01 
+ 4 ENSG00000043462.13             2.20                1.85               2.09 
+ 5 ENSG00000065978.19             7.91                7.74               7.93 
+ 6 ENSG00000010270.14             2.13                3.27               3.71 
+ 7 ENSG00000109805.10             1.34                3.42               2.70 
+ 8 ENSG00000029639.11             1.59                1.40               1.87 
+ 9 ENSG00000070413.20             4.60                4.38               4.61 
+10 ENSG00000076650.7              1.68                3.29               2.07 
 # ℹ 426 more variables: `TCGA-61-2101-01A` &lt;dbl&gt;, `TCGA-23-1111-01A` &lt;dbl&gt;,
 #   `TCGA-25-2396-01A` &lt;dbl&gt;, `TCGA-30-1714-01A` &lt;dbl&gt;,
 #   `TCGA-04-1347-01A` &lt;dbl&gt;, `TCGA-59-2351-01A` &lt;dbl&gt;,
@@ -227,16 +227,16 @@ lgl  (2): oct_embedded.samples, is_ffpe.samples
 <pre><code># A tibble: 10 × 431
    Ensembl_ID         sum_gene_exp `TCGA-24-1104-01A` `TCGA-25-1320-01A`
    &lt;chr&gt;                     &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;
- 1 ENSG00000101464.11       1855.               3.31               4.13 
- 2 ENSG00000082014.17       1641.               4.31               4.31 
- 3 ENSG00000110243.12         10.9              0                  0    
- 4 ENSG00000100376.12        683.               2.69               1.30 
- 5 ENSG00000084444.14        441.               0.804              0.760
- 6 ENSG00000074964.17        894.               2.69               2.26 
- 7 ENSG00000099625.13        281.               0.354              0.375
- 8 ENSG00000059122.17        941.               2.13               2.11 
- 9 ENSG00000021762.20        780.               1.83               2.43 
-10 ENSG00000101182.15       2826.               6.41               5.78 
+ 1 ENSG00000047410.14       1327.               3.22              3.75  
+ 2 ENSG00000082269.17        493.               0.682             1.10  
+ 3 ENSG00000104219.13       1064.               2.64              2.57  
+ 4 ENSG00000004838.14        750.               1.06              1.88  
+ 5 ENSG00000005156.12        732.               1.32              2.04  
+ 6 ENSG00000022567.10       1272.               3.72              2.96  
+ 7 ENSG00000051128.19       1091.               2.41              3.87  
+ 8 ENSG00000074803.20         98.9              0.166             0.0335
+ 9 ENSG00000107738.20       1406.               4.36              3.00  
+10 ENSG00000065135.12       1545.               3.43              3.76  
 # ℹ 427 more variables: `TCGA-24-1850-01A` &lt;dbl&gt;, `TCGA-61-2101-01A` &lt;dbl&gt;,
 #   `TCGA-23-1111-01A` &lt;dbl&gt;, `TCGA-25-2396-01A` &lt;dbl&gt;,
 #   `TCGA-30-1714-01A` &lt;dbl&gt;, `TCGA-04-1347-01A` &lt;dbl&gt;,
@@ -318,26 +318,26 @@ lgl  (2): oct_embedded.samples, is_ffpe.samples
 <pre><code># A tibble: 20 × 84
    sample           id            disease_type case_id submitter_id primary_site
    &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;       
- 1 TCGA-61-2113-01A 71faa2c1-0d5… Cystic, Muc… 71faa2… TCGA-61-2113 Ovary       
- 2 TCGA-09-2056-01B ea6405c4-0fe… Cystic, Muc… ea6405… TCGA-09-2056 Ovary       
- 3 TCGA-01-0630-11A dc9b4616-e81… Not Reported dc9b46… TCGA-01-0630 Ovary       
- 4 TCGA-10-0928-01A 29d26e7e-f4a… Cystic, Muc… 29d26e… TCGA-10-0928 Ovary       
- 5 TCGA-29-1698-01A 18d21132-a79… Cystic, Muc… 18d211… TCGA-29-1698 Ovary       
- 6 TCGA-09-1675-01B 0fc8777c-8f1… Cystic, Muc… 0fc877… TCGA-09-1675 Ovary       
- 7 TCGA-72-4241-01A 7f7c6821-6c1… Cystic, Muc… 7f7c68… TCGA-72-4241 Ovary       
- 8 TCGA-29-2427-01A 6f25001a-f89… Cystic, Muc… 6f2500… TCGA-29-2427 Ovary       
- 9 TCGA-13-1492-01A 63c6a89b-b28… Cystic, Muc… 63c6a8… TCGA-13-1492 Ovary       
-10 TCGA-25-1317-01A 78777a80-cc6… Cystic, Muc… 78777a… TCGA-25-1317 Ovary       
-11 TCGA-13-1494-01A f50ee039-1da… Cystic, Muc… f50ee0… TCGA-13-1494 Ovary       
-12 TCGA-13-1412-01A 44493c23-82e… Cystic, Muc… 44493c… TCGA-13-1412 Ovary       
-13 TCGA-25-2397-01A 4c099644-047… Cystic, Muc… 4c0996… TCGA-25-2397 Ovary       
-14 TCGA-25-1315-01A 635f5335-b00… Cystic, Muc… 635f53… TCGA-25-1315 Ovary       
-15 TCGA-20-0996-01A d7f82e34-5b3… Cystic, Muc… d7f82e… TCGA-20-0996 Ovary       
-16 TCGA-23-1022-01A d0673efd-331… Cystic, Muc… d0673e… TCGA-23-1022 Ovary       
-17 TCGA-61-1911-01A 93095c36-226… Cystic, Muc… 93095c… TCGA-61-1911 Ovary       
-18 TCGA-23-1111-01A 6b2a9f9a-fe9… Cystic, Muc… 6b2a9f… TCGA-23-1111 Ovary       
-19 TCGA-13-1410-01A c3f9ee36-d34… Cystic, Muc… c3f9ee… TCGA-13-1410 Ovary       
-20 TCGA-04-1331-01A 6d10d4ee-633… Cystic, Muc… 6d10d4… TCGA-04-1331 Ovary       
+ 1 TCGA-30-1887-01A f7e01929-733… Cystic, Muc… f7e019… TCGA-30-1887 Ovary       
+ 2 TCGA-61-2096-01A 6beaa1cb-a9f… Cystic, Muc… 6beaa1… TCGA-61-2096 Ovary       
+ 3 TCGA-10-0934-01A 65ddccd2-70a… Cystic, Muc… 65ddcc… TCGA-10-0934 Ovary       
+ 4 TCGA-24-1920-01A 97efb80d-4f4… Cystic, Muc… 97efb8… TCGA-24-1920 Ovary       
+ 5 TCGA-29-2431-01A 996313ef-11e… Cystic, Muc… 996313… TCGA-29-2431 Ovary       
+ 6 TCGA-09-1659-01B 644a88a7-dc5… Cystic, Muc… 644a88… TCGA-09-1659 Ovary       
+ 7 TCGA-09-2045-01A 3768d34f-152… Cystic, Muc… 3768d3… TCGA-09-2045 Ovary       
+ 8 TCGA-57-1583-01A 76cc2d21-eeb… Cystic, Muc… 76cc2d… TCGA-57-1583 Ovary       
+ 9 TCGA-13-A5FU-01A 0f7ac6ca-780… Cystic, Muc… 0f7ac6… TCGA-13-A5FU Ovary       
+10 TCGA-10-0937-01A a5030259-cf9… Cystic, Muc… a50302… TCGA-10-0937 Ovary       
+11 TCGA-61-2000-01A 29949b65-291… Cystic, Muc… 29949b… TCGA-61-2000 Ovary       
+12 TCGA-29-1710-01A 4261267c-704… Cystic, Muc… 426126… TCGA-29-1710 Ovary       
+13 TCGA-13-0793-01A 5e90e1ed-cbf… Cystic, Muc… 5e90e1… TCGA-13-0793 Ovary       
+14 TCGA-13-0791-02A 90118207-8f1… Cystic, Muc… 901182… TCGA-13-0791 Ovary       
+15 TCGA-04-1346-01A 25a0a9e6-4f5… Cystic, Muc… 25a0a9… TCGA-04-1346 Ovary       
+16 TCGA-20-0987-01A 34f285ab-6c3… Cystic, Muc… 34f285… TCGA-20-0987 Ovary       
+17 TCGA-13-0725-01A 446ce2a3-d32… Cystic, Muc… 446ce2… TCGA-13-0725 Ovary       
+18 TCGA-61-1733-01A 04ecaf38-023… Cystic, Muc… 04ecaf… TCGA-61-1733 Ovary       
+19 TCGA-25-1316-01A 58427bce-6b8… Cystic, Muc… 58427b… TCGA-25-1316 Ovary       
+20 TCGA-04-1341-01A 92badeb5-a50… Cystic, Muc… 92bade… TCGA-04-1341 Ovary       
 # ℹ 78 more variables: alcohol_history.exposures &lt;chr&gt;, race.demographic &lt;chr&gt;,
 #   gender.demographic &lt;chr&gt;, ethnicity.demographic &lt;chr&gt;,
 #   vital_status.demographic &lt;chr&gt;, age_at_index.demographic &lt;dbl&gt;,
@@ -366,26 +366,26 @@ They are the same as “sample” without the last 3 characters. This is repetit
 <pre><code># A tibble: 20 × 2
    sample           submitter_id
    &lt;chr&gt;            &lt;chr&gt;       
- 1 TCGA-61-1904-01A TCGA-61-1904
- 2 TCGA-24-1105-01A TCGA-24-1105
- 3 TCGA-25-1625-01A TCGA-25-1625
- 4 TCGA-57-1992-01A TCGA-57-1992
- 5 TCGA-10-0937-01A TCGA-10-0937
- 6 TCGA-13-1511-01A TCGA-13-1511
- 7 TCGA-30-1856-01A TCGA-30-1856
- 8 TCGA-61-1906-01A TCGA-61-1906
- 9 TCGA-29-1777-01A TCGA-29-1777
-10 TCGA-29-1783-01A TCGA-29-1783
-11 TCGA-61-2095-01A TCGA-61-2095
+ 1 TCGA-20-1683-01A TCGA-20-1683
+ 2 TCGA-25-1322-01A TCGA-25-1322
+ 3 TCGA-61-1911-01A TCGA-61-1911
+ 4 TCGA-13-1499-01A TCGA-13-1499
+ 5 TCGA-36-2549-01A TCGA-36-2549
+ 6 TCGA-29-1784-01A TCGA-29-1784
+ 7 TCGA-13-1411-01A TCGA-13-1411
+ 8 TCGA-24-1427-01A TCGA-24-1427
+ 9 TCGA-61-2111-01A TCGA-61-2111
+10 TCGA-10-0931-01A TCGA-10-0931
+11 TCGA-13-1489-01A TCGA-13-1489
 12 TCGA-29-1774-01A TCGA-29-1774
-13 TCGA-09-1661-01B TCGA-09-1661
-14 TCGA-13-1817-01A TCGA-13-1817
-15 TCGA-24-1562-01A TCGA-24-1562
-16 TCGA-13-1504-01A TCGA-13-1504
-17 TCGA-42-2593-01A TCGA-42-2593
-18 TCGA-25-1628-01A TCGA-25-1628
-19 TCGA-29-1770-01A TCGA-29-1770
-20 TCGA-13-1491-01A TCGA-13-1491</code></pre>
+13 TCGA-13-0919-01A TCGA-13-0919
+14 TCGA-61-1737-01A TCGA-61-1737
+15 TCGA-57-1992-01A TCGA-57-1992
+16 TCGA-01-0639-11A TCGA-01-0639
+17 TCGA-29-1763-01A TCGA-29-1763
+18 TCGA-13-1403-01A TCGA-13-1403
+19 TCGA-13-1506-01A TCGA-13-1506
+20 TCGA-01-0628-11A TCGA-01-0628</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows identifier variables, no meaning for analysis </span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>phenotype <span class="sc">|&gt;</span> </span>
@@ -395,26 +395,26 @@ They are the same as “sample” without the last 3 characters. This is repetit
 <pre><code># A tibble: 20 × 2
    id                                   case_id                             
    &lt;chr&gt;                                &lt;chr&gt;                               
- 1 eef62876-7d17-496a-8971-2c7008d77014 eef62876-7d17-496a-8971-2c7008d77014
- 2 602e2934-223a-44db-8c33-06eb05d72f94 602e2934-223a-44db-8c33-06eb05d72f94
- 3 25a0a9e6-4f5b-45d8-8f34-abfd31d5ff1b 25a0a9e6-4f5b-45d8-8f34-abfd31d5ff1b
- 4 c8acee1b-6854-409b-86ab-bf69dbe22ab6 c8acee1b-6854-409b-86ab-bf69dbe22ab6
- 5 a8c4a333-6b67-44c8-9000-516f8ccea788 a8c4a333-6b67-44c8-9000-516f8ccea788
- 6 2ebb738c-4829-4720-931a-96c0fd117e2a 2ebb738c-4829-4720-931a-96c0fd117e2a
- 7 ab3dbbbe-eed6-4a35-a505-1815225e86c9 ab3dbbbe-eed6-4a35-a505-1815225e86c9
- 8 c7c3fe4a-327a-4b7e-a259-989b72971209 c7c3fe4a-327a-4b7e-a259-989b72971209
- 9 b25b3379-df8f-4900-9bce-0f8df50f549b b25b3379-df8f-4900-9bce-0f8df50f549b
-10 7a08efd0-f984-430e-a8eb-1881047214b6 7a08efd0-f984-430e-a8eb-1881047214b6
-11 e5a329ec-e50e-4786-901d-b58474f8ea65 e5a329ec-e50e-4786-901d-b58474f8ea65
-12 2cdd5154-ee5c-4d67-b2eb-947dfaa56be2 2cdd5154-ee5c-4d67-b2eb-947dfaa56be2
-13 b0585c7a-7205-4dac-9d54-6da89674accb b0585c7a-7205-4dac-9d54-6da89674accb
-14 84f5876d-82b0-45ff-8f3d-a10653683454 84f5876d-82b0-45ff-8f3d-a10653683454
-15 16829472-5666-4fba-9bf9-360ec1689aa0 16829472-5666-4fba-9bf9-360ec1689aa0
-16 3491d67a-4f83-4f67-8085-bbb9fe942be5 3491d67a-4f83-4f67-8085-bbb9fe942be5
-17 2a3a6222-f477-4198-ab9e-cdf527c1a6cf 2a3a6222-f477-4198-ab9e-cdf527c1a6cf
-18 40635bf3-d8ba-4833-b623-547e55e5d07e 40635bf3-d8ba-4833-b623-547e55e5d07e
-19 f0ca8205-0754-4bd8-a6a8-31901040c5e7 f0ca8205-0754-4bd8-a6a8-31901040c5e7
-20 b45c543a-40d9-423a-a7fa-98e4b325b487 b45c543a-40d9-423a-a7fa-98e4b325b487</code></pre>
+ 1 246404ae-3bc4-4db7-aee3-0346ca3f7322 246404ae-3bc4-4db7-aee3-0346ca3f7322
+ 2 5abb6d80-fc39-49a4-8db5-3db24543feb6 5abb6d80-fc39-49a4-8db5-3db24543feb6
+ 3 da56dfbe-35ae-4bd7-9a11-d9bbb02b1833 da56dfbe-35ae-4bd7-9a11-d9bbb02b1833
+ 4 419a486f-7fa5-4fbd-9e98-2f8f4c6d5081 419a486f-7fa5-4fbd-9e98-2f8f4c6d5081
+ 5 ff530f28-0ec0-4494-bb54-44bb055bae1c ff530f28-0ec0-4494-bb54-44bb055bae1c
+ 6 8652ddee-98f4-4584-b450-e6f2f5c9d7ec 8652ddee-98f4-4584-b450-e6f2f5c9d7ec
+ 7 42ebd30b-175e-4ece-a806-e55cb7e40e96 42ebd30b-175e-4ece-a806-e55cb7e40e96
+ 8 502e8d02-2953-4514-a2e1-6179dd94da73 502e8d02-2953-4514-a2e1-6179dd94da73
+ 9 7472b3ba-9b15-4d97-8708-a2dd82ca0f45 7472b3ba-9b15-4d97-8708-a2dd82ca0f45
+10 499a9b57-ee1a-4012-bbab-c6ad955b5e0a 499a9b57-ee1a-4012-bbab-c6ad955b5e0a
+11 d73a0a33-e4e8-44bd-9580-2038ab06583a d73a0a33-e4e8-44bd-9580-2038ab06583a
+12 d86adfac-56be-4a69-9315-5a90b4113e65 d86adfac-56be-4a69-9315-5a90b4113e65
+13 2222b629-02ab-4ead-997f-09d91c6f7cf4 2222b629-02ab-4ead-997f-09d91c6f7cf4
+14 295231ab-477b-4077-a368-db34f867102c 295231ab-477b-4077-a368-db34f867102c
+15 5554a003-da6f-4ddf-9f05-6785987ac46c 5554a003-da6f-4ddf-9f05-6785987ac46c
+16 171f7917-69eb-4a3f-9cc0-0e1dffd412c1 171f7917-69eb-4a3f-9cc0-0e1dffd412c1
+17 c3f9ee36-d34f-472b-ac7f-801a0d400aa4 c3f9ee36-d34f-472b-ac7f-801a0d400aa4
+18 d8d13aa4-45d5-4e1a-a6cf-895bdf05e7b2 d8d13aa4-45d5-4e1a-a6cf-895bdf05e7b2
+19 a3e26259-732b-49fb-bc95-2f0ec7a0494e a3e26259-732b-49fb-bc95-2f0ec7a0494e
+20 c9e28934-8379-4511-817c-d787f2c4ca3a c9e28934-8379-4511-817c-d787f2c4ca3a</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove these variables </span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>phenotype_clean <span class="ot">&lt;-</span> phenotype <span class="sc">|&gt;</span> </span>
@@ -450,11 +450,11 @@ For example “gender.demographic” will always be “female”, as we are stud
    &lt;chr&gt;        &lt;chr&gt;                &lt;chr&gt;                    &lt;chr&gt;             
  1 Ovary        TCGA                 not reported             female            
  2 Ovary        TCGA                 not reported             female            
- 3 Ovary        TCGA                 not reported             female            
+ 3 Ovary        TCGA                 &lt;NA&gt;                     &lt;NA&gt;              
  4 Ovary        TCGA                 not reported             female            
  5 Ovary        TCGA                 not reported             female            
  6 Ovary        TCGA                 not reported             female            
- 7 Ovary        TCGA                 &lt;NA&gt;                     &lt;NA&gt;              
+ 7 Ovary        TCGA                 not reported             female            
  8 Ovary        TCGA                 not reported             female            
  9 Ovary        TCGA                 not reported             female            
 10 Ovary        TCGA                 not reported             female            
@@ -499,28 +499,28 @@ For example “gender.demographic” will always be “female”, as we are stud
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">20</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 3
-   entity_type.annotations state.annotations        status.annotations      
-   &lt;chr&gt;                   &lt;chr&gt;                    &lt;chr&gt;                   
- 1 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
- 2 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
- 3 case                    released                 Approved                
- 4 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
- 5 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
- 6 case                    released                 Approved                
- 7 ['case', 'case']        ['released', 'released'] ['Approved', 'Approved']
- 8 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
- 9 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-10 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-11 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-12 case                    released                 Approved                
-13 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-14 case                    released                 Approved                
-15 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-16 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-17 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-18 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-19 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    
-20 &lt;NA&gt;                    &lt;NA&gt;                     &lt;NA&gt;                    </code></pre>
+   entity_type.annotations state.annotations status.annotations
+   &lt;chr&gt;                   &lt;chr&gt;             &lt;chr&gt;             
+ 1 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 2 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 3 case                    released          Approved          
+ 4 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 5 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 6 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 7 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 8 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+ 9 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+10 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+11 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+12 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+13 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+14 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+15 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+16 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+17 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+18 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+19 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;              
+20 case                    released          Approved          </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove these columns </span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>phenotype_clean <span class="ot">&lt;-</span> phenotype_clean <span class="sc">|&gt;</span> </span>
@@ -666,16 +666,16 @@ For further analyses, it is more convenient to work in a long format: one row pe
 <pre><code># A tibble: 10 × 3
    Ensembl_ID         sample           expression
    &lt;chr&gt;              &lt;chr&gt;                 &lt;dbl&gt;
- 1 ENSG00000101849.17 TCGA-04-1350-01A       1.70
- 2 ENSG00000105321.14 TCGA-36-1580-01A       2.73
- 3 ENSG00000106565.18 TCGA-13-0890-01A       6.91
- 4 ENSG00000103043.15 TCGA-24-1430-01A       3.35
- 5 ENSG00000077097.15 TCGA-24-1928-01A       4.71
- 6 ENSG00000071794.16 TCGA-13-1510-01A       2.20
- 7 ENSG00000100722.20 TCGA-13-0797-01A       2.00
- 8 ENSG00000107554.17 TCGA-29-1774-01A       1.93
- 9 ENSG00000054282.16 TCGA-24-1467-01A       2.38
-10 ENSG00000025293.17 TCGA-24-2254-01A       2.45</code></pre>
+ 1 ENSG00000086712.13 TCGA-23-1109-01A      1.85 
+ 2 ENSG00000108298.12 TCGA-13-1483-01A      8.37 
+ 3 ENSG00000069702.11 TCGA-61-1995-01A      3.22 
+ 4 ENSG00000011405.13 TCGA-29-1705-01A      2.78 
+ 5 ENSG00000036054.13 TCGA-31-1950-01A      3.14 
+ 6 ENSG00000037474.15 TCGA-30-1866-01A      2.55 
+ 7 ENSG00000026751.17 TCGA-29-1703-01A      0.536
+ 8 ENSG00000073792.16 TCGA-13-0916-01A      4.13 
+ 9 ENSG00000079337.16 TCGA-25-1623-01A      1.24 
+10 ENSG00000108349.17 TCGA-25-2401-01A      3.96 </code></pre>
 </div>
 </div>
 </section>
@@ -694,16 +694,16 @@ For further analyses, it is more convenient to work in a long format: one row pe
 <pre><code># A tibble: 10 × 51
    sample     Ensembl_ID expression race.demographic ethnicity.demographic alive
    &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;
- 1 TCGA-13-1… ENSG00000…       3.73 white            not hispanic or lati… FALSE
- 2 TCGA-57-1… ENSG00000…       3.73 white            not hispanic or lati… TRUE 
- 3 TCGA-04-1… ENSG00000…       1.66 white            not reported          FALSE
- 4 TCGA-24-1… ENSG00000…       2.86 white            not reported          FALSE
- 5 TCGA-24-1… ENSG00000…       1.54 white            not reported          TRUE 
- 6 TCGA-36-1… ENSG00000…       2.77 white            not reported          FALSE
- 7 TCGA-25-2… ENSG00000…       3.26 white            not hispanic or lati… FALSE
- 8 TCGA-13-2… ENSG00000…       3.27 white            not reported          TRUE 
- 9 TCGA-61-1… ENSG00000…       3.44 white            not hispanic or lati… TRUE 
-10 TCGA-30-1… ENSG00000…       1.55 white            not hispanic or lati… FALSE
+ 1 TCGA-13-0… ENSG00000…       2.24 white            not hispanic or lati… FALSE
+ 2 TCGA-24-1… ENSG00000…       3.78 white            not reported          FALSE
+ 3 TCGA-04-1… ENSG00000…       8.91 white            not hispanic or lati… TRUE 
+ 4 TCGA-29-A… ENSG00000…       3.04 black or africa… not reported          FALSE
+ 5 TCGA-13-1… ENSG00000…       3.29 white            not hispanic or lati… FALSE
+ 6 TCGA-04-1… ENSG00000…       1.18 white            not reported          FALSE
+ 7 TCGA-61-1… ENSG00000…       2.08 white            not hispanic or lati… TRUE 
+ 8 TCGA-24-0… ENSG00000…       1.03 white            not reported          FALSE
+ 9 TCGA-10-0… ENSG00000…       4.84 white            not reported          FALSE
+10 TCGA-29-1… ENSG00000…       3.26 black or africa… not reported          FALSE
 # ℹ 45 more variables: age_at_index.demographic &lt;dbl&gt;,
 #   days_to_birth.demographic &lt;dbl&gt;, year_of_birth.demographic &lt;dbl&gt;,
 #   days_to_death.demographic &lt;dbl&gt;, year_of_death.demographic &lt;dbl&gt;,
@@ -738,16 +738,16 @@ For further analyses, it is more convenient to work in a long format: one row pe
 <pre><code># A tibble: 10 × 53
    sample     Ensembl_ID expression race.demographic ethnicity.demographic alive
    &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;
- 1 TCGA-24-1… ENSG00000…       3.31 white            not reported          TRUE 
- 2 TCGA-30-1… ENSG00000…       3.21 white            not hispanic or lati… FALSE
- 3 TCGA-04-1… ENSG00000…       4.34 white            hispanic or latino    FALSE
- 4 TCGA-09-2… ENSG00000…       2.03 white            not hispanic or lati… TRUE 
- 5 TCGA-24-2… ENSG00000…       3.96 white            not reported          FALSE
- 6 TCGA-61-2… ENSG00000…       1.96 white            not reported          TRUE 
- 7 TCGA-13-0… ENSG00000…       2.74 white            not hispanic or lati… TRUE 
- 8 TCGA-24-1… ENSG00000…       1.64 black or africa… not reported          FALSE
- 9 TCGA-20-1… ENSG00000…       1.63 white            not hispanic or lati… TRUE 
-10 TCGA-24-1… ENSG00000…       2.07 white            not reported          FALSE
+ 1 TCGA-20-1… ENSG00000…       3.31 white            not hispanic or lati… TRUE 
+ 2 TCGA-30-1… ENSG00000…       3.38 white            not hispanic or lati… FALSE
+ 3 TCGA-09-1… ENSG00000…       3.07 white            not hispanic or lati… FALSE
+ 4 TCGA-24-1… ENSG00000…       1.92 white            not reported          TRUE 
+ 5 TCGA-13-0… ENSG00000…       3.16 white            not hispanic or lati… TRUE 
+ 6 TCGA-13-1… ENSG00000…       2.64 white            not hispanic or lati… TRUE 
+ 7 TCGA-10-0… ENSG00000…       1.56 white            not reported          FALSE
+ 8 TCGA-09-2… ENSG00000…       1.45 black or africa… not hispanic or lati… FALSE
+ 9 TCGA-59-A… ENSG00000…       2.77 black or africa… not hispanic or lati… FALSE
+10 TCGA-09-0… ENSG00000…       2.23 white            not reported          FALSE
 # ℹ 47 more variables: age_at_index.demographic &lt;dbl&gt;,
 #   days_to_birth.demographic &lt;dbl&gt;, year_of_birth.demographic &lt;dbl&gt;,
 #   days_to_death.demographic &lt;dbl&gt;, year_of_death.demographic &lt;dbl&gt;,
@@ -813,16 +813,16 @@ For further analyses, it is more convenient to work in a long format: one row pe
 <pre><code># A tibble: 10 × 49
    sample    race.demographic ethnicity.demographic alive age_at_index.demogra…¹
    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;                  &lt;dbl&gt;
- 1 TCGA-29-… white            not reported          TRUE                      72
- 2 TCGA-13-… white            not hispanic or lati… FALSE                     53
- 3 TCGA-13-… white            not hispanic or lati… TRUE                      51
- 4 TCGA-13-… white            not hispanic or lati… FALSE                     73
- 5 TCGA-13-… white            not hispanic or lati… FALSE                     66
- 6 TCGA-13-… black or africa… not reported          FALSE                     60
- 7 TCGA-24-… white            not reported          TRUE                      64
- 8 TCGA-25-… white            not hispanic or lati… FALSE                     64
- 9 TCGA-13-… white            not hispanic or lati… FALSE                     62
-10 TCGA-09-… white            not hispanic or lati… TRUE                      57
+ 1 TCGA-24-… not reported     not reported          TRUE                      58
+ 2 TCGA-23-… white            not reported          FALSE                     53
+ 3 TCGA-61-… white            not reported          TRUE                      50
+ 4 TCGA-61-… white            not reported          FALSE                     63
+ 5 TCGA-04-… white            not reported          TRUE                      52
+ 6 TCGA-13-… white            not hispanic or lati… FALSE                     78
+ 7 TCGA-13-… white            not hispanic or lati… FALSE                     57
+ 8 TCGA-61-… asian            not hispanic or lati… TRUE                      40
+ 9 TCGA-25-… white            not hispanic or lati… FALSE                     54
+10 TCGA-61-… white            not hispanic or lati… TRUE                      63
 # ℹ abbreviated name: ¹​age_at_index.demographic
 # ℹ 44 more variables: days_to_birth.demographic &lt;dbl&gt;,
 #   year_of_birth.demographic &lt;dbl&gt;, days_to_death.demographic &lt;dbl&gt;,
@@ -851,16 +851,16 @@ For further analyses, it is more convenient to work in a long format: one row pe
 <pre><code># A tibble: 10 × 430
    Ensembl_ID         `TCGA-24-1104-01A` `TCGA-25-1320-01A` `TCGA-24-1850-01A`
    &lt;chr&gt;                           &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;
- 1 ENSG00000050393.11               3.70               3.07               3.32
- 2 ENSG00000105245.9                3.49               2.86               3.07
- 3 ENSG00000075391.17               1.03               1.86               1.43
- 4 ENSG00000089009.15               6.91               7.34               7.28
- 5 ENSG00000100650.16               4.64               5.06               4.58
- 6 ENSG00000075131.10               2.74               1.50               1.63
- 7 ENSG00000105983.22               2.60               2.48               3.16
- 8 ENSG00000088766.12               1.17               1.39               2.14
- 9 ENSG00000010626.15               2.62               1.33               2.13
-10 ENSG00000103197.18               2.66               3.32               3.24
+ 1 ENSG00000058799.15              4.32                4.24               4.18
+ 2 ENSG00000076706.17              2.88                3.81               2.49
+ 3 ENSG00000100297.16              2.65                3.83               3.39
+ 4 ENSG00000080573.7               0.947               2.92               1.82
+ 5 ENSG00000108651.10              2.11                2.69               3.20
+ 6 ENSG00000095970.17              4.66                3.53               3.89
+ 7 ENSG00000043143.20              3.79                2.93               2.42
+ 8 ENSG00000068724.17              3.75                2.28               2.78
+ 9 ENSG00000103978.16              3.56                3.05               2.40
+10 ENSG00000110237.5               3.36                3.53               3.35
 # ℹ 426 more variables: `TCGA-61-2101-01A` &lt;dbl&gt;, `TCGA-23-1111-01A` &lt;dbl&gt;,
 #   `TCGA-25-2396-01A` &lt;dbl&gt;, `TCGA-30-1714-01A` &lt;dbl&gt;,
 #   `TCGA-04-1347-01A` &lt;dbl&gt;, `TCGA-59-2351-01A` &lt;dbl&gt;,
@@ -1414,30 +1414,33 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-augmented-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-augmented-data">Load augmented data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/data_augmented.rds"</span>)</span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="sc">|&gt;</span></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the augmented dataset</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/data_augmented.rds"</span>)</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show 10 random rows to check the data</span></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>data_augmented <span class="sc">|&gt;</span></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 53
    sample     Ensembl_ID expression race.demographic ethnicity.demographic alive
    &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                 &lt;lgl&gt;
- 1 TCGA-61-2… ENSG00000…       3.73 white            not reported          TRUE 
- 2 TCGA-09-0… ENSG00000…       1.81 white            not hispanic or lati… FALSE
- 3 TCGA-29-1… ENSG00000…       1.98 white            not reported          FALSE
- 4 TCGA-13-1… ENSG00000…       6.07 white            not hispanic or lati… FALSE
- 5 TCGA-25-1… ENSG00000…       2.36 white            not hispanic or lati… FALSE
- 6 TCGA-04-1… ENSG00000…       6.06 white            not hispanic or lati… TRUE 
- 7 TCGA-25-1… ENSG00000…       3.28 white            not hispanic or lati… FALSE
- 8 TCGA-09-2… ENSG00000…       2.68 white            not hispanic or lati… TRUE 
- 9 TCGA-13-0… ENSG00000…       4.91 white            not hispanic or lati… TRUE 
-10 TCGA-13-1… ENSG00000…       2.31 white            not hispanic or lati… FALSE
+ 1 TCGA-24-2… ENSG00000…      1.56  asian            not reported          FALSE
+ 2 TCGA-29-1… ENSG00000…      3.59  white            not reported          FALSE
+ 3 TCGA-57-1… ENSG00000…      3.12  white            not hispanic or lati… TRUE 
+ 4 TCGA-29-1… ENSG00000…      6.66  asian            not reported          FALSE
+ 5 TCGA-13-0… ENSG00000…      1.29  white            hispanic or latino    FALSE
+ 6 TCGA-13-2… ENSG00000…      6.54  white            not reported          TRUE 
+ 7 TCGA-24-1… ENSG00000…      1.77  white            not reported          FALSE
+ 8 TCGA-29-1… ENSG00000…      1.44  white            not reported          TRUE 
+ 9 TCGA-25-1… ENSG00000…      0.681 white            not hispanic or lati… FALSE
+10 TCGA-25-1… ENSG00000…      1.54  white            not hispanic or lati… FALSE
 # ℹ 47 more variables: age_at_index.demographic &lt;dbl&gt;,
 #   days_to_birth.demographic &lt;dbl&gt;, year_of_birth.demographic &lt;dbl&gt;,
 #   days_to_death.demographic &lt;dbl&gt;, year_of_death.demographic &lt;dbl&gt;,
@@ -1452,13 +1455,16 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 <h2 class="anchored" data-anchor-id="select-most-variable-genes">Select most variable genes</h2>
 <p>Since PCA works best with genes that vary a lot across samples, we select the top 500 most variable genes based on the variance of log2_expression.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>gene_var <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ensembl_ID) <span class="sc">|&gt;</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">var_log2 =</span> <span class="fu">var</span>(log2_expression, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups  =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(var_log2))</span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>gene_var <span class="sc">|&gt;</span></span>
-<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variance for each gene</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We keep genes that change the most across samples</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>gene_var <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ensembl_ID) <span class="sc">|&gt;</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">var_log2 =</span> <span class="fu">var</span>(log2_expression, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups  =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(var_log2))</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Show top 10 most variable genes</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>gene_var <span class="sc">|&gt;</span></span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    Ensembl_ID         var_log2
@@ -1474,11 +1480,12 @@ $ age_cat                                                   &lt;chr&gt; "middle"
  9 ENSG00000105664.11    0.659
 10 ENSG00000085465.13    0.654</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>top_genes <span class="ot">&lt;-</span> gene_var <span class="sc">|&gt;</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Ensembl_ID)</span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(top_genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the 500 most variable genes</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>top_genes <span class="ot">&lt;-</span> gene_var <span class="sc">|&gt;</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Ensembl_ID)</span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(top_genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 500</code></pre>
 </div>
@@ -1488,21 +1495,24 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 <h2 class="anchored" data-anchor-id="build-expression-matrix-for-pca">Build expression matrix for PCA</h2>
 <p>Here, we create a wide matrix with one row per sample (patient) and one column per gene (for the selected 500 genes). We also extract the clinical variables so we can link them to the PCA results later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>expr_wide <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Ensembl_ID <span class="sc">%in%</span> top_genes) <span class="sc">|&gt;</span></span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, Ensembl_ID, log2_expression) <span class="sc">|&gt;</span></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Ensembl_ID,<span class="at">values_from =</span> log2_expression)</span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>pheno_pca <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span></span>
-<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, alive, age_cat, age_at_index.demographic) <span class="sc">|&gt;</span></span>
-<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
-<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a>expr_wide <span class="ot">&lt;-</span> expr_wide <span class="sc">|&gt;</span></span>
-<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pheno_pca, <span class="at">by =</span> <span class="st">"sample"</span>)</span>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a wide expression matrix for PCA</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="co"># One row = one sample, one column = one gene</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>expr_wide <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Ensembl_ID <span class="sc">%in%</span> top_genes) <span class="sc">|&gt;</span></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, Ensembl_ID, log2_expression) <span class="sc">|&gt;</span></span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span></span>
+<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Ensembl_ID,<span class="at">values_from =</span> log2_expression)</span>
+<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep clinical information for each sample</span></span>
+<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a>pheno_pca <span class="ot">&lt;-</span> data_augmented <span class="sc">|&gt;</span></span>
+<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, alive, age_cat, age_at_index.demographic) <span class="sc">|&gt;</span></span>
+<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
 <span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a>expr_wide <span class="sc">|&gt;</span></span>
-<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add clinical variables to the expression matrix</span></span>
+<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a>expr_wide <span class="ot">&lt;-</span> expr_wide <span class="sc">|&gt;</span> <span class="fu">left_join</span>(pheno_pca, <span class="at">by =</span> <span class="st">"sample"</span>)</span>
+<span id="cb106-16"><a href="#cb106-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-17"><a href="#cb106-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the first rows</span></span>
+<span id="cb106-18"><a href="#cb106-18" aria-hidden="true" tabindex="-1"></a>expr_wide <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 504
   sample           ENSG00000101489.20 ENSG00000108176.15 ENSG00000108602.18
@@ -1526,66 +1536,55 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 <h2 class="anchored" data-anchor-id="run-pca">Run PCA</h2>
 <p>We extract the numeric expression data, centre and scale it, and run PCA using prcomp().</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>expr_mat <span class="ot">&lt;-</span> expr_wide <span class="sc">|&gt;</span></span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>sample, <span class="sc">-</span>alive, <span class="sc">-</span>age_cat, <span class="sc">-</span>age_at_index.demographic) <span class="sc">|&gt;</span></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
-<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(expr_mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the numeric matrix for PCA</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>expr_mat <span class="ot">&lt;-</span> expr_wide <span class="sc">|&gt;</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>sample, <span class="sc">-</span>alive, <span class="sc">-</span>age_cat, <span class="sc">-</span>age_at_index.demographic) <span class="sc">|&gt;</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(expr_mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 429 500</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run PCA (data is centered and scaled)</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>pca_res <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(</span>
 <span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x      =</span> expr_mat,</span>
 <span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">center =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variance explained by each PC</span></span>
 <span id="cb110-9"><a href="#cb110-9" aria-hidden="true" tabindex="-1"></a>var_explained <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb110-10"><a href="#cb110-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">component =</span> <span class="fu">seq_along</span>(pca_res<span class="sc">$</span>sdev),</span>
-<span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">var_explained =</span> pca_res<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(pca_res<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb110-12"><a href="#cb110-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-13"><a href="#cb110-13" aria-hidden="true" tabindex="-1"></a>var_explained <span class="sc">|&gt;</span>  </span>
-<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  component var_explained
-      &lt;int&gt;         &lt;dbl&gt;
-1         1        0.151 
-2         2        0.0923
-3         3        0.0462
-4         4        0.0327
-5         5        0.0291</code></pre>
-</div>
+<span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">var_explained =</span> pca_res<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(pca_res<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="scree-plot" class="level2">
 <h2 class="anchored" data-anchor-id="scree-plot">Scree plot</h2>
 <p>This plot shows how much variance is explained by each principal component.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>scree_df <span class="ot">&lt;-</span> var_explained <span class="sc">|&gt;</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>    component,</span>
-<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">PC =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"PC"</span>, component),</span>
-<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance =</span> var_explained) <span class="sc">|&gt;</span></span>
-<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">PC =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(PC, component))</span>
-<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a>scree_plot <span class="ot">&lt;-</span> scree_df <span class="sc">|&gt;</span></span>
-<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">15</span>) <span class="sc">|&gt;</span></span>
-<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC, <span class="at">y =</span> variance, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb112-16"><a href="#cb112-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Variance explained by principal components"</span>,</span>
-<span id="cb112-17"><a href="#cb112-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Principal component"</span>,</span>
-<span id="cb112-18"><a href="#cb112-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Proportion of variance explained"</span>)</span>
-<span id="cb112-19"><a href="#cb112-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-20"><a href="#cb112-20" aria-hidden="true" tabindex="-1"></a>scree_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data for the scree plot</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>scree_df <span class="ot">&lt;-</span> var_explained <span class="sc">|&gt;</span></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>    component,</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">PC =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"PC"</span>, component),</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance =</span> var_explained) <span class="sc">|&gt;</span></span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">PC =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(PC, component))</span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the variance explained by the first PCs</span></span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a>scree_plot <span class="ot">&lt;-</span> scree_df <span class="sc">|&gt;</span></span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">15</span>) <span class="sc">|&gt;</span></span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC, <span class="at">y =</span> variance, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb111-15"><a href="#cb111-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb111-16"><a href="#cb111-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb111-17"><a href="#cb111-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Variance explained by principal components"</span>,</span>
+<span id="cb111-18"><a href="#cb111-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Principal component"</span>,</span>
+<span id="cb111-19"><a href="#cb111-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Proportion of variance explained"</span>)</span>
+<span id="cb111-20"><a href="#cb111-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-21"><a href="#cb111-21" aria-hidden="true" tabindex="-1"></a>scree_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1595,10 +1594,11 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"../results/06_pca_scree.png"</span>,</span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> scree_plot,</span>
-<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">7</span>,</span>
-<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the scree plot</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"../results/06_pca_scree.png"</span>,</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> scree_plot,</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">7</span>,</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The scree plot shows that most of the global variation comes from PC1. If there is a biological separation between patient groups, it should appear mainly along PC1 or PC2.</p>
 </section>
@@ -1606,12 +1606,13 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 <h2 class="anchored" data-anchor-id="pc1-vs-pc2-coloured-by-clinical-variables">PC1 vs PC2 coloured by clinical variables</h2>
 <p>Here, we plot PC1 vs PC2 and colour the samples by alive status and shape by age category.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(pca_res<span class="sc">$</span>x, <span class="at">rownames =</span> <span class="st">"row_id"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(expr_wide <span class="sc">|&gt;</span> <span class="fu">select</span>(sample, alive, age_cat, age_at_index.demographic)) <span class="sc">|&gt;</span></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(sample)</span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">|&gt;</span></span>
-<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a table with PCA scores + clinical data</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(pca_res<span class="sc">$</span>x, <span class="at">rownames =</span> <span class="st">"row_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(expr_wide <span class="sc">|&gt;</span> <span class="fu">select</span>(sample, alive, age_cat, age_at_index.demographic)) <span class="sc">|&gt;</span></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(sample)</span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">|&gt;</span></span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 434
   sample      row_id   PC1   PC2    PC3    PC4    PC5    PC6    PC7    PC8   PC9
@@ -1631,31 +1632,32 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>pc1_label <span class="ot">&lt;-</span> var_explained <span class="sc">|&gt;</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"PC1 ("</span>, scales<span class="sc">::</span><span class="fu">percent</span>(var_explained), <span class="st">")"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(label)</span>
-<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>pc2_label <span class="ot">&lt;-</span> var_explained <span class="sc">|&gt;</span></span>
-<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"PC2 ("</span>, scales<span class="sc">::</span><span class="fu">percent</span>(var_explained), <span class="st">")"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(label)</span>
-<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a>pc1_pc2_plot <span class="ot">&lt;-</span> scores <span class="sc">|&gt;</span></span>
-<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
-<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> PC1,</span>
-<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> PC2,</span>
-<span id="cb116-16"><a href="#cb116-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> alive,</span>
-<span id="cb116-17"><a href="#cb116-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape  =</span> age_cat)) <span class="sc">+</span></span>
-<span id="cb116-18"><a href="#cb116-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb116-19"><a href="#cb116-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb116-20"><a href="#cb116-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"PCA on top 500 most variable genes"</span>,</span>
-<span id="cb116-21"><a href="#cb116-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Colour: alive status, shape: age category"</span>,</span>
-<span id="cb116-22"><a href="#cb116-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> pc1_label,</span>
-<span id="cb116-23"><a href="#cb116-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> pc2_label)</span>
-<span id="cb116-24"><a href="#cb116-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-25"><a href="#cb116-25" aria-hidden="true" tabindex="-1"></a>pc1_pc2_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels for the axes including the explained variance</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>pc1_label <span class="ot">&lt;-</span> var_explained <span class="sc">|&gt;</span></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"PC1 ("</span>, scales<span class="sc">::</span><span class="fu">percent</span>(var_explained), <span class="st">")"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(label)</span>
+<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>pc2_label <span class="ot">&lt;-</span> var_explained <span class="sc">|&gt;</span></span>
+<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">"PC2 ("</span>, scales<span class="sc">::</span><span class="fu">percent</span>(var_explained), <span class="st">")"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(label)</span>
+<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-12"><a href="#cb115-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot PC1 vs PC2 coloured by clinical variables</span></span>
+<span id="cb115-13"><a href="#cb115-13" aria-hidden="true" tabindex="-1"></a>pc1_pc2_plot <span class="ot">&lt;-</span> scores <span class="sc">|&gt;</span></span>
+<span id="cb115-14"><a href="#cb115-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb115-15"><a href="#cb115-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> PC1,</span>
+<span id="cb115-16"><a href="#cb115-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> PC2,</span>
+<span id="cb115-17"><a href="#cb115-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> alive,</span>
+<span id="cb115-18"><a href="#cb115-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape  =</span> age_cat)) <span class="sc">+</span></span>
+<span id="cb115-19"><a href="#cb115-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb115-20"><a href="#cb115-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb115-21"><a href="#cb115-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"PCA on top 500 most variable genes"</span>,</span>
+<span id="cb115-22"><a href="#cb115-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Colour: alive status, shape: age category"</span>,</span>
+<span id="cb115-23"><a href="#cb115-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> pc1_label,</span>
+<span id="cb115-24"><a href="#cb115-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> pc2_label)</span>
+<span id="cb115-25"><a href="#cb115-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-26"><a href="#cb115-26" aria-hidden="true" tabindex="-1"></a>pc1_pc2_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1665,10 +1667,11 @@ $ age_cat                                                   &lt;chr&gt; "middle"
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"../results/06_pca_pc1_pc2.png"</span>,</span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> pc1_pc2_plot,</span>
-<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">7</span>,</span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the PC1–PC2 plot</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"../results/06_pca_pc1_pc2.png"</span>,</span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> pc1_pc2_plot,</span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">7</span>,</span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There is no clear separation between the groups in PC1–PC2 space. Both the alive/deceased groups and the age categories are mixed together, so these variables do not seem to drive the main variation.</p>
 </section>
