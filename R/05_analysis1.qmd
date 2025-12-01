@@ -40,7 +40,7 @@ plot1 <- data_augmented |>
        y = "Number of patients")
 
 # Save to file
-ggsave("../results/figostages_analysis1.png", plot1, width = 6, height = 4, dpi = 300)
+ggsave("../results/05_figostages_analysis1.png", plot1, width = 6, height = 4, dpi = 300)
 ```
 
 **Alive or death status**
@@ -185,5 +185,5 @@ plot2
 plot3
 
 # Save to file
-ggsave("../results/IS_ethnicity_analysis1.png", plot3, width = 6, height = 4, dpi = 300)
+ggsave("../results/05_IS_ethnicity_analysis1.png", plot3, width = 6, height = 4, dpi = 300)
 ```
