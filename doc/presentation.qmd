@@ -153,7 +153,73 @@ knitr::kable(head(table4, 8))
 
 ## Augment
 
-joining of the datasets
+::::: columns
+::: column
+### 1. Reshape
+
+-   Convert gene-expression table **wide → long**\
+    (1 row = 1 gene × 1 sample)
+
+### 2. Join
+
+-   Merge **gene expression + clinical phenotype**\
+    using the identifier **sample**
+
+### 3. Create
+
+-   `log2_expression` (variance-stabilized)
+-   `age_cat` (young / middle / senior)
+
+**Output:** one **tidy**, **merged**, **augmented** dataset\
+(saved as `data_augmented.rds`)
+:::
+
+::: column
+```{r}
+#| echo: true 
+#| eval: false  
+
+gen_exp_long <- gen_exp_clean |> 
+  pivot_longer(
+    cols = -Ensembl_ID,
+    names_to = "sample",
+    values_to = "expression"
+  )
+
+
+
+full_data <- gen_exp_long |> 
+  left_join(phenotype_clean, by = "sample") |> 
+  relocate(sample, .before = Ensembl_ID)
+
+
+
+full_data <- full_data |> 
+  mutate(
+    log2_expression = log2(expression + 1),
+    age_cat = case_when(
+      age_at_index.demographic < 50 ~ "young",
+      age_at_index.demographic < 65 ~ "middle",
+      age_at_index.demographic >= 65 ~ "senior",
+      TRUE ~ NA_character_
+    )
+  )
+```
+:::
+:::::
+
+```{r}
+data_augmented |> 
+  select(
+    sample, 
+    Ensembl_ID, 
+    expression, 
+    race.demographic, 
+    alive
+  ) |> 
+  slice_head(n = 3) |> 
+  knitr::kable()
+```
 
 ## Describe
 
