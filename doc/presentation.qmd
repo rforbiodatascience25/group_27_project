@@ -80,7 +80,7 @@ Too many genes in the dataset for analysis (60 600 genes)
     -   Plot the sum to choose a threshold\
     -   Remove genes under this threshold
 
-→ **Final number of genes: 14 157**
+→ [**Final number of genes: 14 157**]{style="color:#f8a47d;"}
 
 ```{r}
 knitr::kable(head(gen_exp, 8))
@@ -240,7 +240,6 @@ data_augmented |>
 ::: column
 #### **Full data**
 
-
 -   Size: 6'073'353 samples (rows), 53 variables (columns)
 -   Impacted variable: figo_stage.diagnosis (cancer stage)
 -   Quality and integrity
@@ -249,22 +248,19 @@ data_augmented |>
 :::
 
 ::: column
-
 #### Gene Expression Distribution
 
+-   Histogram of log2-transformed gene-expression values
 
-The histogram displays the distribution of log2-transformed gene-expression values.
+-   Genes with zero or extremely low expression removed
 
-After removing genes with zero or extremely low expression, the overall mean expression shifts upward and the distribution becomes more symmetric.
+-   Mean expression shifted upward; distribution more symmetric
 
-This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
-
+-   Confirms dataset is clean and suitable for analysis
 
 ![](../results/04_age_tumorstage.png)
 :::
 :::::
-
-
 
 ## Methods - Analysis 1
 
@@ -276,7 +272,7 @@ This confirms that the cleaning part removed uninformative genes and produced a 
 
 -   Plot for FIGO stage, alive status, age, etc.
 
-=\> No correlation was found, but this allowed us to conclude that the phenotype data set lacked sufficient variability to reveal real biological effects.
+→ No correlation was found, but this allowed us to conclude that the phenotype data set lacked sufficient variability to reveal real biological effects.
 
 [*Biological relevance of most variant genes*]{style="color:#f8a47d;"}
 
@@ -340,8 +336,7 @@ data_augmented |>
 :::
 
 ::: column
-![](../results/06_pca_scree.png){width="80%"}
-![](../results/06_pca_pc1_pc2.png){width="80%"}
+![](../results/06_pca_scree.png){width="80%"} ![](../results/06_pca_pc1_pc2.png){width="80%"}
 :::
 :::::
 
@@ -378,11 +373,24 @@ data_augmented |>
 :::
 
 ::: column
-
-![](../results/07_volcano_alive_vs_dead.png){width="80%"}
-![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
-
+![](../results/07_volcano_alive_vs_dead.png){width="80%"} ![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
 :::
 :::::
 
 ## Discussion
+
+1.  [*Clinical variables distributions*]{style="color:#f8a47d;"}: Exploration of FIGO stage, age, ethnicity and vital status show highly imbalanced distribution
+
+    → Difficult to detect strong association
+
+2.  [*PCA of gene expression*]{style="color:#f8a47d;"} : Showed that the major sources of variation in transcriptomic data were not related to other clinical variables (no distinct clusters)
+
+    → Transcriptomic differences betweens groups are subtle
+
+3.  [*Differential expression*]{style="color:#f8a47d;"}: Out of 14'000 tested genes, only two genes remained significant after FDR correction
+
+    → Survival is not a major driver expression differences in this cohort
+
+[**Conclusion**]{style="color:#f8a47d;"}
+
+The analyses show that clinical variables alone cannot explain expression variability, and demonstrate that the dataset likely reflects complex biology, where survival differences cannot be captured by single-gene effects.
