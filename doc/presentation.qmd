@@ -24,7 +24,7 @@ execute:
 
 ### **Approach**
 
-![](plots/FlowChart.svg)
+![](plots/Flowchart.svg)
 
 ## Materials - Load
 
