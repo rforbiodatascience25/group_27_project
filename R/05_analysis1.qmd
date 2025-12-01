@@ -22,20 +22,25 @@ data_augmented <- readRDS("../data/data_augmented.rds")
 
 ## Analysis of the distribution of variables
 
+In this section we will try to find phenotype variables that can be relevant for further analysis. We grouped the joined data set by sample and plotted phenotype variables to see if we could observe any underlying correlation.
+
 **FIGO Stage Distribution**
 
 The bar plot shows the distribution of patients across FIGO stages. From the plot, it is clear that the majority of patients are classified as stage IIIC, while the numbers in other stages (stage IC, IIA, IIB, IIC, IIIA, IIIB, IIIC and IV) are considerably lower. This uneven distribution suggests that most patients in this dataset were diagnosed at an advanced stage of disease, which is common for ovarian cancers due to late detection. Because the dataset is heavily skewed toward Stage III, it is difficult to draw meaningful comparisons between stages or to identify trends related to clinical outcomes across the full spectrum of FIGO stages.
 
 ```{r}
-data_augmented |>
+plot1 <- data_augmented |>
   group_by(sample) |>
-  slice(1) |>
+  slice(1) |> # because we count each sample once
   filter(!is.na(figo_stage.diagnoses)) |>
   ggplot(aes(x = figo_stage.diagnoses)) +
     geom_bar() +
-    labs(title = "distribution of FIGO stages",
+    labs(title = "Distribution of FIGO stages",
        x = "FIGO stage",
-       y = "number of patients")
+       y = "Number of patients")
+
+# Save to file
+ggsave("../results/figostages_analysis1.png", plot1, width = 6, height = 4, dpi = 300)
 ```
 
 **Alive or death status**
@@ -48,9 +53,9 @@ data_augmented |>
   slice(1) |>
   ggplot(aes(x = alive)) +
     geom_bar() +
-    labs(title = "distribution of alive patients",
+    labs(title = "Distribution of alive patients",
        x = "alive",
-       y = "number of patients")
+       y = "Number of patients")
 ```
 
 ## Biological relevance of most variant genes
@@ -144,14 +149,41 @@ After several attempts, we found no clear relationship between these genes expre
 
 ```{r}
 # Immune genes vs age
-ggplot(joined, aes(x = immune_score, y = age_at_index.demographic)) + 
+plot1 <- ggplot(joined, aes(x = immune_score, y = age_at_index.demographic)) + 
   geom_point()
 
 # Immune genese vs alive/dead
-ggplot(joined, aes(x = immune_score, y = alive)) + 
+plot2 <- ggplot(joined, aes(x = immune_score, y = alive)) + 
   geom_boxplot()
 
 # Immune genes vs age
-ggplot(joined, aes(x = immune_score, y = race.demographic)) + 
-  geom_boxplot()
+plot3 <- joined |> 
+  mutate(
+    race.demographic = fct_relevel(race.demographic, "not reported", after = Inf), # NAs at bottom
+    race.demographic = case_when( # split long labels over 2 lines
+      race.demographic == "native hawaiian or other pacific islander" ~ 
+        "native hawaiian\nor other pacific islander",
+      race.demographic == "american indian or alaska native" ~
+        "american indian\nor alaska native",
+      race.demographic == "black or african american" ~
+        "black \nor african american",
+      TRUE ~ race.demographic)) |> 
+  ggplot(aes(x = immune_score, y = race.demographic)) + 
+  geom_boxplot() +
+  labs(
+    title = "Immune score by ethnicity",
+    x = "Immune score",
+    y = "Ethnicity"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20)
+  )
+
+plot1
+plot2
+plot3
+
+# Save to file
+ggsave("../results/IS_ethnicity_analysis1.png", plot3, width = 6, height = 4, dpi = 300)
 ```
