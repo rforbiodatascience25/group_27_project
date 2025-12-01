@@ -6,14 +6,15 @@ format:
     theme: moon
     css: styles.css
 editor: visual
-class: center, middle
+execute:
+  working-directory: here
 ---
 
-## Flow Chart
+## Introduction
 
 ![](images/FlowChart.drawio.svg)
 
-## Load
+## Materials - Load
 
 ```{r}
 #| echo: false
@@ -29,7 +30,7 @@ library("tidyverse")
 phenotype <- readRDS("../data/phenotype_clean.rds")
 gen_exp <- readRDS("../data/gen_exp_clean.rds")
 phenotype_og <- readRDS("../data/phenotype.rds")
-#data_augmented <- readRDS("../data/data_augmented.rds")
+data_augmented <- readRDS("../data/data_augmented.rds")
 ```
 
 ### Article
@@ -57,7 +58,7 @@ phenotype_og <- readRDS("../data/phenotype.rds")
 
 **The Cancer Genome Atlas (TCGA) – Ovarian cancer collection**
 
-## Clean 1 : Gene table
+## Methods - Clean 1 : Gene table
 
 Too many genes in the dataset for analysis (60 600 genes)
 
@@ -73,7 +74,7 @@ Too many genes in the dataset for analysis (60 600 genes)
 knitr::kable(head(gen_exp, 8))
 ```
 
-## Clean 2
+## Methods - Clean 2 : Phenotype table
 
 ::::: columns
 ::: column
@@ -151,7 +152,7 @@ knitr::kable(head(table4, 8))
 :::
 :::::
 
-## Augment
+## Methods - Augment
 
 ::::: columns
 ::: column
@@ -221,7 +222,7 @@ data_augmented |>
   knitr::kable()
 ```
 
-## Describe
+## Methods - Describe
 
 **Full data:**
 
@@ -231,7 +232,7 @@ data_augmented |>
 
 ![](../results/04_age_distribution.png)
 
-## Describe
+## Methods - Describe
 
 ### Gene Expression Distribution
 
@@ -241,9 +242,9 @@ After removing genes with zero or extremely low expression, the overall mean exp
 
 This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
 
-![](images/gene exp distribution)
+![](images/gene%20exp%20distribution)
 
-## Analysis 1
+## Methods - Analysis 1
 
 ::::: columns
 ::: column
@@ -285,11 +286,13 @@ data_augmented |>
 
 ```
 
-![](../results/figostages_analysis1.png){width="70%"} ![](../results/IS_ethnicity_analysis1.png){width="85%"}
+![](../results/figostages_analysis1.png){width="70%"}
+
+![](../results/IS_ethnicity_analysis1.png){width="85%"}
 :::
 :::::
 
-## Analysis 2 - PCA on gene expression (top 500 most variable genes)
+## Methods - Analysis 2 : PCA on gene expression (top 500 most variable genes)
 
 ::::: columns
 ::: column
@@ -319,7 +322,7 @@ data_augmented |>
 :::
 :::::
 
-## Analysis 3 - Differential expression: alive vs dead
+## Methods - Analysis 3 : Differential expression: alive vs dead
 
 ::::: columns
 ::: column
@@ -352,6 +355,9 @@ data_augmented |>
 :::
 
 ::: column
-<img src="plots/07_volcano_alive_vs_dead.png" style="background:white; width:80%;"/> <img src="plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;"/>
+Ajouter ces plots une fois qu'ils sont déplacés 
+plots/07_volcano_alive_vs_dead.png style="background:white; width:80%; plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;
 :::
 :::::
+
+## Conclusion
