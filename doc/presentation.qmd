@@ -233,7 +233,15 @@ data_augmented |>
 
 ## Describe
 
-![](../results/04_age_tumorstage.png)
+### Gene Expression Distribution
+
+The histogram displays the distribution of log2-transformed gene-expression values.
+
+After removing genes with zero or extremely low expression, the overall mean expression shifts upward and the distribution becomes more symmetric.
+
+This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
+
+![](images/gene exp distribution)
 
 ## Analysis 1
 
