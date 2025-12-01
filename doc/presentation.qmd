@@ -369,7 +369,7 @@ data_augmented |>
 :::
 
 ::: column
-![](plots/07_volcano_alive_vs_dead.png){width="80%"} ![](plots/07_boxplots_alive_vs_dead.png){width="80%"}
+![](plots/07_volcano_alive_vs_dead.png){width="80%"} ![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
 :::
 :::::
 
