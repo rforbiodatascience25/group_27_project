@@ -40,7 +40,7 @@ plot1 <- data_augmented |>
        y = "Number of patients")
 
 # Save to file
-ggsave("../results/05_figo_stages.png", plot1, width = 6, height = 4, dpi = 300)
+ggsave("../results/figostages_analysis1.png", plot1, width = 6, height = 4, dpi = 300)
 ```
 
 **Alive or death status**
@@ -56,8 +56,6 @@ data_augmented |>
     labs(title = "Distribution of alive patients",
        x = "alive",
        y = "Number of patients")
-# Save to file
-ggsave("../results/05_alive_death.png", plot1, width = 6, height = 4, dpi = 300)
 ```
 
 ## Biological relevance of most variant genes
@@ -129,9 +127,7 @@ gen_exp |>
     title = "Expression of the 10 most variable genes across patients",
     y = "Expression"
   )
-
-# Save to file
-ggsave("../results/05_expression_boxplot.png", plot1, width = 6, height = 4, dpi = 300)
+    
 ```
 
 ### Relationship with phenotype variables
@@ -160,7 +156,7 @@ plot1 <- ggplot(joined, aes(x = immune_score, y = age_at_index.demographic)) +
 plot2 <- ggplot(joined, aes(x = immune_score, y = alive)) + 
   geom_boxplot()
 
-# Immune genes vs ethnicity
+# Immune genes vs age
 plot3 <- joined |> 
   mutate(
     race.demographic = fct_relevel(race.demographic, "not reported", after = Inf), # NAs at bottom
@@ -179,7 +175,6 @@ plot3 <- joined |>
     x = "Immune score",
     y = "Ethnicity"
   ) +
-  theme_minimal() +
   theme(
     plot.title = element_text(size = 20)
   )
@@ -189,7 +184,5 @@ plot2
 plot3
 
 # Save to file
-ggsave("../results/05_immune_age.png", plot1, width = 6, height = 4, dpi = 300)
-ggsave("../results/05_immune_alive.png", plot2, width = 6, height = 4, dpi = 300)
-ggsave("../results/05_immune_ethnicity.png", plot3, width = 6, height = 4, dpi = 300)
+ggsave("../results/IS_ethnicity_analysis1.png", plot3, width = 6, height = 4, dpi = 300)
 ```

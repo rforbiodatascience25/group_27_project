@@ -240,6 +240,7 @@ data_augmented |>
 ::: column
 #### **Full data**
 
+
 -   Size: 6'073'353 samples (rows), 53 variables (columns)
 -   Impacted variable: figo_stage.diagnosis (cancer stage)
 -   Quality and integrity
@@ -248,7 +249,9 @@ data_augmented |>
 :::
 
 ::: column
+
 #### Gene Expression Distribution
+
 
 The histogram displays the distribution of log2-transformed gene-expression values.
 
@@ -256,9 +259,12 @@ After removing genes with zero or extremely low expression, the overall mean exp
 
 This confirms that the cleaning part removed uninformative genes and produced a clean, well-behaved dataset suitable for downstream statistical analysis.
 
-![](images/gene%20exp%20distribution)
+
+![](../results/04_age_tumorstage.png)
 :::
 :::::
+
+
 
 ## Methods - Analysis 1
 
@@ -302,9 +308,9 @@ data_augmented |>
 
 ```
 
-![](../results/figostages_analysis1.png){width="70%"}
+![](../results/05_figo_stages.png){width="70%"}
 
-![](../results/IS_ethnicity_analysis1.png){width="85%"}
+![](../results/05_immune_ethnicity.png){width="85%"}
 :::
 :::::
 
@@ -334,7 +340,8 @@ data_augmented |>
 :::
 
 ::: column
-<img src="plots/06_pca_scree.png" style="background:white; width:80%;"/> <img src="plots/06_pca_pc1_pc2.png" style="background:white; width:80%;"/>
+![](../results/06_pca_scree.png){width="80%"}
+![](../results/06_pca_pc1_pc2.png){width="80%"}
 :::
 :::::
 
@@ -371,7 +378,10 @@ data_augmented |>
 :::
 
 ::: column
-Ajouter ces plots une fois qu'ils sont déplacés plots/07_volcano_alive_vs_dead.png style="background:white; width:80%; plots/07_top3_boxplots_alive_vs_dead.png" style="background:white; width:80%;
+
+![](../results/07_volcano_alive_vs_dead.png){width="80%"}
+![](../results/07_boxplots_alive_vs_dead.png){width="80%"}
+
 :::
 :::::
 

@@ -92,8 +92,7 @@ volcano_plot <- volcano_data |>
   labs(title = "Differential expression: alive vs dead",
        x = "log2 fold change (alive - dead)",
        y = "-log10 adjusted p-value",
-       colour = "FDR < 0.05") +
-  theme_minimal()
+       colour = "FDR < 0.05")
 
 volcano_plot
 
@@ -144,8 +143,7 @@ gene_boxplot <- boxplot_data |>
   labs(
     title = "Top 3 differentially expressed genes",
     x = "Alive status",
-    y = "log2(expression + 1)") +
-  theme_minimal()
+    y = "log2(expression + 1)")
 
 gene_boxplot
 ```
