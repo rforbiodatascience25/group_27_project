@@ -24,7 +24,7 @@ execute:
 
 ### **Approach**
 
-![](../results/Flowchart.svg)
+![](../results/flowchart.png)
 
 ## Materials - Load
 
