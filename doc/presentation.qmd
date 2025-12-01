@@ -236,31 +236,14 @@ data_augmented |>
 
 ## Methods - Describe
 
-::::: columns
-::: column
 #### **Full data**
 
 -   Size: 6'073'353 samples (rows), 53 variables (columns)
 -   Impacted variable: figo_stage.diagnosis (cancer stage)
 -   Quality and integrity
 
-![](plots/04_age_distribution.png)
-:::
-
-::: column
-#### Gene Expression Distribution
-
-The histogram displays the distribution of log2-transformed gene-expression values.
--   Histogram of log2-transformed gene-expression values
-
--   Genes with zero or extremely low expression removed
-
--   Mean expression shifted upward; distribution more symmetric
-
 ![](plots/04_age_tumorstage.png)
--   Confirms dataset is clean and suitable for analysis
-:::
-:::::
+
 
 ## Methods - Analysis 1
 
