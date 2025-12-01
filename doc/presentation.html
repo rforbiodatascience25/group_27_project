@@ -4625,36 +4625,36 @@ Emily Möller (s251702), Erine Genilloud (s252025), Mazarine Chambon (s251918), 
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">TCGA-13-1817-02A</td>
-<td style="text-align: left;">TCGA-13-1817</td>
+<td style="text-align: left;">TCGA-29-1710-01A</td>
+<td style="text-align: left;">TCGA-29-1710</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-24-1427-01A</td>
-<td style="text-align: left;">TCGA-24-1427</td>
+<td style="text-align: left;">TCGA-13-0762-01A</td>
+<td style="text-align: left;">TCGA-13-0762</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TCGA-30-1891-01A</td>
-<td style="text-align: left;">TCGA-30-1891</td>
+<td style="text-align: left;">TCGA-20-1683-01A</td>
+<td style="text-align: left;">TCGA-20-1683</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-61-2002-01A</td>
-<td style="text-align: left;">TCGA-61-2002</td>
+<td style="text-align: left;">TCGA-24-0970-01B</td>
+<td style="text-align: left;">TCGA-24-0970</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TCGA-61-1907-01A</td>
-<td style="text-align: left;">TCGA-61-1907</td>
+<td style="text-align: left;">TCGA-20-1682-01A</td>
+<td style="text-align: left;">TCGA-20-1682</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-10-0926-01A</td>
-<td style="text-align: left;">TCGA-10-0926</td>
+<td style="text-align: left;">TCGA-23-1117-01A</td>
+<td style="text-align: left;">TCGA-23-1117</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TCGA-13-0805-01A</td>
-<td style="text-align: left;">TCGA-13-0805</td>
+<td style="text-align: left;">TCGA-23-1027-01A</td>
+<td style="text-align: left;">TCGA-23-1027</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TCGA-10-0936-01A</td>
-<td style="text-align: left;">TCGA-10-0936</td>
+<td style="text-align: left;">TCGA-24-1923-01A</td>
+<td style="text-align: left;">TCGA-24-1923</td>
 </tr>
 </tbody>
 </table>
@@ -4888,7 +4888,7 @@ using the identifier <strong>sample</strong></li>
 <h2>Methods - Analysis 2 : PCA on gene expression (top 500 most variable genes)</h2>
 <div class="columns">
 <div class="column">
-<h4 id="aim">Aim</h4>
+<p><span style="color:#f8a47d;"><em>Aim</em></span></p>
 <ul>
 <li>Explore global structure of RNA-seq data<br>
 </li>
@@ -4898,14 +4898,14 @@ using the identifier <strong>sample</strong></li>
 <li><strong>age category</strong></li>
 </ul></li>
 </ul>
-<h4 id="approach-1">Approach</h4>
+<p><span style="color:#f8a47d;"><em>Approach</em></span></p>
 <ul>
 <li>Use augmented dataset (<code>data_augmented</code>)</li>
 <li>Select <strong>500 most variable genes</strong> (variance of log2 expression)</li>
 <li>Build sample × gene matrix</li>
 <li>Run <strong>PCA</strong> on centred &amp; scaled expression</li>
 </ul>
-<h4 id="key-result">Key result</h4>
+<p><span style="color:#f8a47d;"><em>Key result</em></span></p>
 <ul>
 <li>PC1 captures most of the variance</li>
 <li><strong>No visible clustering</strong> by survival or age<br>
@@ -4919,12 +4919,12 @@ using the identifier <strong>sample</strong></li>
 <h2>Methods - Analysis 3 : Differential expression: alive vs dead</h2>
 <div class="columns">
 <div class="column">
-<h4 id="aim-1">Aim</h4>
+<p><span style="color:#f8a47d;"><em>Aim</em></span></p>
 <ul>
 <li>Test whether gene expression differs<br>
 between <strong>alive</strong> and <strong>dead</strong> patients.</li>
 </ul>
-<h4 id="methods">Methods</h4>
+<p><span style="color:#f8a47d;"><em>Methods</em></span></p>
 <ul>
 <li>Augmented dataset (<code>data_augmented</code>)</li>
 <li>Kept samples with known <strong>alive</strong> status</li>
@@ -4935,7 +4935,7 @@ between <strong>alive</strong> and <strong>dead</strong> patients.</li>
 <li>FDR correction (Benjamini–Hochberg)</li>
 </ul></li>
 </ul>
-<h4 id="key-results">Key results</h4>
+<p><span style="color:#f8a47d;"><em>Key result</em></span></p>
 <ul>
 <li>~14,157 genes tested</li>
 <li><strong>Only 2 genes</strong> significant at FDR &lt; 0.05<br>
@@ -4955,15 +4955,24 @@ on gene expression at the genome-wide level<br>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
 <ol type="1">
-<li><p><span style="color:#f8a47d;"><em>Clinical variables distributions</em></span>: Exploration of FIGO stage, age, ethnicity and vital status show highly imbalanced distribution</p>
-<p>→ Difficult to detect strong association</p></li>
-<li><p><span style="color:#f8a47d;"><em>PCA of gene expression</em></span> : Showed that the major sources of variation in transcriptomic data were not related to other clinical variables (no distinct clusters)</p>
-<p>→ Transcriptomic differences betweens groups are subtle</p></li>
-<li><p><span style="color:#f8a47d;"><em>Differential expression</em></span>: Out of 14’000 tested genes, only two genes remained significant after FDR correction</p>
-<p>→ Survival is not a major driver expression differences in this cohort</p></li>
+<li><p><em>Clinical variables distributions</em>{style=“color:#f8a47d;”}<br>
+When exploring the clinical variables, we found that the dataset is <strong>extremely unbalanced</strong>:<br>
+most patients are late‐stage high-grade serous ovarian cancer, with very similar ages and clinical characteristics.</p>
+<p>→ This <strong>lack of variability</strong> reduces our ability to detect strong associations.</p></li>
+<li><p><em>PCA of gene expression</em>{style=“color:#f8a47d;”}<br>
+PCA on the most variable genes showed <strong>no clustering</strong> for age, survival or any other phenotype.</p>
+<p>→ This indicates that the <strong>main differences in gene expression</strong> across patients do <strong>not correspond</strong> to the clinical groups tested.</p></li>
+<li><p><em>Differential expression</em>{style=“color:#f8a47d;”}<br>
+Differential expression confirmed this: out of ~14’000 tested genes, <strong>only two</strong> remained significant after FDR correction.</p>
+<p>→ Survival is therefore <strong>not associated with strong transcriptomic changes</strong> in this cohort.</p></li>
 </ol>
-<p><span style="color:#f8a47d;"><strong>Conclusion</strong></span></p>
-<p>The analyses show that clinical variables alone cannot explain expression variability, and demonstrate that the dataset likely reflects complex biology, where survival differences cannot be captured by single-gene effects.</p>
+</section>
+<section class="slide level2">
+
+<h3 style="color:#f8a47d;" id="conclusion-1"><strong>Conclusion</strong></h3>
+<p>Overall, our analyses show that the <strong>TCGA-OV dataset lacks sufficient clinical and molecular variability</strong> to identify transcriptomic signatures linked to survival or other phenotypes.<br>
+Most patients share the <strong>same tumor type</strong> and <strong>late disease stage</strong>, which likely masks underlying biological differences.<br>
+Therefore, in this cohort, <strong>no strong conclusion can be drawn</strong> regarding gene-expression predictors of clinical outcomes.</p>
 
 </section>
     </div>

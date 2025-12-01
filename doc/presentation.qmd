@@ -314,21 +314,21 @@ data_augmented |>
 
 ::::: columns
 ::: column
-#### Aim
+[*Aim*]{style="color:#f8a47d;"}
 
 -   Explore global structure of RNA-seq data\
 -   Check if patients separate by:
     -   **survival status** (alive vs dead)
     -   **age category**
 
-#### Approach
+[*Approach*]{style="color:#f8a47d;"}
 
 -   Use augmented dataset (`data_augmented`)
 -   Select **500 most variable genes** (variance of log2 expression)
 -   Build sample × gene matrix
 -   Run **PCA** on centred & scaled expression
 
-#### Key result
+[*Key result*]{style="color:#f8a47d;"}
 
 -   PC1 captures most of the variance
 -   **No visible clustering** by survival or age\
@@ -344,12 +344,12 @@ data_augmented |>
 
 ::::: columns
 ::: column
-#### Aim
+[*Aim*]{style="color:#f8a47d;"}
 
 -   Test whether gene expression differs\
     between **alive** and **dead** patients.
 
-#### Methods
+[*Methods*]{style="color:#f8a47d;"}
 
 -   Augmented dataset (`data_augmented`)
 -   Kept samples with known **alive** status
@@ -358,7 +358,7 @@ data_augmented |>
     -   **two-sample t-test**
     -   FDR correction (Benjamini–Hochberg)
 
-#### Key results
+[*Key result*]{style="color:#f8a47d;"}
 
 -   \~14,157 genes tested
 -   **Only 2 genes** significant at FDR \< 0.05\
