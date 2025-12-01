@@ -17,4 +17,4 @@ The dataset used contains joined clinical and gene expression data for ovarian c
 
 When rendering the `00_all.qmd` the data is automatically loaded from the above websites.
 
-The fianl presentation of the project can be found following [this link]().
+The fianl presentation of the project can be found following [this link](https://raw.githack.com/rforbiodatascience25/group_27_project/main/doc/presentation.html).
